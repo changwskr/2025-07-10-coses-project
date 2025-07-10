@@ -1,0 +1,11 @@
+package com.kdb.oversea.eplatonframework.business.facade.teller;
+
+import javax.ejb.*;
+import java.util.*;
+import java.rmi.*;
+
+import com.kdb.oversea.eplatonframework.business.facade.ecommon.IECommonManagementSB;
+
+public interface TellerManagementSB extends javax.ejb.EJBObject, IECommonManagementSB
+{
+}

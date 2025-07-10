@@ -1,0 +1,42 @@
+[PropertyInfo]
+action_name,String,false,false, , ,false,<default>
+allTPMSVCINFO,ArrayList,false,false, , ,true,<default>
+bp_sequence,String,false,false, , ,false,<default>
+BTF_interval,String,false,false, , ,true,<default>
+BTF_intime,String,false,false, , ,false,<default>
+BTF_outtime,String,false,false, , ,false,<default>
+cdto_name,String,false,false, , ,true,<default>
+error_message,String,false,false, , ,true,<default>
+errorcode,String,false,false, , ,true,<default>
+ETF_interval,String,false,false, , ,true,<default>
+ETF_intime,String,false,false, , ,false,<default>
+ETF_outtime,String,false,false, , ,false,<default>
+hostseq,String,false,false, , ,true,<default>
+ldumy01,long,false,false, , ,false,<default>
+logic_level,String,false,false, , ,true,<default>
+operation_method,String,false,false, , ,false,<default>
+operation_name,String,false,false, , ,true,<default>
+orgseq,String,false,false, , ,true,<default>
+reqName,String,false,false, , ,false,<default>
+sdumy01,String,false,false, , ,false,<default>
+STF_interval,String,false,false, , ,true,<default>
+STF_intime,String,false,false, , ,false,<default>
+STF_outtime,String,false,false, , ,false,<default>
+system_date,String,false,false, , ,true,<default>
+system_name,String,false,false, , ,true,<default>
+systemInTime,String,false,false, , ,true,<default>
+systemOutTime,String,false,false, , ,true,<default>
+totalTPMSVCINFO,ArrayList,false,false, , ,true,<default>
+tpfq,String,false,false, , ,true,<default>
+tpmsvcinfolist,HashMap,false,false, , ,true,<default>
+TPMSVCINFOTotalCount,int,false,false, , ,true,<default>
+trclass,String,false,false, , ,true,<default>
+tx_timer,String,false,false, , ,true,<default>
+web_intime,String,false,false, , ,true,<default>
+web_outtime,String,false,false, , ,true,<default>
+web_timeout,String,false,false, , ,true,<default>
+[IconNames]
+
+
+
+

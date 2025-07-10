@@ -1,0 +1,66 @@
+[PropertyInfo]
+accountGroup,String,false,false, , ,true,<default>
+accountGroupKind,String,false,false, , ,true,<default>
+accountNumber,String,false,false, , ,true,<default>
+accountPostingListDTO,AccountPostingListDTO,false,false, , ,true,<default>
+bankCode,String,false,false, , ,true,<default>
+beforeInterestRate,BigDecimal,false,false, , ,true,<default>
+branchCode,String,false,false, , ,true,<default>
+calculationFee,String,false,false, , ,true,<default>
+checkNumber,String,false,false, , ,true,<default>
+CIFName,String,false,false, , ,true,<default>
+CIFNo,String,false,false, , ,true,<default>
+collectedBalance,java.math.BigDecimal,false,false, , ,true,<default>
+count,int,false,false, , ,true,<default>
+currency,String,false,false, , ,true,<default>
+endLine,int,false,false, , ,true,<default>
+expireDate,String,false,false, , ,true,<default>
+feeAmount,BigDecimal,false,false, , ,true,<default>
+feeCurrency,String,false,false, , ,true,<default>
+glCode,String,false,false, , ,true,<default>
+grossBalance,java.math.BigDecimal,false,false, , ,true,<default>
+holdBalance,java.math.BigDecimal,false,false, , ,true,<default>
+idNo,String,false,false, , ,true,<default>
+inclusionFee,String,false,false, , ,true,<default>
+intCalcStrtdate,String,false,false, , ,true,<default>
+interestIndex,String,false,false, , ,true,<default>
+interestRate,java.math.BigDecimal,false,false, , ,true,<default>
+issueKind,String,false,false, , ,true,<default>
+lastCreditAmount,BigDecimal,false,false, , ,true,<default>
+lastCreditDate,String,false,false, , ,true,<default>
+lastDebitAmount,BigDecimal,false,false, , ,true,<default>
+lastDebitDate,String,false,false, , ,true,<default>
+lastPbLine,int,false,false, , ,true,<default>
+lastPbLine1,int,false,false, , ,true,<default>
+linePerPage,int,false,false, , ,true,<default>
+memoBalance,java.math.BigDecimal,false,false, , ,true,<default>
+oldAccountNumber,String,false,false, , ,true,<default>
+openBranchName,String,false,false, , ,true,<default>
+openBranchTelNo,String,false,false, , ,true,<default>
+openDate,String,false,false, , ,true,<default>
+pageList,java.util.List,false,false, , ,false,<default>
+pageNumber,int,false,false, , ,true,<default>
+passbookBalance,BigDecimal,false,false, , ,true,<default>
+passbookNo,String,false,false, , ,true,<default>
+pbIssueCount,int,false,false, , ,true,<default>
+pbIssueKind,String,false,false, , ,true,<default>
+pbKind,String,false,false, , ,true,<default>
+pbLinePerPage,int,false,false, , ,true,<default>
+pbMsVersionDb,String,false,false, , ,true,<default>
+pbMsVersionPb,String,false,false, , ,true,<default>
+pbSkipPerPage,int,false,false, , ,true,<default>
+remarks,String,false,false, , ,true,<default>
+renewDate,String,false,false, , ,true,<default>
+secondaryAccount,String,false,false, , ,true,<default>
+securityNo,String,false,false, , ,true,<default>
+sequenceNumber,int,false,false, , ,true,<default>
+stateVoucherImageCDTO,StateVoucherImageCDTO,false,false, , ,true,<default>
+status,String,false,false, , ,true,<default>
+tempBalance,BigDecimal,false,false, , ,true,<default>
+trxNo,String,false,false, , ,true,<default>
+uncollectedBalance,java.math.BigDecimal,false,false, , ,true,<default>
+[IconNames]
+
+
+
+

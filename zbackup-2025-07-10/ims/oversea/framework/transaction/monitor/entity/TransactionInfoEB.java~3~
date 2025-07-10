@@ -1,0 +1,11 @@
+﻿package com.ims.oversea.framework.transaction.monitor.entity;
+
+import javax.ejb.*;
+import java.util.*;
+
+public interface TransactionInfoEB extends javax.ejb.EJBLocalObject {
+  public void setUntitledField1(String untitledField1);
+  public String getUntitledField1();
+  public void setTransaction_id(String transaction_id);
+  public String getTransaction_id();
+}

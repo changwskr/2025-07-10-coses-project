@@ -1,0 +1,9 @@
+﻿package com.ims.oversea.framework.transaction.monitor.entity;
+
+import javax.ejb.*;
+import java.util.*;
+
+public interface TransactionInfoEBHome extends javax.ejb.EJBLocalHome {
+  public TransactionInfoEB create(String untitledField1) throws CreateException;
+  public TransactionInfoEB findByPrimaryKey(String untitledField1) throws FinderException;
+}

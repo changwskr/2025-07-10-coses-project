@@ -1,0 +1,114 @@
+# PowerShell script to convert all files in com directory to UTF-8 encoding
+# and delete all .bak files
+
+$sourceDir = "."
+$backupDir = "com_backup_$(Get-Date -Format 'yyyyMMdd_HHmmss')"
+
+Write-Host "Starting UTF-8 conversion for all files in: $sourceDir"
+Write-Host "Backup will be created in: $backupDir"
+
+# Create backup directory
+if (!(Test-Path $backupDir)) {
+    New-Item -ItemType Directory -Path $backupDir -Force | Out-Null
+    Write-Host "Created backup directory: $backupDir"
+}
+
+# Function to convert file to UTF-8
+function Convert-FileToUTF8 {
+    param(
+        [string]$FilePath
+    )
+    
+    try {
+        # Create backup
+        $backupFilePath = $FilePath.Replace($sourceDir, $backupDir)
+        $backupFileDir = Split-Path $backupFilePath -Parent
+        
+        if (!(Test-Path $backupFileDir)) {
+            New-Item -ItemType Directory -Path $backupFileDir -Force | Out-Null
+        }
+        
+        Copy-Item $FilePath $backupFilePath -Force
+        
+        # Read file content with default encoding
+        $content = Get-Content $FilePath -Raw -Encoding Default
+        
+        # Write content back with UTF-8 encoding
+        $content | Out-File -FilePath $FilePath -Encoding UTF8 -NoNewline
+        
+        Write-Host "Converted: $FilePath"
+        return $true
+    }
+    catch {
+        Write-Host "Error converting $FilePath : $($_.Exception.Message)" -ForegroundColor Red
+        return $false
+    }
+}
+
+# Function to delete .bak files
+function Remove-BakFiles {
+    param(
+        [string]$Directory
+    )
+    
+    try {
+        $bakFiles = Get-ChildItem -Path $Directory -Recurse -Filter "*.bak"
+        
+        foreach ($bakFile in $bakFiles) {
+            try {
+                Remove-Item $bakFile.FullName -Force
+                Write-Host "Deleted: $($bakFile.FullName)" -ForegroundColor Green
+            }
+            catch {
+                Write-Host "Error deleting $($bakFile.FullName) : $($_.Exception.Message)" -ForegroundColor Red
+            }
+        }
+        
+        return $bakFiles.Count
+    }
+    catch {
+        Write-Host "Error searching for .bak files in $Directory : $($_.Exception.Message)" -ForegroundColor Red
+        return 0
+    }
+}
+
+# Step 1: Delete all .bak files first
+Write-Host "`nStep 1: Deleting .bak files..."
+$deletedBakCount = Remove-BakFiles -Directory $sourceDir
+Write-Host "Deleted $deletedBakCount .bak files"
+
+# Step 2: Convert all remaining files to UTF-8
+Write-Host "`nStep 2: Converting files to UTF-8..."
+
+# Get all files recursively (excluding .bak files since they're already deleted)
+$files = Get-ChildItem -Path $sourceDir -Recurse -File | Where-Object { 
+    $_.Extension -match '\.(java|txt|xml|properties|cfg|conf|ini|log|sql|js|html|htm|css|jsp|tag|tld|jbx|ejbgrpx|keep)$' -or
+    $_.Name -match '\.(java|txt|xml|properties|cfg|conf|ini|log|sql|js|html|htm|css|jsp|tag|tld|jbx|ejbgrpx|keep)$' -or
+    $_.Extension -eq "" -or
+    $_.Name -notmatch '\.(bak|tmp|temp)$'
+}
+
+Write-Host "Found $($files.Count) files to process"
+
+$successCount = 0
+$errorCount = 0
+
+foreach ($file in $files) {
+    if (Convert-FileToUTF8 -FilePath $file.FullName) {
+        $successCount++
+    } else {
+        $errorCount++
+    }
+}
+
+Write-Host "`nConversion completed!"
+Write-Host "Successfully converted: $successCount files"
+Write-Host "Errors: $errorCount files"
+Write-Host "Deleted .bak files: $deletedBakCount"
+Write-Host "Backup location: $backupDir"
+
+if ($errorCount -gt 0) {
+    Write-Host "`nSome files failed to convert. Check the error messages above." -ForegroundColor Yellow
+}
+
+Write-Host "`nProcess completed successfully!" -ForegroundColor Green 

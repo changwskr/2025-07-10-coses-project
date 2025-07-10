@@ -1,0 +1,14 @@
+package com.ims.oversea.cashCard.transfer;
+
+import java.util.ArrayList;
+
+import com.chb.coses.framework.transfer.ListDTO;
+
+public class HotCardListCDTO extends ListDTO
+{
+
+    public HotCardListCDTO()
+    {
+        super(new ArrayList());
+    }
+}

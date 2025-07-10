@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<descriptors>
+  <ejb-jar.xml extralocation="" timestamp="1066464235157"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN" "http://java.sun.com/dtd/ejb-jar_2_0.dtd">
+<ejb-jar>
+    <enterprise-beans>
+        <session>
+            <display-name>Enterprise1</display-name>
+            <ejb-name>ECommonManagementSB</ejb-name>
+            <home>com.chb.coses.eplatonFramework.business.facade.ecommon.ECommonManagementSBHome</home>
+            <remote>com.chb.coses.eplatonFramework.business.facade.ecommon.ECommonManagementSB</remote>
+            <ejb-class>com.chb.coses.eplatonFramework.business.facade.ecommon.ECommonManagementSBBean</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+        </session>
+        <session>
+            <display-name>Enterprise1</display-name>
+            <ejb-name>CashCardManagementSB</ejb-name>
+            <home>com.chb.coses.eplatonFramework.business.facade.cashCard.CashCardManagementSBHome</home>
+            <remote>com.chb.coses.eplatonFramework.business.facade.cashCard.CashCardManagementSB</remote>
+            <ejb-class>com.chb.coses.eplatonFramework.business.facade.cashCard.CashCardManagementSBBean</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+        </session>
+        <session>
+            <display-name>Enterprise1</display-name>
+            <ejb-name>DepositManagementSB</ejb-name>
+            <home>com.chb.coses.eplatonFramework.business.facade.deposit.DepositManagementSBHome</home>
+            <remote>com.chb.coses.eplatonFramework.business.facade.deposit.DepositManagementSB</remote>
+            <ejb-class>com.chb.coses.eplatonFramework.business.facade.deposit.DepositManagementSBBean</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+        </session>
+    </enterprise-beans>
+    <assembly-descriptor>
+        <container-transaction>
+            <method>
+                <ejb-name>ECommonManagementSB</ejb-name>
+                <method-name>*</method-name>
+            </method>
+            <trans-attribute>Required</trans-attribute>
+        </container-transaction>
+        <container-transaction>
+            <method>
+                <ejb-name>CashCardManagementSB</ejb-name>
+                <method-name>*</method-name>
+            </method>
+            <trans-attribute>Required</trans-attribute>
+        </container-transaction>
+        <container-transaction>
+            <method>
+                <ejb-name>DepositManagementSB</ejb-name>
+                <method-name>*</method-name>
+            </method>
+            <trans-attribute>Required</trans-attribute>
+        </container-transaction>
+    </assembly-descriptor>
+</ejb-jar>]]></ejb-jar.xml>
+  <ejb-borland.xml extralocation="" timestamp="1066464235157"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ejb-jar PUBLIC "-//Borland Software Corporation//DTD Enterprise JavaBeans 2.0//EN" "http://www.borland.com/devsupport/appserver/dtds/ejb-jar_2_0-borland.dtd">
+<ejb-jar>
+    <enterprise-beans>
+        <session>
+            <ejb-name>ECommonManagementSB</ejb-name>
+            <bean-home-name>ECommonManagementSB</bean-home-name>
+            <property>
+                <prop-name>ejb-designer-id</prop-name>
+                <prop-type>String</prop-type>
+                <prop-value>ECommonManagementSB</prop-value>
+            </property>
+        </session>
+        <session>
+            <ejb-name>CashCardManagementSB</ejb-name>
+            <bean-home-name>CashCardManagementSB</bean-home-name>
+            <property>
+                <prop-name>ejb-designer-id</prop-name>
+                <prop-type>String</prop-type>
+                <prop-value>CashCardManagementSB</prop-value>
+            </property>
+        </session>
+        <session>
+            <ejb-name>DepositManagementSB</ejb-name>
+            <bean-home-name>DepositManagementSB</bean-home-name>
+            <property>
+                <prop-name>ejb-designer-id</prop-name>
+                <prop-type>String</prop-type>
+                <prop-value>DepositManagementSB</prop-value>
+            </property>
+        </session>
+    </enterprise-beans>
+    <assembly-descriptor />
+</ejb-jar>]]></ejb-borland.xml>
+  <ejb-modeler-layout.xml extralocation="" timestamp="1066464235157"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+  <view>
+    <name>Default</name>
+    <ejb>
+      <name>DepositManagementSB</name>
+      <x>28</x>
+      <y>244</y>
+      <width>173</width>
+      <height>99</height>
+    </ejb>
+    <ejb>
+      <name>CashCardManagementSB</name>
+      <x>266</x>
+      <y>75</y>
+      <width>186</width>
+      <height>119</height>
+    </ejb>
+    <ejb>
+      <name>ECommonManagementSB</name>
+      <x>28</x>
+      <y>75</y>
+      <width>188</width>
+      <height>119</height>
+    </ejb>
+  </view>
+</layout>]]></ejb-modeler-layout.xml>
+  <weblogic-cmp-extras.xml extralocation="" timestamp="1066464235157"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<weblogic-rdbms-jar />]]></weblogic-cmp-extras.xml>
+  <weblogic-ejb-jar.xml extralocation="" timestamp="1066464235313"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE weblogic-ejb-jar PUBLIC '-//BEA Systems, Inc.//DTD WebLogic 6.0.0 EJB//EN' 'http://www.bea.com/servers/wls600/dtd/weblogic-ejb-jar.dtd'>
+<weblogic-ejb-jar>
+    <weblogic-enterprise-bean>
+        <ejb-name>ECommonManagementSB</ejb-name>
+        <jndi-name>ECommonManagementSB</jndi-name>
+    </weblogic-enterprise-bean>
+    <weblogic-enterprise-bean>
+        <ejb-name>CashCardManagementSB</ejb-name>
+        <jndi-name>CashCardManagementSB</jndi-name>
+    </weblogic-enterprise-bean>
+    <weblogic-enterprise-bean>
+        <ejb-name>DepositManagementSB</ejb-name>
+        <jndi-name>DepositManagementSB</jndi-name>
+    </weblogic-enterprise-bean>
+</weblogic-ejb-jar>]]></weblogic-ejb-jar.xml>
+</descriptors>

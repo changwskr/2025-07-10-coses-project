@@ -1,0 +1,9 @@
+package com.ims.oversea.framework.transaction.txmonitor.rule;
+
+import javax.ejb.*;
+import java.util.*;
+import java.rmi.*;
+
+public interface SPtxmonitorRuleSBHome extends javax.ejb.EJBHome {
+  public SPtxmonitorRuleSB create() throws CreateException, RemoteException;
+}

@@ -1,0 +1,14 @@
+﻿[PropertyInfo]
+action,String,false,false, , ,true,<default>
+common,EPlatonCommonDTO,false,false, , ,true,<default>
+messageParameter,EPLmessageParameter,false,false, , ,false,<default>
+request,IDTO,false,false, , ,true,<default>
+response,IDTO,false,false, , ,true,<default>
+tpmsvc,TPSVCINFODTO,false,false, , ,true,<default>
+TPSVCINFO,TPSVCINFODTO,false,false, , ,true,<default>
+TPSVCINFODTO,TPSVCINFODTO,false,false, , ,true,<default>
+[IconNames]
+
+
+
+

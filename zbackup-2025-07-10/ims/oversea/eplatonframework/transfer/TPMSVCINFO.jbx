@@ -1,0 +1,20 @@
+﻿[PropertyInfo]
+call_hostseq,String,false,false, , ,false,<default>
+call_location,String,false,false, , ,false,<default>
+call_orgseq,String,false,false, , ,false,<default>
+call_service_name,String,false,false, , ,false,<default>
+call_tpm_etf_in_time,String,false,false, , ,false,<default>
+call_tpm_etf_out_time,String,false,false, , ,false,<default>
+call_tpm_in_time,String,false,false, , ,false,<default>
+call_tpm_out_time,String,false,false, , ,false,<default>
+call_tpm_stf_in_time,String,false,false, , ,false,<default>
+call_tpm_stf_out_time,String,false,false, , ,false,<default>
+call_tpme_interval,String,false,false, , ,false,<default>
+call_tpme_service_interval,String,false,false, , ,false,<default>
+error_code,String,false,false, , ,false,<default>
+offset,char,false,false, , ,false,<default>
+[IconNames]
+
+
+
+

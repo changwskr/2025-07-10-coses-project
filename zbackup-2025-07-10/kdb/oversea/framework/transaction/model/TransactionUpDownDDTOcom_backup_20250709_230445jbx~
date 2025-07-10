@@ -1,0 +1,48 @@
+[PropertyInfo]
+action_name,String,false,false, , ,false,<default>
+bankCode,String,false,false, , ,true,<default>
+baseCurrency,String,false,false, , ,false,<default>
+branchCode,String,false,false, , ,true,<default>
+businessDate,String,false,false, , ,true,<default>
+cdto_name,String,false,false, , ,false,<default>
+channelType,String,false,false, , ,true,<default>
+error_message,String,false,false, , ,false,<default>
+errorcode,String,false,false, , ,false,<default>
+eventNo,String,false,false, , ,true,<default>
+fxRateCount,int,false,false, , ,false,<default>
+glPostBranchCode,String,false,false, , ,false,<default>
+host_name,String,false,false, , ,false,<default>
+hostseq,String,false,false, , ,false,<default>
+IPAddress,String,false,false, , ,true,<default>
+multiPL,String,false,false, , ,false,<default>
+nation,String,false,false, , ,false,<default>
+operation_method_name,String,false,false, , ,false,<default>
+operation_name,String,false,false, , ,false,<default>
+orgseq,String,false,false, , ,false,<default>
+regionCode,String,false,false, , ,false,<default>
+reqName,String,false,false, , ,false,<default>
+request_cdto,String,false,false, , ,false,<default>
+response_cdto,String,false,false, , ,false,<default>
+system_date,String,false,false, , ,false,<default>
+system_name,String,false,false, , ,false,<default>
+systemDate,String,false,false, , ,false,<default>
+systemInTime,String,false,false, , ,true,<default>
+systemOutTime,String,false,false, , ,true,<default>
+terminalID,String,false,false, , ,false,<default>
+terminalType,String,false,false, , ,false,<default>
+timeZone,String,false,false, , ,false,<default>
+tpfq,String,false,false, , ,false,<default>
+transactionNo,String,false,false, , ,true,<default>
+trclass,String,false,false, , ,false,<default>
+tx_timer,String,false,false, , ,false,<default>
+userID,String,false,false, , ,false,<default>
+userLevel,int,false,false, , ,false,<default>
+web_intime,String,false,false, , ,false,<default>
+web_outtime,String,false,false, , ,false,<default>
+web_timeout,String,false,false, , ,false,<default>
+xmlSeq,String,false,false, , ,false,<default>
+[IconNames]
+
+
+
+

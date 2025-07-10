@@ -1,0 +1,30 @@
+﻿[PropertyInfo]
+bankCode,String,false,false, , ,true,<default>
+baseCurrency,String,false,false, , ,true,<default>
+branchCode,String,false,false, , ,true,<default>
+businessDate,String,false,false, , ,true,<default>
+channelType,String,false,false, , ,true,<default>
+eventNo,String,false,false, , ,true,<default>
+fxRateCount,int,false,false, , ,true,<default>
+getIPAddress,String,false,false, , ,true,<default>
+glPostBranchCode,String,false,false, , ,true,<default>
+IPAddress,String,false,false, , ,true,<default>
+multiPL,String,false,false, , ,true,<default>
+nation,String,false,false, , ,true,<default>
+regionCode,String,false,false, , ,true,<default>
+reqName,String,false,false, , ,true,<default>
+systemDate,String,false,false, , ,true,<default>
+systemInTime,String,false,false, , ,true,<default>
+systemOutTime,String,false,false, , ,true,<default>
+terminalID,String,false,false, , ,true,<default>
+terminalType,String,false,false, , ,true,<default>
+timeZone,String,false,false, , ,true,<default>
+transactionNo,String,false,false, , ,true,<default>
+userID,String,false,false, , ,true,<default>
+userLevel,int,false,false, , ,true,<default>
+xmlSeq,String,false,false, , ,true,<default>
+[IconNames]
+
+
+
+

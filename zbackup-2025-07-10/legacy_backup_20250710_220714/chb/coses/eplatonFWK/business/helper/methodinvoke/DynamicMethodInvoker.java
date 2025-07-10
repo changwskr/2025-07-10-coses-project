@@ -1,0 +1,78 @@
+﻿package com.chb.coses.eplatonFWK.business.helper.methodinvoke;
+
+/**
+ * <p>Title: </p>
+ * <p>Description: </p>
+ * <p>Copyright: Copyright (c) 2002</p>
+ * <p>Company: </p>
+ * @author unascribed
+ * @version 1.0
+ */
+
+import java.lang.reflect.*;
+import java.util.*;
+import java.rmi.*;
+
+import com.chb.coses.framework.transfer.*;
+import com.chb.coses.eplatonFWK.transfer.*;
+import com.chb.coses.eplatonFWK.business.helper.TPMSVCAPI;
+import com.chb.coses.eplatonFWK.business.helper.logej.LOGEJ;
+
+/**
+ * @version 1.30
+ *
+ * 이 클래스는 System component를 찾아 알맞은 operation을 호출하는 역할을 하는 모든 BizAction class의 최상위 class이다.
+ */
+
+public class DynamicMethodInvoker
+{
+  private static DynamicMethodInvoker instance;
+
+  public DynamicMethodInvoker() {
+  }
+
+  public static synchronized DynamicMethodInvoker getInstance()
+  {
+    if (instance == null) {
+      try{
+        instance = new DynamicMethodInvoker();
+        }catch(Exception igex){}
+    }
+    return instance;
+  }
+
+
+  protected IEvent doAct(String path_plus_classname, String methodName, Object event)
+  {
+    IEvent resevent = null;
+    LOGEJ.getInstance().printf((EPlatonEvent)event,"=================================================DynamicMethodInvoker.doAct() start");
+
+    try
+    {
+      if( !(event instanceof com.chb.coses.framework.transfer.IEvent ) ) {
+        resevent = (IEvent)event;
+        return resevent;
+      }
+      Object ptarget = Class.forName(path_plus_classname).newInstance();
+      Method meth = (ptarget.getClass()).getMethod(methodName,new Class[]{EPlatonEvent.class});
+      resevent = (EPlatonEvent)meth.invoke(ptarget,new Object[]{(EPlatonEvent)event});
+    }
+    catch(Exception _e)
+    {
+      _e.printStackTrace();
+      resevent = (IEvent)event;
+      LOGEJ.getInstance().printf((EPlatonEvent)event,"DynamicMethodInvoker error:[EFWK0036](MethodName=" + methodName + ") 호출 에러");
+      LOGEJ.getInstance().eprintf((EPlatonEvent)event,_e);
+    }
+    finally
+    {
+      LOGEJ.getInstance().printf((EPlatonEvent)event,"DynamicMethodInvoker.doAct() success()");
+      LOGEJ.getInstance().printf((EPlatonEvent)event,"=================================================DynamicMethodInvoker.doAct() end");
+    }
+
+    return resevent;
+  }
+
+}
+
+

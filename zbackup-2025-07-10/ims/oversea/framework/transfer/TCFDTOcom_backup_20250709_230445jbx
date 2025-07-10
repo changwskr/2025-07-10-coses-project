@@ -1,0 +1,10 @@
+[PropertyInfo]
+dtoProperties,Map,false,false, , ,false,<default>
+method,String,false,false, , ,false,<default>
+system,String,false,false, , ,false,<default>
+transaction_no,String,false,false, , ,false,<default>
+[IconNames]
+
+
+
+

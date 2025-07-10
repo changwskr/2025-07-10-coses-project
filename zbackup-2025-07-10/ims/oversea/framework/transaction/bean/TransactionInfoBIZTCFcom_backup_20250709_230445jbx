@@ -1,0 +1,11 @@
+[PropertyInfo]
+operation_class_method_name,String,false,false, , ,false,<default>
+operation_class_name,String,false,false, , ,false,<default>
+request_name,String,false,false, , ,false,<default>
+system_name,String,false,false, , ,false,<default>
+transaction_no,String,false,false, , ,false,<default>
+[IconNames]
+
+
+
+

@@ -1,0 +1,53 @@
+﻿[PropertyInfo]
+action_name,String,false,false, , ,false,<default>
+bankCode,String,false,false, , ,true,<default>
+branchCode,String,false,false, , ,true,<default>
+businessDate,String,false,false, , ,true,<default>
+call_hostseq,String,false,false, , ,false,<default>
+call_location,String,false,false, , ,false,<default>
+call_orgseq,String,false,false, , ,false,<default>
+call_service_name,String,false,false, , ,false,<default>
+call_tpm_etf_in_time,String,false,false, , ,false,<default>
+call_tpm_etf_out_time,String,false,false, , ,false,<default>
+call_tpm_in_time,String,false,false, , ,false,<default>
+call_tpm_out_time,String,false,false, , ,false,<default>
+call_tpm_service_interval,String,false,false, , ,false,<default>
+call_tpm_stf_in_time,String,false,false, , ,false,<default>
+call_tpm_stf_out_time,String,false,false, , ,false,<default>
+call_tpme_interval,String,false,false, , ,false,<default>
+cdto_name,String,false,false, , ,false,<default>
+channelType,String,false,false, , ,true,<default>
+error_code,String,false,false, , ,false,<default>
+error_message,String,false,false, , ,false,<default>
+errorCode,String,false,false, , ,true,<default>
+errorcode,String,false,false, , ,false,<default>
+eventNo,String,false,false, , ,true,<default>
+hostName,String,false,false, , ,true,<default>
+hostseq,String,false,false, , ,false,<default>
+inTime,String,false,false, , ,true,<default>
+IPAddress,String,false,false, , ,true,<default>
+methodName,String,false,false, , ,true,<default>
+operation_name,String,false,false, , ,false,<default>
+orgseq,String,false,false, , ,false,<default>
+outTime,String,false,false, , ,true,<default>
+registerDate,String,false,false, , ,true,<default>
+responseTime,long,false,false, , ,true,<default>
+system_date,String,false,false, , ,false,<default>
+system_name,String,false,false, , ,false,<default>
+systemInTime,String,false,false, , ,false,<default>
+systemName,String,false,false, , ,true,<default>
+systemOutTime,String,false,false, , ,false,<default>
+tpfq,String,false,false, , ,false,<default>
+transactionId,String,false,false, , ,true,<default>
+transactionNo,String,false,false, , ,true,<default>
+trclass,String,false,false, , ,false,<default>
+tx_timer,String,false,false, , ,false,<default>
+userId,String,false,false, , ,true,<default>
+web_intime,String,false,false, , ,false,<default>
+web_outtime,String,false,false, , ,false,<default>
+web_timeout,String,false,false, , ,false,<default>
+[IconNames]
+
+
+
+

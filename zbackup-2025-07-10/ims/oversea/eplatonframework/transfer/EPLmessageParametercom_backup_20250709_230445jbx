@@ -1,0 +1,10 @@
+[PropertyInfo]
+rule_operation_class_name,String,false,false, , ,false,<default>
+rule_operation_method_name,String,false,false, , ,false,<default>
+thing_operation_class_name,String,false,false, , ,false,<default>
+thing_operation_method_name,String,false,false, , ,false,<default>
+[IconNames]
+
+
+
+

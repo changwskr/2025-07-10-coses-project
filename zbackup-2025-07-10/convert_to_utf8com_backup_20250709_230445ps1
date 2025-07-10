@@ -1,0 +1,77 @@
+# PowerShell script to convert files to UTF-8 encoding
+# This script will recursively process all files in the chb/coses directory
+
+$sourceDir = "chb\coses"
+$backupDir = "chb\coses_backup_$(Get-Date -Format 'yyyyMMdd_HHmmss')"
+
+Write-Host "Starting UTF-8 conversion for files in: $sourceDir"
+Write-Host "Backup will be created in: $backupDir"
+
+# Create backup directory
+if (!(Test-Path $backupDir)) {
+    New-Item -ItemType Directory -Path $backupDir -Force | Out-Null
+    Write-Host "Created backup directory: $backupDir"
+}
+
+# Function to convert file to UTF-8
+function Convert-FileToUTF8 {
+    param(
+        [string]$FilePath,
+        [string]$BackupPath
+    )
+    
+    try {
+        # Create backup
+        $backupFilePath = $FilePath.Replace($sourceDir, $backupDir)
+        $backupFileDir = Split-Path $backupFilePath -Parent
+        
+        if (!(Test-Path $backupFileDir)) {
+            New-Item -ItemType Directory -Path $backupFileDir -Force | Out-Null
+        }
+        
+        Copy-Item $FilePath $backupFilePath -Force
+        
+        # Read file content with default encoding
+        $content = Get-Content $FilePath -Raw -Encoding Default
+        
+        # Write content back with UTF-8 encoding
+        $content | Out-File -FilePath $FilePath -Encoding UTF8 -NoNewline
+        
+        Write-Host "Converted: $FilePath"
+        return $true
+    }
+    catch {
+        Write-Host "Error converting $FilePath : $($_.Exception.Message)" -ForegroundColor Red
+        return $false
+    }
+}
+
+# Get all files recursively
+$files = Get-ChildItem -Path $sourceDir -Recurse -File | Where-Object { 
+    $_.Extension -match '\.(java|txt|xml|properties|cfg|conf|ini|log|sql|js|html|htm|css|jsp|tag|tld)$' -or
+    $_.Name -match '\.(java|txt|xml|properties|cfg|conf|ini|log|sql|js|html|htm|css|jsp|tag|tld)$'
+}
+
+Write-Host "Found $($files.Count) files to process"
+
+$successCount = 0
+$errorCount = 0
+
+foreach ($file in $files) {
+    $backupPath = $file.FullName.Replace($sourceDir, $backupDir)
+    
+    if (Convert-FileToUTF8 -FilePath $file.FullName -BackupPath $backupPath) {
+        $successCount++
+    } else {
+        $errorCount++
+    }
+}
+
+Write-Host "`nConversion completed!"
+Write-Host "Successfully converted: $successCount files"
+Write-Host "Errors: $errorCount files"
+Write-Host "Backup location: $backupDir"
+
+if ($errorCount -gt 0) {
+    Write-Host "`nSome files failed to convert. Check the error messages above." -ForegroundColor Yellow
+} 

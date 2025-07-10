@@ -1,0 +1,11 @@
+﻿[PropertyInfo]
+error_level_number,int,false,false, , ,false,<default>
+log_level_file_path,String,false,false, , ,false,<default>
+omode,long,false,false, , ,false,<default>
+printf_level_number,int,false,false, , ,false,<default>
+system,String,false,false, , ,false,<default>
+[IconNames]
+
+
+
+

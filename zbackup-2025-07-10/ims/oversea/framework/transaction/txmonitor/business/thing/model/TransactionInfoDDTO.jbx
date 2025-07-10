@@ -1,0 +1,34 @@
+﻿[PropertyInfo]
+bank_code,String,false,false, , ,false,<default>
+branch_code,String,false,false, , ,false,<default>
+btf_interval,String,false,false, , ,false,<default>
+btf_intime,String,false,false, , ,false,<default>
+btf_outtime,String,false,false, , ,false,<default>
+business_date,String,false,false, , ,false,<default>
+channel_type,String,false,false, , ,false,<default>
+error_code,String,false,false, , ,false,<default>
+etf_interval,String,false,false, , ,false,<default>
+etf_intime,String,false,false, , ,false,<default>
+etf_outtime,String,false,false, , ,false,<default>
+event_no,String,false,false, , ,false,<default>
+host_name,String,false,false, , ,false,<default>
+in_time,String,false,false, , ,false,<default>
+ip_address,String,false,false, , ,false,<default>
+method_name,String,false,false, , ,false,<default>
+org_seq,String,false,false, , ,false,<default>
+out_time,String,false,false, , ,false,<default>
+register_date,String,false,false, , ,false,<default>
+response_time,String,false,false, , ,false,<default>
+stf_interval,String,false,false, , ,false,<default>
+stf_intime,String,false,false, , ,false,<default>
+stf_outtime,String,false,false, , ,false,<default>
+system_name,String,false,false, , ,false,<default>
+tpfq,String,false,false, , ,false,<default>
+transaction_id,String,false,false, , ,false,<default>
+transaction_no,String,false,false, , ,false,<default>
+user_id,String,false,false, , ,false,<default>
+[IconNames]
+
+
+
+

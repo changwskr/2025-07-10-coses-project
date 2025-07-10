@@ -1,0 +1,37 @@
+﻿package com.ims.oversea.framework.transaction.monitor.entity;
+
+import javax.ejb.*;
+
+abstract public class TransactionInfoEBBean implements EntityBean {
+  EntityContext entityContext;
+  public java.lang.String ejbCreate(java.lang.String untitledField1) throws CreateException {
+    setUntitledField1(untitledField1);
+    return null;
+  }
+  public void ejbPostCreate(java.lang.String untitledField1) throws CreateException {
+    /**@todo Complete this method*/
+  }
+  public void ejbRemove() throws RemoveException {
+    /**@todo Complete this method*/
+  }
+  public abstract void setUntitledField1(java.lang.String untitledField1);
+  public abstract java.lang.String getUntitledField1();
+  public void ejbLoad() {
+    /**@todo Complete this method*/
+  }
+  public void ejbStore() {
+    /**@todo Complete this method*/
+  }
+  public void ejbActivate() {
+    /**@todo Complete this method*/
+  }
+  public void ejbPassivate() {
+    /**@todo Complete this method*/
+  }
+  public void unsetEntityContext() {
+    this.entityContext = null;
+  }
+  public void setEntityContext(EntityContext entityContext) {
+    this.entityContext = entityContext;
+  }
+}

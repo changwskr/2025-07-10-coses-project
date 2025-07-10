@@ -1,0 +1,8 @@
+package com.ims.oversea.framework.transaction.txmonitor.entity;
+
+import javax.ejb.*;
+import java.util.*;
+import java.rmi.*;
+
+public interface SPtxmonitorSB extends javax.ejb.EJBObject {
+}

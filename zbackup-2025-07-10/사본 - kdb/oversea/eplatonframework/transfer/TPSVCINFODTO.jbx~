@@ -1,0 +1,24 @@
+﻿[PropertyInfo]
+action_name,String,false,false, , ,false,<default>
+cdto_name,String,false,false, , ,true,<default>
+error_message,String,false,false, , ,true,<default>
+errorcode,String,false,false, , ,true,<default>
+hostseq,String,false,false, , ,true,<default>
+operation_name,String,false,false, , ,true,<default>
+orgseq,String,false,false, , ,true,<default>
+system_date,String,false,false, , ,true,<default>
+system_name,String,false,false, , ,true,<default>
+systemInTime,String,false,false, , ,true,<default>
+systemOutTime,String,false,false, , ,true,<default>
+tpfq,String,false,false, , ,true,<default>
+tpmsvcinfolist,ArrayList,false,false, , ,true,<default>
+trclass,String,false,false, , ,true,<default>
+tx_timer,String,false,false, , ,true,<default>
+web_intime,String,false,false, , ,true,<default>
+web_outtime,String,false,false, , ,true,<default>
+web_timeout,String,false,false, , ,true,<default>
+[IconNames]
+
+
+
+

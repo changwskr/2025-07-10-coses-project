@@ -1,0 +1,25 @@
+[PropertyInfo]
+bankCode,String,false,false, , ,true,<default>
+branchCode,String,false,false, , ,true,<default>
+businessDate,String,false,false, , ,true,<default>
+channelType,String,false,false, , ,true,<default>
+errorCode,String,false,false, , ,true,<default>
+eventNo,String,false,false, , ,true,<default>
+hostName,String,false,false, , ,true,<default>
+inTime,String,false,false, , ,true,<default>
+IPAddress,String,false,false, , ,true,<default>
+methodName,String,false,false, , ,true,<default>
+org_seq,String,false,false, , ,false,<default>
+outTime,String,false,false, , ,true,<default>
+registerDate,String,false,false, , ,true,<default>
+responseTime,long,false,false, , ,true,<default>
+systemName,String,false,false, , ,true,<default>
+tpfq,String,false,false, , ,false,<default>
+transactionId,String,false,false, , ,true,<default>
+transactionNo,String,false,false, , ,true,<default>
+userId,String,false,false, , ,true,<default>
+[IconNames]
+
+
+
+

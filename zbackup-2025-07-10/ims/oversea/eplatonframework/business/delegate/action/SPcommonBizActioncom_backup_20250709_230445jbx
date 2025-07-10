@@ -1,0 +1,10 @@
+[PropertyInfo]
+call_bean_type,String,false,false, , ,false,<default>
+commonDTO,EPlatonCommonDTO,false,false, , ,false,<default>
+event,IEvent,false,false, , ,false,<default>
+tpsvcinfo,TPSVCINFODTO,false,false, , ,false,<default>
+[IconNames]
+
+
+
+

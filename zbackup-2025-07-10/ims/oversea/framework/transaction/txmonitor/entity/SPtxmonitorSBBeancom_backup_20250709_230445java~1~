@@ -1,0 +1,22 @@
+package com.ims.oversea.framework.transaction.txmonitor.entity;
+
+import javax.ejb.*;
+
+public class SPtxmonitorSBBean implements SessionBean {
+  SessionContext sessionContext;
+  public void ejbCreate() throws CreateException {
+    /**@todo Complete this method*/
+  }
+  public void ejbRemove() {
+    /**@todo Complete this method*/
+  }
+  public void ejbActivate() {
+    /**@todo Complete this method*/
+  }
+  public void ejbPassivate() {
+    /**@todo Complete this method*/
+  }
+  public void setSessionContext(SessionContext sessionContext) {
+    this.sessionContext = sessionContext;
+  }
+}

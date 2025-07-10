@@ -1,0 +1,135 @@
+version: "3.8"
+
+services:
+  # KDB Oversea Application
+  kdb-oversea-app:
+    build: .
+    container_name: kdb-oversea-app
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://kdb-oversea-db:5432/kdb_oversea
+      - SPRING_DATASOURCE_USERNAME=kdb_user
+      - SPRING_DATASOURCE_PASSWORD=kdb_password
+      - KDB_OVERSEA_MACHINE_MODE=DOCKER
+      - KDB_OVERSEA_ENVIRONMENT=docker
+    depends_on:
+      - kdb-oversea-db
+      - kdb-oversea-redis
+    networks:
+      - kdb-oversea-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # PostgreSQL Database
+  kdb-oversea-db:
+    image: postgres:15-alpine
+    container_name: kdb-oversea-db
+    environment:
+      - POSTGRES_DB=kdb_oversea
+      - POSTGRES_USER=kdb_user
+      - POSTGRES_PASSWORD=kdb_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - kdb-oversea-db-data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - kdb-oversea-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kdb_user -d kdb_oversea"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis Cache
+  kdb-oversea-redis:
+    image: redis:7-alpine
+    container_name: kdb-oversea-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - kdb-oversea-redis-data:/data
+    networks:
+      - kdb-oversea-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Prometheus Monitoring
+  kdb-oversea-prometheus:
+    image: prom/prometheus:latest
+    container_name: kdb-oversea-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - kdb-oversea-prometheus-data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.console.libraries=/etc/prometheus/console_libraries"
+      - "--web.console.templates=/etc/prometheus/consoles"
+      - "--storage.tsdb.retention.time=200h"
+      - "--web.enable-lifecycle"
+    networks:
+      - kdb-oversea-network
+    restart: unless-stopped
+
+  # Grafana Dashboard
+  kdb-oversea-grafana:
+    image: grafana/grafana:latest
+    container_name: kdb-oversea-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - kdb-oversea-grafana-data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+    networks:
+      - kdb-oversea-network
+    restart: unless-stopped
+    depends_on:
+      - kdb-oversea-prometheus
+
+  # Nginx Reverse Proxy
+  kdb-oversea-nginx:
+    image: nginx:alpine
+    container_name: kdb-oversea-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/nginx/ssl
+    networks:
+      - kdb-oversea-network
+    restart: unless-stopped
+    depends_on:
+      - kdb-oversea-app
+
+volumes:
+  kdb-oversea-db-data:
+    driver: local
+  kdb-oversea-redis-data:
+    driver: local
+  kdb-oversea-prometheus-data:
+    driver: local
+  kdb-oversea-grafana-data:
+    driver: local
+
+networks:
+  kdb-oversea-network:
+    driver: bridge
