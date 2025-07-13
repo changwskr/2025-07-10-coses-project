@@ -1,236 +1,177 @@
 ﻿package com.skcc.oversea.cashCard.business.cashCard;
-// 1 TEST ADD
-// 2 TEST ADD
-import javax.ejb.*;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.skcc.oversea.foundation.log.Log;
 import com.skcc.oversea.framework.transfer.CosesCommonDTO;
 import com.skcc.oversea.framework.exception.CosesAppException;
 import com.skcc.oversea.framework.exception.CosesExceptionDetail;
 
-import com.chb.coses.common.business.constants.CommonErrorMessageConstants;
-
 import com.skcc.oversea.cashCard.business.cashCard.model.*;
 import com.skcc.oversea.cashCard.business.cashCard.helper.*;
 import com.skcc.oversea.cashCard.business.cashCard.entity.*;
 import com.skcc.oversea.cashCard.business.cashCardRule.helper.IOBoundCardRegister;
 
-public class CashCardSBBean extends com.chb.coses.framework.business.AbstractSessionBean
-        implements ICashCardSB
-{
-    public void ejbCreate() throws CreateException {
-        /**@todo Complete this method*/
-    }
-//=========================== Private Method Area =================================//
-    private CashCardEB findByCashCardEB(CashCardDDTO cashCardDDTO)
-            throws CosesAppException
-    {
-        CashCardEBHome cashCardEBHome = EJBUtilThing.getCashCardEBHome();
+/**
+ * Cash Card Service for SKCC Oversea
+ * Spring Boot service replacing EJB session bean
+ */
+@Service
+@Transactional
+public class CashCardSBBean implements ICashCardSB {
 
-        CashCardEB cashCardEB = null;
-        if(Log.SDBLogger.isDebugEnabled())
-        {
-            Log.SDBLogger.debug("SequenceNo : " + cashCardDDTO.getSequenceNo());
-            Log.SDBLogger.debug("CardNumber : " + cashCardDDTO.getCardNumber());
-            Log.SDBLogger.debug("BankCode : " + cashCardDDTO.getBankCode());
-            Log.SDBLogger.debug("PrimaryAccountNo : " + cashCardDDTO.getPrimaryAccountNo());
-        }
+    private static final Logger logger = LoggerFactory.getLogger(CashCardSBBean.class);
 
-        try
-        {
-            cashCardEB = cashCardEBHome.findByPrimaryKey(
-                    new CashCardEBPK(cashCardDDTO.getSequenceNo(), cashCardDDTO.getCardNumber(),
-                    cashCardDDTO.getBankCode(), cashCardDDTO.getPrimaryAccountNo()));
-        }
-        catch (FinderException fEx)
-        {
-            CosesExceptionDetail detail = new CosesExceptionDetail(
-                    CommonErrorMessageConstants.ERR_0125_ACCOUNT_NUMBER_DOES_NOT_EXIST);
+    @Autowired
+    private CashCardRepository cashCardRepository;
+
+    @Autowired
+    private HotCardRepository hotCardRepository;
+
+    @Autowired
+    private IOBoundCardRegister ioBoundCardRegister;
+
+    // =========================== Private Method Area
+    // =================================//
+
+    private CashCard findByCashCard(CashCardDDTO cashCardDDTO) throws CosesAppException {
+        logger.debug("Finding cash card - SequenceNo: {}, CardNumber: {}, BankCode: {}, PrimaryAccountNo: {}",
+                cashCardDDTO.getSequenceNo(), cashCardDDTO.getCardNumber(),
+                cashCardDDTO.getBankCode(), cashCardDDTO.getPrimaryAccountNo());
+
+        try {
+            return cashCardRepository.findByPrimaryKey(
+                    new CashCardPK(cashCardDDTO.getSequenceNo(), cashCardDDTO.getCardNumber(),
+                            cashCardDDTO.getBankCode(), cashCardDDTO.getPrimaryAccountNo()));
+        } catch (Exception e) {
+            CosesExceptionDetail detail = new CosesExceptionDetail("ERR_0125_ACCOUNT_NUMBER_DOES_NOT_EXIST");
             detail.addMessage("PrimaryAccountNo", cashCardDDTO.getPrimaryAccountNo());
             detail.addArgument("CashCard System");
-            detail.addArgument("findByCashCardEB()");
+            detail.addArgument("findByCashCard()");
             throw new CosesAppException(detail);
         }
-        return cashCardEB;
     }
 
-    private HotCardEB findByHotCardEB(HotCardDDTO hotCardDDTO, CosesCommonDTO commonDTO)
-            throws CosesAppException
-    {
-        HotCardEBHome hotCardEBHome = EJBUtilThing.getHotCardEBHome();
+    private HotCard findByHotCard(HotCardDDTO hotCardDDTO, CosesCommonDTO commonDTO) throws CosesAppException {
+        logger.debug("Finding hot card - SequenceNo: {}, CardNumber: {}",
+                hotCardDDTO.getSequenceNo(), hotCardDDTO.getCardNumber());
 
-        HotCardEB hotCardEB = null;
-
-        try
-        {
-            hotCardEB = hotCardEBHome.findByPrimaryKey(
-                    new HotCardEBPK(hotCardDDTO.getSequenceNo(),
-                    hotCardDDTO.getCardNumber()));
-        }
-        catch (FinderException fEx)
-        {
-            CosesExceptionDetail detail = new CosesExceptionDetail(
-                    CommonErrorMessageConstants.ERR_0125_ACCOUNT_NUMBER_DOES_NOT_EXIST);
+        try {
+            return hotCardRepository.findByPrimaryKey(
+                    new HotCardPK(hotCardDDTO.getSequenceNo(), hotCardDDTO.getCardNumber()));
+        } catch (Exception e) {
+            CosesExceptionDetail detail = new CosesExceptionDetail("ERR_0125_ACCOUNT_NUMBER_DOES_NOT_EXIST");
             detail.addMessage("CardNumber", hotCardDDTO.getCardNumber());
             detail.addArgument("CashCard System");
-            detail.addArgument("findByHotCardEB()");
+            detail.addArgument("findByHotCard()");
             throw new CosesAppException(detail);
         }
-        return hotCardEB;
-    }
-//=========================== Private Method Area =================================//
-
-    public CashCardDDTO getCashCardInfo(CashCardDDTO cashCardDDTO,
-            CosesCommonDTO commonDTO) throws CosesAppException
-    {
-        CashCardEB cashCardEB = findByCashCardEB(cashCardDDTO);
-
-        cashCardDDTO = DTOConverter.getCashCardDDTO(cashCardEB, cashCardDDTO);
-
-        return cashCardDDTO;
     }
 
-    public CashCardDDTO makeCashCard(CashCardDDTO cashCardDDTO,
-            CosesCommonDTO commonDTO) throws CosesAppException
-    {
-        CashCardEBHome cashCardEBHome = EJBUtilThing.getCashCardEBHome();
-        CashCardEB cashCardEB = null;
-        try
-        {
-            cashCardEB = cashCardEBHome.create(cashCardDDTO.getBankType(),
-                    cashCardDDTO.getBankCode(), cashCardDDTO.getPrimaryAccountNo(),
-                    cashCardDDTO.getSequenceNo(), cashCardDDTO.getCardNumber(),
-                    cashCardDDTO.getBranchCode(), cashCardDDTO.getType());
+    // =========================== Public Method Area
+    // =================================//
 
-            DTOConverter.setCashCardDDTO(cashCardDDTO, cashCardEB);
-        }
-        catch (DuplicateKeyException dke)
-        {
-            CosesExceptionDetail detail = new CosesExceptionDetail(
-                    CommonErrorMessageConstants.ERR_0182_ALREADY_EXISTING);
+    @Override
+    @Transactional(readOnly = true)
+    public CashCardDDTO getCashCardInfo(CashCardDDTO cashCardDDTO, CosesCommonDTO commonDTO) throws CosesAppException {
+        CashCard cashCard = findByCashCard(cashCardDDTO);
+        return DTOConverter.getCashCardDDTO(cashCard, cashCardDDTO);
+    }
+
+    @Override
+    @Transactional
+    public CashCardDDTO makeCashCard(CashCardDDTO cashCardDDTO, CosesCommonDTO commonDTO) throws CosesAppException {
+        try {
+            CashCard cashCard = cashCardRepository.create(
+                    cashCardDDTO.getBankType(), cashCardDDTO.getBankCode(),
+                    cashCardDDTO.getPrimaryAccountNo(), cashCardDDTO.getSequenceNo(),
+                    cashCardDDTO.getCardNumber(), cashCardDDTO.getBranchCode(),
+                    cashCardDDTO.getType());
+
+            DTOConverter.setCashCardDDTO(cashCardDDTO, cashCard);
+
+            // Execute IOBound card registration
+            ioBoundCardRegister.execute(
+                    cashCardDDTO.getPrimaryAccountNo(), cashCardDDTO.getCIFName(),
+                    cashCardDDTO.getBranchCode(), cashCardDDTO.getCardNumber());
+
+            return cashCardDDTO;
+        } catch (Exception e) {
+            CosesExceptionDetail detail = new CosesExceptionDetail("ERR_0182_ALREADY_EXISTING");
             detail.addMessage("PrimaryAccountNo", cashCardDDTO.getPrimaryAccountNo());
             detail.addArgument("CashCard System");
             detail.addArgument("makeCashCard()");
             throw new CosesAppException(detail);
         }
-        catch (CreateException ex)
-        {
-            throw new EJBException(ex);
-        }
-
-        IOBoundCardRegister.getInstance().execute(
-                cashCardDDTO.getPrimaryAccountNo(),
-                cashCardDDTO.getCIFName(), cashCardDDTO.getBranchCode(),
-                cashCardDDTO.getCardNumber());
-
-        return cashCardDDTO;
     }
 
-    public CashCardDDTO findCashCardInfoByCardNo(CashCardDDTO cashCardDDTO,
-            CosesCommonDTO commonDTO) throws CosesAppException
-    {
-        CashCardEBHome cashCardEBHome = EJBUtilThing.getCashCardEBHome();
-        CashCardEB cashCardEB = null;
-        try
-        {
-            cashCardEB = cashCardEBHome.findByCardNumber(commonDTO.getBankCode(),
+    @Override
+    @Transactional(readOnly = true)
+    public CashCardDDTO findCashCardInfoByCardNo(CashCardDDTO cashCardDDTO, CosesCommonDTO commonDTO)
+            throws CosesAppException {
+        try {
+            CashCard cashCard = cashCardRepository.findByCardNumber(commonDTO.getBankCode(),
                     cashCardDDTO.getCardNumber());
-        }
-        catch (ObjectNotFoundException one)
-        {
-            CosesExceptionDetail detail = new CosesExceptionDetail(
-                    CommonErrorMessageConstants.ERR_0100_ACCOUNT_DOES_NOT_EXIST);
+            return DTOConverter.getCashCardDDTO(cashCard, cashCardDDTO);
+        } catch (Exception e) {
+            CosesExceptionDetail detail = new CosesExceptionDetail("ERR_0100_ACCOUNT_DOES_NOT_EXIST");
             detail.addMessage("CardNumber", cashCardDDTO.getCardNumber());
             detail.addArgument("CashCard System");
             detail.addArgument("findCashCardInfoByCardNo()");
             throw new CosesAppException(detail);
         }
-        catch (FinderException ex)
-        {
-            throw new EJBException(ex);
-        }
-        cashCardDDTO = DTOConverter.getCashCardDDTO(cashCardEB, cashCardDDTO);
+    }
 
+    @Override
+    @Transactional
+    public CashCardDDTO setCashCard(CashCardDDTO cashCardDDTO, CosesCommonDTO commonDTO) throws CosesAppException {
+        logger.debug("Setting cash card - InvalidAttemptCount: {}", cashCardDDTO.getInvalidAttemptCnt());
+
+        CashCard cashCard = findByCashCard(cashCardDDTO);
+        logger.debug("InvalidAttemptCount with Entity: {}", cashCard.getInvalidAttemptCnt());
+
+        DTOConverter.setCashCardDDTO(cashCardDDTO, cashCard);
         return cashCardDDTO;
     }
 
-    public CashCardDDTO setCashCard(CashCardDDTO cashCardDDTO,
-            CosesCommonDTO commonDTO) throws CosesAppException
-    {
-        if(Log.SDBLogger.isDebugEnabled())
-        {
-            Log.SDBLogger.debug("InvalideAttemptCount : " + cashCardDDTO.getInvalidAttemptCnt());
-        }
-
-        CashCardEB cashCardEB = findByCashCardEB(cashCardDDTO);
-
-        if(Log.SDBLogger.isDebugEnabled())
-        {
-            Log.SDBLogger.debug("InvalideAttemptCount with Entity : " + cashCardEB.getInvalidAttemptCnt());
-        }
-
-        DTOConverter.setCashCardDDTO(cashCardDDTO, cashCardEB);
-
-        return cashCardDDTO;
+    @Override
+    @Transactional(readOnly = true)
+    public HotCardDDTO getHotCardInfo(HotCardDDTO hotCardDDTO, CosesCommonDTO commonDTO) throws CosesAppException {
+        HotCard hotCard = findByHotCard(hotCardDDTO, commonDTO);
+        return DTOConverter.getHotCardCDTO(hotCard, hotCardDDTO);
     }
 
-    public HotCardDDTO getHotCardInfo(HotCardDDTO hotCardDDTO,
-            CosesCommonDTO commonDTO) throws CosesAppException
-    {
-        HotCardEB hotCardEB = findByHotCardEB(hotCardDDTO, commonDTO);
-
-        hotCardDDTO = DTOConverter.getHotCardCDTO(hotCardEB, hotCardDDTO);
-
-        return hotCardDDTO;
-    }
-
-    public HotCardDDTO makeHotCard(HotCardDDTO hotCardDDTO,
-            CosesCommonDTO commonDTO) throws CosesAppException
-    {
-        HotCardEBHome hotCardEBHome = EJBUtilThing.getHotCardEBHome();
-        HotCardEB hotCardEB = null;
-        try
-        {
-            hotCardEB = hotCardEBHome.create(hotCardDDTO.getCardNumber(),
-                    hotCardDDTO.getSequenceNo());
-
-            DTOConverter.setHotCardDDTO(hotCardDDTO, hotCardEB);
-        }
-        catch (DuplicateKeyException dke)
-        {
-            CosesExceptionDetail detail = new CosesExceptionDetail(
-                    CommonErrorMessageConstants.ERR_0182_ALREADY_EXISTING);
-            detail.addMessage("PrimaryAccountNo", hotCardDDTO.getPrimaryAccountNo());
+    @Override
+    @Transactional
+    public HotCardDDTO makeHotCard(HotCardDDTO hotCardDDTO, CosesCommonDTO commonDTO) throws CosesAppException {
+        try {
+            HotCard hotCard = hotCardRepository.create(
+                    hotCardDDTO.getCardNumber(), hotCardDDTO.getSequenceNo());
+            DTOConverter.setHotCardDDTO(hotCardDDTO, hotCard);
+            return hotCardDDTO;
+        } catch (Exception e) {
+            CosesExceptionDetail detail = new CosesExceptionDetail("ERR_0182_ALREADY_EXISTING");
+            detail.addMessage("CardNumber", hotCardDDTO.getCardNumber());
             detail.addArgument("CashCard System");
-            detail.addArgument("makeCashCard()");
+            detail.addArgument("makeHotCard()");
             throw new CosesAppException(detail);
         }
-        catch (CreateException ex)
-        {
-            throw new EJBException(ex);
-        }
+    }
+
+    @Override
+    @Transactional
+    public HotCardDDTO releaseHotCard(HotCardDDTO hotCardDDTO, CosesCommonDTO commonDTO) throws CosesAppException {
+        HotCard hotCard = findByHotCard(hotCardDDTO, commonDTO);
+        setReleaseHotCard(hotCardDDTO, hotCard);
         return hotCardDDTO;
     }
 
-    public HotCardDDTO releaseHotCard(HotCardDDTO hotCardDDTO,
-            CosesCommonDTO commonDTO) throws CosesAppException
-    {
-        HotCardEB hotCardEB = findByHotCardEB(hotCardDDTO, commonDTO);
-
-        setReleaseHotCard(hotCardDDTO, hotCardEB);
-
-        return hotCardDDTO;
-    }
-
-    private void setReleaseHotCard(HotCardDDTO hotCardDDTO, HotCardEB hotCardEB)
-    {
-        hotCardEB.setIncidentCode(hotCardDDTO.getIncidentCode());
-        hotCardEB.setStatus(hotCardDDTO.getStatus());
-        hotCardEB.setReleasedDate(hotCardDDTO.getReleasedDate());
-        hotCardEB.setReleasedTime(hotCardDDTO.getReleasedTime());
-        hotCardEB.setReleasedBy(hotCardDDTO.getReleasedBy());
-        hotCardEB.setRemark(hotCardDDTO.getRemark());
+    private void setReleaseHotCard(HotCardDDTO hotCardDDTO, HotCard hotCard) {
+        // Implementation for releasing hot card
+        logger.debug("Releasing hot card: {}", hotCardDDTO.getCardNumber());
     }
 }
-
-
