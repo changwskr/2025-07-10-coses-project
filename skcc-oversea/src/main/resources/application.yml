@@ -1,0 +1,115 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: skcc-oversea
+
+  # Database Configuration
+  datasource:
+    url: jdbc:h2:mem:skcc_oversea_db
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  # JPA Configuration
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+
+  # H2 Console (for development)
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  # Jackson Configuration
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Seoul
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+
+  # Validation Configuration
+  validation:
+    enabled: true
+
+# SKCC Oversea Configuration
+skcc:
+  oversea:
+    machine:
+      mode: DEV
+    environment: development
+    config:
+      file: classpath:config/skcc-oversea.properties
+      xml:
+        file: classpath:config/skcc-oversea.xml
+    security:
+      jwt:
+        secret: skcc-oversea-jwt-secret-key-2024
+        expiration: 86400000 # 24 hours
+    transaction:
+      timeout: 30000
+      retry:
+        max-attempts: 3
+        delay: 1000
+
+# Logging Configuration
+logging:
+  level:
+    com.skcc.oversea: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/skcc-oversea.log
+    max-size: 100MB
+    max-history: 30
+
+# Management Endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when-authorized
+  health:
+    db:
+      enabled: true
+
+# Swagger Configuration
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+  info:
+    title: SKCC Oversea Banking API
+    description: API documentation for SKCC Oversea Banking System
+    version: 1.0.0
+    contact:
+      name: SKCC Development Team
+      email: dev@skcc.com

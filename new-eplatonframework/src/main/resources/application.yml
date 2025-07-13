@@ -1,0 +1,64 @@
+spring:
+  application:
+    name: eplaton-framework
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/eplaton_db
+    username: ${DB_USERNAME:eplaton_user}
+    password: ${DB_PASSWORD:eplaton_pass}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+
+server:
+  port: 8080
+  servlet:
+    context-path: /eplaton-framework
+
+logging:
+  level:
+    com.chb.coses.eplatonFMK: DEBUG
+    org.springframework.web: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/eplaton-framework.log
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+
+eplaton:
+  framework:
+    version: 1.0.0
+    transaction:
+      timeout: 30
+      retry-count: 3
+    logging:
+      enabled: true
+      level: DEBUG
+    security:
+      enabled: true
+      jwt:
+        secret: ${JWT_SECRET:eplaton-secret-key}
+        expiration: 86400000
