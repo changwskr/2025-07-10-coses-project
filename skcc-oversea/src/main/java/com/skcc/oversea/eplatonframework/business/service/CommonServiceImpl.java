@@ -326,11 +326,4 @@ public class CommonServiceImpl implements CommonService {
     private boolean isValidClearCacheRequest(Object requestData) {
         return requestData != null;
     }
-
-    /**
-     * Common Repository interface
-     */
-    public interface CommonRepository {
-        // Define repository methods here
-    }
 }

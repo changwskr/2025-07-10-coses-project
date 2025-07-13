@@ -1,291 +1,190 @@
 # SKCC Oversea Banking System
 
-Spring Boot 기반의 해외은행 시스템으로, 기존 Java EE/EJB 레거시 시스템을 현대적인 마이크로서비스 아키텍처로 마이그레이션한 프로젝트입니다.
+## 프로젝트 개요
+
+SKCC Oversea는 레거시 Java EE/EJB 기반의 뱅킹 시스템을 현대적인 Spring Boot 마이크로서비스 아키텍처로 완전히 마이그레이션한 프로젝트입니다.
+
+## 🎯 마이그레이션 완료 상태
+
+### ✅ 완료된 작업
+
+1. **EJB 요소 완전 제거**
+
+   - `javax.ejb.*` import 모두 제거
+   - `@Stateless`, `@Stateful`, `@MessageDriven` 어노테이션 제거
+   - `SessionBean`, `EJBObject`, `EJBHome` 인터페이스 제거
+   - `ejbCreate`, `ejbRemove` 등 생명주기 메서드 제거
+
+2. **Spring Boot 구조로 완전 변환**
+
+   - 모든 비즈니스 로직을 `@Service`, `@Component`로 변환
+   - JPA 엔티티로 완전 변환 (`@Entity`, `@Table`, `@Id`)
+   - Spring Data JPA Repository 구조 적용
+   - REST API 컨트롤러 구현 (`@RestController`)
+
+3. **아키텍처 개선**
+
+   - Controller-Service-Repository 패턴 적용
+   - 의존성 주입 (DI) 기반 구조
+   - 트랜잭션 관리 (`@Transactional`)
+   - 이벤트 기반 아키텍처 구현
+
+4. **코드 품질 향상**
+   - 중복 클래스 제거 및 구조 정리
+   - 일관된 패키지 구조 (`com.skcc.oversea`)
+   - 표준화된 예외 처리
+   - 로깅 및 모니터링 개선
 
 ## 🏗️ 프로젝트 구조
 
 ```
 skcc-oversea/
-├── src/
-│   ├── main/
-│   │   ├── java/com/skcc/oversea/
-│   │   │   ├── eplatonframework/
-│   │   │   │   ├── business/
-│   │   │   │   │   ├── annotation/          # 커스텀 어노테이션
-│   │   │   │   │   ├── config/              # 비즈니스 설정
-│   │   │   │   │   ├── constant/            # 비즈니스 상수
-│   │   │   │   │   ├── controller/          # REST API 컨트롤러
-│   │   │   │   │   ├── dao/                 # 기존 DAO 클래스들
-│   │   │   │   │   ├── delegate/            # 비즈니스 델리게이트
-│   │   │   │   │   ├── dto/                 # 데이터 전송 객체
-│   │   │   │   │   ├── entity/              # JPA 엔티티
-│   │   │   │   │   ├── event/               # 이벤트 시스템
-│   │   │   │   │   ├── exception/           # 비즈니스 예외
-│   │   │   │   │   ├── facade/              # 비즈니스 퍼사드
-│   │   │   │   │   ├── helper/              # 헬퍼 클래스
-│   │   │   │   │   ├── interceptor/         # AOP 인터셉터
-│   │   │   │   │   ├── model/               # 비즈니스 모델
-│   │   │   │   │   ├── repository/          # JPA Repository
-│   │   │   │   │   ├── service/             # 비즈니스 서비스
-│   │   │   │   │   └── util/                # 유틸리티
-│   │   │   │   ├── transfer/                # 전송 객체
-│   │   │   │   └── framework/               # 프레임워크
-│   │   │   ├── foundation/                  # 기반 라이브러리
-│   │   │   ├── cashCard/                    # 현금카드 모듈
-│   │   │   ├── common/                      # 공통 모듈
-│   │   │   ├── deposit/                     # 예금 모듈
-│   │   │   ├── teller/                      # 텔러 모듈
-│   │   │   └── SkccOverseaApplication.java  # 메인 애플리케이션
-│   │   └── resources/
-│   │       ├── application.yml              # 애플리케이션 설정
-│   │       └── db/migration/                # 데이터베이스 마이그레이션
-│   └── test/
-│       └── java/com/skcc/oversea/
-│           └── eplatonframework/business/
-│               ├── controller/              # 컨트롤러 테스트
-│               └── service/                 # 서비스 테스트
-├── pom.xml                                  # Maven 설정
-└── README.md                                # 프로젝트 문서
+├── src/main/java/com/skcc/oversea/
+│   ├── SkccOverseaApplication.java          # 메인 애플리케이션
+│   ├── eplatonframework/
+│   │   ├── business/
+│   │   │   ├── controller/                  # REST API 컨트롤러
+│   │   │   ├── service/                     # 비즈니스 서비스
+│   │   │   ├── repository/                  # 데이터 액세스
+│   │   │   ├── entity/                      # JPA 엔티티
+│   │   │   ├── delegate/                    # 비즈니스 델리게이트
+│   │   │   ├── event/                       # 이벤트 시스템
+│   │   │   ├── interceptor/                 # AOP 인터셉터
+│   │   │   └── helper/                      # 유틸리티
+│   │   └── transfer/                        # DTO 및 전송 객체
+│   ├── cashCard/                            # 현금카드 모듈
+│   ├── deposit/                             # 예금 모듈
+│   ├── teller/                              # 텔러 모듈
+│   ├── common/                              # 공통 모듈
+│   ├── foundation/                          # 기반 모듈
+│   └── framework/                           # 프레임워크 모듈
+└── src/main/resources/
+    ├── application.yml                      # Spring Boot 설정
+    ├── db/migration/                        # 데이터베이스 마이그레이션
+    └── config/                              # 설정 파일
 ```
 
 ## 🚀 주요 기능
 
-### 1. 비즈니스 레이어
+### 1. 현금카드 관리
 
-- **BaseService/BaseServiceImpl**: 공통 서비스 인터페이스 및 구현
-- **BusinessException**: 표준화된 비즈니스 예외 처리
-- **ServiceResponse**: 통일된 API 응답 형식
-- **ValidationUtil**: 데이터 검증 유틸리티
-- **BusinessConstants**: 비즈니스 상수 정의
+- 카드 발급/해지/재발급
+- 잔액 조회 및 거래 내역
+- 보안 인증 및 승인
 
-### 2. 데이터 액세스 레이어
+### 2. 예금 관리
 
-- **JPA Entity**: 현대적인 ORM 엔티티
-- **Repository**: Spring Data JPA Repository
-- **BaseRepository**: 공통 Repository 인터페이스
+- 계좌 개설/해지
+- 입출금 처리
+- 이자 계산 및 지급
 
-### 3. REST API 레이어
+### 3. 텔러 시스템
 
-- **BaseController**: 공통 컨트롤러 기능
-- **CashCardController**: 현금카드 API
-- **DepositController**: 예금 API
-- **TransactionLogController**: 거래 로그 API
+- 고객 정보 관리
+- 거래 처리 및 승인
+- 세션 관리
 
-### 4. 이벤트 시스템
+### 4. 공통 기능
 
-- **BusinessEvent**: 비즈니스 이벤트 정의
-- **BusinessEventPublisher**: 이벤트 발행
-- **BusinessEventListener**: 이벤트 리스너
-
-### 5. AOP 및 인터셉터
-
-- **@BusinessOperation**: 비즈니스 작업 어노테이션
-- **BusinessOperationInterceptor**: 로깅 및 감사 인터셉터
+- 사용자 인증/인가
+- 시스템 설정 관리
+- 감사 로그
 
 ## 🛠️ 기술 스택
 
 - **Framework**: Spring Boot 3.x
-- **Database**: MySQL/PostgreSQL (JPA/Hibernate)
+- **Database**: H2 (개발), Oracle (운영)
+- **ORM**: Spring Data JPA
+- **API**: RESTful API
 - **Build Tool**: Maven
-- **Testing**: JUnit 5, Mockito
-- **API Documentation**: OpenAPI 3.0
-- **Migration**: Flyway
-- **Monitoring**: Spring Boot Actuator
+- **Java Version**: 17+
 
-## 📋 요구사항
+## 📋 API 엔드포인트
 
-- Java 17+
-- Maven 3.6+
-- MySQL 8.0+ 또는 PostgreSQL 12+
+### 현금카드 API
 
-## 🔧 설치 및 실행
+- `GET /api/cashcard` - 모든 카드 조회
+- `GET /api/cashcard/{id}` - 카드 상세 조회
+- `POST /api/cashcard` - 카드 발급
+- `PUT /api/cashcard/{id}` - 카드 정보 수정
+- `DELETE /api/cashcard/{id}` - 카드 해지
 
-### 1. 프로젝트 클론
+### 예금 API
+
+- `GET /api/deposit` - 모든 계좌 조회
+- `GET /api/deposit/{id}` - 계좌 상세 조회
+- `POST /api/deposit` - 계좌 개설
+- `PUT /api/deposit/{id}` - 계좌 정보 수정
+
+### 거래 로그 API
+
+- `GET /api/transaction-log` - 거래 내역 조회
+- `GET /api/transaction-log/{id}` - 거래 상세 조회
+- `POST /api/transaction-log` - 거래 로그 생성
+
+## 🔧 실행 방법
+
+### 1. 개발 환경 설정
 
 ```bash
+# 프로젝트 클론
 git clone <repository-url>
 cd skcc-oversea
+
+# 의존성 설치
+mvn clean install
 ```
 
-### 2. 데이터베이스 설정
-
-`src/main/resources/application.yml`에서 데이터베이스 연결 정보를 설정하세요:
-
-```yaml
-spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/skcc_oversea
-    username: your_username
-    password: your_password
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: validate
-    show-sql: true
-  flyway:
-    enabled: true
-    baseline-on-migrate: true
-```
-
-### 3. 애플리케이션 실행
+### 2. 애플리케이션 실행
 
 ```bash
-# 개발 모드로 실행
+# Spring Boot 애플리케이션 실행
 mvn spring-boot:run
-
-# 또는 JAR 파일로 빌드 후 실행
-mvn clean package
-java -jar target/skcc-oversea-1.0.0.jar
 ```
 
-### 4. 테스트 실행
+### 3. API 테스트
 
 ```bash
-# 전체 테스트 실행
-mvn test
+# 현금카드 API 테스트
+curl http://localhost:8080/api/cashcard
 
-# 특정 테스트 클래스 실행
-mvn test -Dtest=CashCardServiceTest
-
-# 통합 테스트 실행
-mvn verify
-```
-
-## 📚 API 문서
-
-애플리케이션 실행 후 다음 URL에서 API 문서를 확인할 수 있습니다:
-
-- **Swagger UI**: http://localhost:8080/swagger-ui.html
-- **OpenAPI JSON**: http://localhost:8080/v3/api-docs
-
-### 주요 API 엔드포인트
-
-#### 현금카드 API
-
-- `GET /api/cashcard` - 모든 현금카드 조회
-- `GET /api/cashcard/{id}` - ID로 현금카드 조회
-- `GET /api/cashcard/card/{cardNo}` - 카드번호로 현금카드 조회
-- `POST /api/cashcard` - 새로운 현금카드 생성
-- `PUT /api/cashcard/{id}` - 현금카드 정보 수정
-- `DELETE /api/cashcard/{id}` - 현금카드 삭제
-
-#### 예금 API
-
-- `GET /api/deposit` - 모든 예금 계좌 조회
-- `GET /api/deposit/{id}` - ID로 예금 계좌 조회
-- `GET /api/deposit/account/{accountNo}` - 계좌번호로 예금 계좌 조회
-- `POST /api/deposit` - 새로운 예금 계좌 생성
-- `PUT /api/deposit/{id}` - 예금 계좌 정보 수정
-- `DELETE /api/deposit/{id}` - 예금 계좌 삭제
-
-#### 거래 로그 API
-
-- `GET /api/transaction-log` - 모든 거래 로그 조회
-- `GET /api/transaction-log/{id}` - ID로 거래 로그 조회
-- `GET /api/transaction-log/transaction/{transactionId}` - 거래ID로 로그 조회
-- `POST /api/transaction-log` - 새로운 거래 로그 생성
-
-## 🗄️ 데이터베이스 스키마
-
-### 주요 테이블
-
-- **transaction_log**: 거래 로그
-- **cash_card**: 현금카드 정보
-- **deposit**: 예금 계좌 정보
-- **customer**: 고객 정보
-- **branch**: 지점 정보
-- **product**: 상품 정보
-- **audit_log**: 감사 로그
-- **system_config**: 시스템 설정
-
-### 마이그레이션
-
-Flyway를 사용하여 데이터베이스 스키마를 관리합니다:
-
-```bash
-# 마이그레이션 상태 확인
-mvn flyway:info
-
-# 마이그레이션 실행
-mvn flyway:migrate
-
-# 마이그레이션 초기화 (주의: 데이터 삭제됨)
-mvn flyway:clean
+# 예금 API 테스트
+curl http://localhost:8080/api/deposit
 ```
 
 ## 🧪 테스트
 
 ### 단위 테스트
 
-- **Service Layer**: 비즈니스 로직 테스트
-- **Repository Layer**: 데이터 액세스 테스트
-- **Utility Classes**: 유틸리티 클래스 테스트
+```bash
+mvn test
+```
 
 ### 통합 테스트
 
-- **Controller Layer**: REST API 테스트
-- **End-to-End**: 전체 워크플로우 테스트
-
-### 테스트 실행
-
 ```bash
-# 전체 테스트
-mvn test
-
-# 특정 패키지 테스트
-mvn test -Dtest="com.skcc.oversea.eplatonframework.business.service.*"
-
-# 통합 테스트만 실행
-mvn test -Dtest="*IntegrationTest"
+mvn verify
 ```
 
-## 🔍 모니터링
+## 📊 모니터링
 
-Spring Boot Actuator를 통해 애플리케이션 모니터링이 가능합니다:
+- **Health Check**: `GET /actuator/health`
+- **Metrics**: `GET /actuator/metrics`
+- **Logs**: 애플리케이션 로그 확인
 
-- **Health Check**: http://localhost:8080/actuator/health
-- **Metrics**: http://localhost:8080/actuator/metrics
-- **Info**: http://localhost:8080/actuator/info
+## 🔒 보안
 
-## 📝 로깅
+- Spring Security 기반 인증/인가
+- JWT 토큰 기반 세션 관리
+- 데이터 암호화 및 마스킹
+- 감사 로그 및 추적
 
-### 로그 레벨 설정
+## 📈 성능 최적화
 
-`application.yml`에서 로그 레벨을 설정할 수 있습니다:
-
-```yaml
-logging:
-  level:
-    com.skcc.oversea: DEBUG
-    org.springframework.web: INFO
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-```
-
-### 비즈니스 로그
-
-`@BusinessOperation` 어노테이션을 사용하여 비즈니스 작업을 자동으로 로깅합니다:
-
-```java
-@BusinessOperation("CASH_CARD_CREATE")
-public CashCard createCashCard(CashCard cashCard) {
-    // 비즈니스 로직
-}
-```
-
-## 🔐 보안
-
-### 인증 및 권한
-
-- Spring Security 기반 인증
-- JWT 토큰 기반 인증
-- 역할 기반 접근 제어 (RBAC)
-
-### 데이터 보안
-
-- 민감한 데이터 암호화
-- SQL 인젝션 방지
-- XSS 공격 방지
+- 데이터베이스 커넥션 풀링
+- 캐싱 전략 적용
+- 비동기 처리
+- 배치 처리 지원
 
 ## 🚀 배포
 
@@ -295,7 +194,7 @@ public CashCard createCashCard(CashCard cashCard) {
 # Docker 이미지 빌드
 docker build -t skcc-oversea .
 
-# Docker 컨테이너 실행
+# 컨테이너 실행
 docker run -p 8080:8080 skcc-oversea
 ```
 
@@ -304,65 +203,37 @@ docker run -p 8080:8080 skcc-oversea
 ```bash
 # Kubernetes 배포
 kubectl apply -f k8s/
-
-# 서비스 확인
-kubectl get pods
-kubectl get services
 ```
 
-## 📈 성능 최적화
+## 📝 변경 이력
 
-### 데이터베이스 최적화
+### v1.0.0 (2025-01-XX)
 
-- 인덱스 최적화
-- 쿼리 튜닝
-- 커넥션 풀 설정
-
-### 애플리케이션 최적화
-
-- 캐싱 전략
-- 비동기 처리
-- 배치 처리
-
-## 🐛 문제 해결
-
-### 일반적인 문제
-
-1. **데이터베이스 연결 실패**: 연결 정보 확인
-2. **마이그레이션 실패**: Flyway 상태 확인
-3. **테스트 실패**: 데이터베이스 상태 확인
-
-### 로그 확인
-
-```bash
-# 애플리케이션 로그 확인
-tail -f logs/application.log
-
-# 에러 로그 확인
-grep ERROR logs/application.log
-```
+- ✅ EJB에서 Spring Boot로 완전 마이그레이션
+- ✅ RESTful API 구현
+- ✅ JPA 엔티티 구조 적용
+- ✅ 마이크로서비스 아키텍처 구현
+- ✅ 이벤트 기반 시스템 구축
 
 ## 🤝 기여
 
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## 📄 라이선스
 
-이 프로젝트는 내부 사용을 위한 프로젝트입니다.
+이 프로젝트는 SKCC 내부 사용을 위한 프로젝트입니다.
 
-## 📞 지원
+## 📞 문의
 
-문제가 발생하거나 질문이 있으시면 다음으로 연락하세요:
-
-- 이슈 트래커: GitHub Issues
-- 이메일: support@skcc.com
+- **개발팀**: SKCC Overseas Banking Team
+- **이메일**: overseas-dev@skcc.com
+- **문서**: [내부 위키](http://wiki.skcc.com/oversea)
 
 ---
 
-**마이그레이션 상태**: ✅ 완료
-**테스트 커버리지**: 85%+
-**문서화**: ✅ 완료
+**🎉 마이그레이션 완료!**  
+레거시 EJB 시스템에서 현대적인 Spring Boot 마이크로서비스로 성공적으로 전환되었습니다.

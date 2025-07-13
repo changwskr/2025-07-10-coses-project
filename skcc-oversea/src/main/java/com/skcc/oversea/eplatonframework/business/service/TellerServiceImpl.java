@@ -328,11 +328,4 @@ public class TellerServiceImpl implements TellerService {
     private boolean isValidGetTellerTransactionsRequest(Object requestData) {
         return requestData != null;
     }
-
-    /**
-     * Teller Repository interface
-     */
-    public interface TellerRepository {
-        // Define repository methods here
-    }
 }

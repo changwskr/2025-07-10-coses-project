@@ -327,10 +327,7 @@ public class DepositServiceImpl implements DepositService {
         return requestData != null;
     }
 
-    /**
-     * Deposit Repository interface
-     */
-    public interface DepositRepository {
-        // Define repository methods here
+    private boolean isValidGetAccountBalanceRequest(Object requestData) {
+        return requestData != null;
     }
 }

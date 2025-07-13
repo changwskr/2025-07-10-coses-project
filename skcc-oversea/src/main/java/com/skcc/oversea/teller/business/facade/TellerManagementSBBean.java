@@ -1,10 +1,13 @@
 ﻿package com.skcc.oversea.teller.business.facade;
 
-import java.rmi.*;
 import java.text.*;
-import javax.ejb.*;
 import java.util.*;
 import java.math.BigDecimal;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.skcc.oversea.framework.exception.CosesAppException;
 import com.skcc.oversea.deposit.business.facade.*;
@@ -14,68 +17,79 @@ import com.skcc.oversea.eplatonframework.transfer.*;
 import com.skcc.oversea.foundation.logej.*;
 import com.skcc.oversea.eplatonframework.transfer.EPLcommonCDTO;
 
-public class TellerManagementSBBean implements ITellerManagementSB
-{
-    public void ejbCreate() throws CreateException {
-        /**@todo Complete this method*/
-    }
+/**
+ * Teller Management Service for SKCC Oversea
+ * Spring Boot service replacing EJB session bean
+ */
+@Service
+@Transactional
+public class TellerManagementSBBean implements ITellerManagementSB {
 
-    public EPlatonEvent callmethod01(EPlatonEvent event)
-        throws CosesAppException
-    {
-      EPlatonCommonDTO commonDTO = null;
-      TPSVCINFODTO tpsvcinfo = null;
-      EPLcommonCDTO rescdto = null;
-      EPLcommonCDTO reqcdto = new EPLcommonCDTO();
+  private static final Logger logger = LoggerFactory.getLogger(TellerManagementSBBean.class);
 
-      LOGEJ.getInstance().printf(1,(EPlatonEvent)event,"==================[callmethod01 START]");
+  /**
+   * Call method 01 - Teller business logic
+   */
+  @Transactional(readOnly = false)
+  public EPlatonEvent callmethod01(EPlatonEvent event) throws CosesAppException {
+    EPlatonCommonDTO commonDTO = null;
+    TPSVCINFODTO tpsvcinfo = null;
+    EPLcommonCDTO rescdto = null;
+    EPLcommonCDTO reqcdto = new EPLcommonCDTO();
 
-      commonDTO = (EPlatonCommonDTO)event.getCommon();
+    logger.info("==================[callmethod01 START]");
+
+    try {
+      commonDTO = (EPlatonCommonDTO) event.getCommon();
       tpsvcinfo = event.getTPSVCINFODTO();
-      rescdto = (EPLcommonCDTO)event.getRequest();
+      rescdto = (EPLcommonCDTO) event.getRequest();
 
-      LOGEJ.getInstance().printf(1,(EPlatonEvent)event,"dfsafasfsadfa신규계좌에 대한 정보를 셋팅한다");
-      LOGEJ.getInstance().printf(1,(EPlatonEvent)event,"1");
-      LOGEJ.getInstance().printf(1,(EPlatonEvent)event,"1");
-      LOGEJ.getInstance().printf(1,(EPlatonEvent)event,"1");
+      logger.info("Setting up new account information for teller");
       reqcdto.setAccountNumber("0001100100000088");
       reqcdto.setBankCode("03");
       reqcdto.setAccountNumber("8888888888888888");
 
       event.setResponse(reqcdto);
-      LOGEJ.getInstance().printf(1,(EPlatonEvent)event,"==================[callmethod01  END]");
+      logger.info("==================[callmethod01 END]");
+
       return event;
+
+    } catch (Exception e) {
+      logger.error("Error in callmethod01", e);
+      throw new CosesAppException("Teller method 01 failed: " + e.getMessage(), e);
     }
+  }
 
-    public EPlatonEvent callmethod02(EPlatonEvent event) throws CosesAppException
-    {
-      EPlatonCommonDTO commonDTO = null;
-      TPSVCINFODTO tpsvcinfo = null;
-      EPLcommonCDTO rescdto = null;
-      EPLcommonCDTO reqcdto = new EPLcommonCDTO();
+  /**
+   * Call method 02 - Teller business logic
+   */
+  @Transactional(readOnly = false)
+  public EPlatonEvent callmethod02(EPlatonEvent event) throws CosesAppException {
+    EPlatonCommonDTO commonDTO = null;
+    TPSVCINFODTO tpsvcinfo = null;
+    EPLcommonCDTO rescdto = null;
+    EPLcommonCDTO reqcdto = new EPLcommonCDTO();
 
-      LOGEJ.getInstance().printf(1,(EPlatonEvent)event,"==================[callmethod02 START]");
+    logger.info("==================[callmethod02 START]");
 
-      commonDTO = (EPlatonCommonDTO)event.getCommon();
+    try {
+      commonDTO = (EPlatonCommonDTO) event.getCommon();
       tpsvcinfo = event.getTPSVCINFODTO();
-      rescdto = (EPLcommonCDTO)event.getRequest();
+      rescdto = (EPLcommonCDTO) event.getRequest();
 
-      LOGEJ.getInstance().printf(1,(EPlatonEvent)event,"dfsafasfsadfa신규계좌에 대한 정보를 셋팅한다");
-      LOGEJ.getInstance().printf(1,(EPlatonEvent)event,"1");
-      LOGEJ.getInstance().printf(1,(EPlatonEvent)event,"1");
-      LOGEJ.getInstance().printf(1,(EPlatonEvent)event,"1");
+      logger.info("Setting up new account information for teller");
       reqcdto.setAccountNumber("0001100100000088");
       reqcdto.setBankCode("03");
       reqcdto.setAccountNumber("8888888888888888");
 
       event.setResponse(reqcdto);
-      LOGEJ.getInstance().printf(1,(EPlatonEvent)event,"==================[callmethod02  END]");
+      logger.info("==================[callmethod02 END]");
+
       return event;
+
+    } catch (Exception e) {
+      logger.error("Error in callmethod02", e);
+      throw new CosesAppException("Teller method 02 failed: " + e.getMessage(), e);
     }
-
-
+  }
 }
-
-
-
-

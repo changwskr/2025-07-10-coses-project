@@ -327,10 +327,7 @@ public class CashCardServiceImpl implements CashCardService {
         return requestData != null;
     }
 
-    /**
-     * Cash Card Repository interface
-     */
-    public interface CashCardRepository {
-        // Define repository methods here
+    private boolean isValidGetCardBalanceRequest(Object requestData) {
+        return requestData != null;
     }
 }
