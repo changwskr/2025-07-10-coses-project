@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.deposit.business.facade.helper;
+package com.skcc.oversea.deposit.business.facade.helper;
 
 /**
  * <p>Title: </p>

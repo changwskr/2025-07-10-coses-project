@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.cashCard.business.facade.dao;
+package com.skcc.oversea.cashCard.business.facade.dao;
 
 import com.skcc.oversea.framework.business.dao.IDAO;
 import com.skcc.oversea.framework.exception.CosesAppException;

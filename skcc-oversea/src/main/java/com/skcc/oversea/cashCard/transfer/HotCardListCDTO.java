@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.cashCard.transfer;
+package com.skcc.oversea.cashCard.transfer;
 
 import java.util.ArrayList;
 

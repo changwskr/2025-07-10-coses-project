@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.framework.transaction.dao;
+package com.skcc.oversea.framework.transaction.dao;
 
 
 import java.math.BigDecimal;

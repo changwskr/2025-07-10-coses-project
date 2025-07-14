@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.eplatonframework.business.constants;
+package com.skcc.oversea.eplatonframework.business.constants;
 
 import com.skcc.oversea.eplatonframework.transfer.EPlatonEvent;
 

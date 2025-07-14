@@ -1,131 +1,97 @@
 package com.skcc.oversea.eplatonframework.business.repository;
 
 import com.skcc.oversea.eplatonframework.business.entity.Deposit;
+import com.skcc.oversea.eplatonframework.business.entity.DepositPK;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Deposit Repository
- */
 @Repository
-public interface DepositRepository extends JpaRepository<Deposit, Long> {
+public interface DepositRepository extends JpaRepository<Deposit, DepositPK> {
 
-    /**
-     * Find by account number
-     */
-    Optional<Deposit> findByAccountNo(String accountNo);
+        /**
+         * Find deposit by primary key
+         */
+        Optional<Deposit> findByPrimaryKey(DepositPK primaryKey);
 
-    /**
-     * Find by customer ID
-     */
-    List<Deposit> findByCustomerId(String customerId);
+        /**
+         * Find deposits by account number
+         */
+        @Query("SELECT d FROM Deposit d WHERE d.accountNumber = :accountNumber")
+        List<Deposit> findByAccountNumber(@Param("accountNumber") String accountNumber);
 
-    /**
-     * Find by account status
-     */
-    List<Deposit> findByAccountStatus(String accountStatus);
+        /**
+         * Find deposits by customer ID
+         */
+        @Query("SELECT d FROM Deposit d WHERE d.customerId = :customerId")
+        List<Deposit> findByCustomerId(@Param("customerId") String customerId);
 
-    /**
-     * Find by account type
-     */
-    List<Deposit> findByAccountType(String accountType);
+        /**
+         * Find deposits by branch code
+         */
+        @Query("SELECT d FROM Deposit d WHERE d.branchCode = :branchCode")
+        List<Deposit> findByBranchCode(@Param("branchCode") String branchCode);
 
-    /**
-     * Find by currency code
-     */
-    List<Deposit> findByCurrencyCode(String currencyCode);
+        /**
+         * Find deposits by deposit type
+         */
+        @Query("SELECT d FROM Deposit d WHERE d.depositType = :depositType")
+        List<Deposit> findByDepositType(@Param("depositType") String depositType);
 
-    /**
-     * Find by branch code
-     */
-    List<Deposit> findByBranchCode(String branchCode);
+        /**
+         * Find active deposits
+         */
+        @Query("SELECT d FROM Deposit d WHERE d.isActive = true")
+        List<Deposit> findActiveDeposits();
 
-    /**
-     * Find by product code
-     */
-    List<Deposit> findByProductCode(String productCode);
+        /**
+         * Create a new deposit
+         */
+        default Deposit create(String accountNumber, String customerId, String branchCode,
+                        String depositType, double amount, String currency) {
+                DepositPK pk = new DepositPK(accountNumber, customerId);
+                Deposit deposit = new Deposit(pk);
+                deposit.setBranchCode(branchCode);
+                deposit.setDepositType(depositType);
+                deposit.setAmount(amount);
+                deposit.setCurrency(currency);
+                deposit.setIsActive(true);
+                return save(deposit);
+        }
 
-    /**
-     * Find by balance range
-     */
-    @Query("SELECT d FROM Deposit d WHERE d.balance BETWEEN :minBalance AND :maxBalance")
-    List<Deposit> findByBalanceRange(@Param("minBalance") BigDecimal minBalance,
-            @Param("maxBalance") BigDecimal maxBalance);
+        /**
+         * Find deposit by account number
+         */
+        @Query("SELECT d FROM Deposit d WHERE d.primaryKey.accountNumber = :accountNumber")
+        Optional<Deposit> findByAccountNo(@Param("accountNumber") String accountNumber);
 
-    /**
-     * Find by interest rate range
-     */
-    @Query("SELECT d FROM Deposit d WHERE d.interestRate BETWEEN :minRate AND :maxRate")
-    List<Deposit> findByInterestRateRange(@Param("minRate") BigDecimal minRate,
-            @Param("maxRate") BigDecimal maxRate);
+        /**
+         * Find deposits by account status
+         */
+        @Query("SELECT d FROM Deposit d WHERE d.isActive = :isActive")
+        List<Deposit> findByAccountStatus(@Param("isActive") Boolean isActive);
 
-    /**
-     * Find by open date range
-     */
-    @Query("SELECT d FROM Deposit d WHERE d.openDate BETWEEN :startDate AND :endDate")
-    List<Deposit> findByOpenDateRange(@Param("startDate") LocalDate startDate,
-            @Param("endDate") LocalDate endDate);
+        /**
+         * Find deposits by account type
+         */
+        @Query("SELECT d FROM Deposit d WHERE d.depositType = :accountType")
+        List<Deposit> findByAccountType(@Param("accountType") String accountType);
 
-    /**
-     * Find by maturity date range
-     */
-    @Query("SELECT d FROM Deposit d WHERE d.maturityDate BETWEEN :startDate AND :endDate")
-    List<Deposit> findByMaturityDateRange(@Param("startDate") LocalDate startDate,
-            @Param("endDate") LocalDate endDate);
+        /**
+         * Sum balance by customer ID
+         */
+        @Query("SELECT COALESCE(SUM(d.amount), 0) FROM Deposit d WHERE d.primaryKey.customerId = :customerId AND d.isActive = true")
+        BigDecimal sumBalanceByCustomerId(@Param("customerId") String customerId);
 
-    /**
-     * Find matured deposits
-     */
-    @Query("SELECT d FROM Deposit d WHERE d.maturityDate <= :currentDate")
-    List<Deposit> findMaturedDeposits(@Param("currentDate") LocalDate currentDate);
-
-    /**
-     * Find by account name (partial match)
-     */
-    @Query("SELECT d FROM Deposit d WHERE d.accountName LIKE %:name%")
-    List<Deposit> findByAccountNameContaining(@Param("name") String name);
-
-    /**
-     * Find active accounts by customer ID
-     */
-    @Query("SELECT d FROM Deposit d WHERE d.customerId = :customerId AND d.accountStatus = 'AC'")
-    List<Deposit> findActiveAccountsByCustomerId(@Param("customerId") String customerId);
-
-    /**
-     * Count accounts by status
-     */
-    long countByAccountStatus(String accountStatus);
-
-    /**
-     * Find accounts with balance below minimum
-     */
-    @Query("SELECT d FROM Deposit d WHERE d.balance < d.minimumBalance")
-    List<Deposit> findAccountsBelowMinimumBalance();
-
-    /**
-     * Find by daily limit range
-     */
-    @Query("SELECT d FROM Deposit d WHERE d.dailyLimit BETWEEN :minLimit AND :maxLimit")
-    List<Deposit> findByDailyLimitRange(@Param("minLimit") BigDecimal minLimit,
-            @Param("maxLimit") BigDecimal maxLimit);
-
-    /**
-     * Sum total balance by customer ID
-     */
-    @Query("SELECT SUM(d.balance) FROM Deposit d WHERE d.customerId = :customerId")
-    BigDecimal sumBalanceByCustomerId(@Param("customerId") String customerId);
-
-    /**
-     * Find accounts expiring soon
-     */
-    @Query("SELECT d FROM Deposit d WHERE d.maturityDate BETWEEN :currentDate AND :expiryDate")
-    List<Deposit> findAccountsExpiringSoon(@Param("currentDate") LocalDate currentDate,
-            @Param("expiryDate") LocalDate expiryDate);
+        /**
+         * Find matured deposits
+         */
+        @Query("SELECT d FROM Deposit d WHERE d.maturityDate <= :maturityDate AND d.isActive = true")
+        List<Deposit> findMaturedDeposits(@Param("maturityDate") LocalDateTime maturityDate);
 }

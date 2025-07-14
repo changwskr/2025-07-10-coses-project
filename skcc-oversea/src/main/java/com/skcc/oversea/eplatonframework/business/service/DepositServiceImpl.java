@@ -11,6 +11,14 @@ import com.skcc.oversea.eplatonframework.transfer.TPSVCINFODTO;
 import com.skcc.oversea.foundation.logej.LOGEJ;
 import com.skcc.oversea.foundation.constant.Constants;
 import com.skcc.oversea.eplatonframework.business.delegate.action.DepositBizAction.DepositService;
+import com.skcc.oversea.eplatonframework.business.entity.Deposit;
+import com.skcc.oversea.eplatonframework.business.entity.DepositPK;
+import com.skcc.oversea.eplatonframework.business.repository.DepositRepository;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Deposit Service Implementation for SKCC Oversea
@@ -48,7 +56,9 @@ public class DepositServiceImpl implements DepositService {
             // Deposit deposit = depositRepository.createDeposit(requestData);
 
             // Set response
-            event.setResponse("Deposit created successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("Deposit created successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("Deposit created successfully");
 
@@ -84,7 +94,9 @@ public class DepositServiceImpl implements DepositService {
             // Deposit deposit = depositRepository.updateDeposit(requestData);
 
             // Set response
-            event.setResponse("Deposit updated successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("Deposit updated successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("Deposit updated successfully");
 
@@ -120,7 +132,9 @@ public class DepositServiceImpl implements DepositService {
             // depositRepository.deleteDeposit(requestData);
 
             // Set response
-            event.setResponse("Deposit deleted successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("Deposit deleted successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("Deposit deleted successfully");
 
@@ -156,7 +170,9 @@ public class DepositServiceImpl implements DepositService {
             // Deposit deposit = depositRepository.getDeposit(requestData);
 
             // Set response
-            event.setResponse("Deposit data retrieved successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("Deposit data retrieved successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("Deposit data retrieved successfully");
 
@@ -192,7 +208,9 @@ public class DepositServiceImpl implements DepositService {
             // List<Deposit> deposits = depositRepository.getDepositList(requestData);
 
             // Set response
-            event.setResponse("Deposit list retrieved successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("Deposit list retrieved successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("Deposit list retrieved successfully");
 
@@ -228,7 +246,9 @@ public class DepositServiceImpl implements DepositService {
             // depositRepository.withdrawDeposit(requestData);
 
             // Set response
-            event.setResponse("Deposit withdrawn successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("Deposit withdrawn successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("Deposit withdrawn successfully");
 
@@ -264,7 +284,9 @@ public class DepositServiceImpl implements DepositService {
             // depositRepository.transferDeposit(requestData);
 
             // Set response
-            event.setResponse("Deposit transferred successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("Deposit transferred successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("Deposit transferred successfully");
 
@@ -296,6 +318,11 @@ public class DepositServiceImpl implements DepositService {
             tpsvcinfo.setErrorcode(errorCode);
             tpsvcinfo.setError_message(errorMessage);
         }
+
+        // Set response as error message - create a simple response DTO
+        EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+        responseDTO.setReqName("ERROR");
+        event.setResponse(responseDTO);
     }
 
     // Validation methods
@@ -327,7 +354,99 @@ public class DepositServiceImpl implements DepositService {
         return requestData != null;
     }
 
-    private boolean isValidGetAccountBalanceRequest(Object requestData) {
+    private boolean isValidValidateDepositRequest(Object requestData) {
         return requestData != null;
+    }
+
+    // =========================== Controller Expected Methods
+    // ===========================
+
+    public List<Deposit> getAllDeposits() {
+        logger.info("Getting all deposits");
+        return depositRepository.findAll();
+    }
+
+    public Deposit getDepositById(DepositPK id) {
+        logger.info("Getting deposit by ID: {}", id);
+        return depositRepository.findById(id).orElse(null);
+    }
+
+    public Deposit getDepositByAccountNo(String accountNo) {
+        logger.info("Getting deposit by account number: {}", accountNo);
+        return depositRepository.findByAccountNo(accountNo).orElse(null);
+    }
+
+    public List<Deposit> getDepositsByCustomerId(String customerId) {
+        logger.info("Getting deposits by customer ID: {}", customerId);
+        return depositRepository.findByCustomerId(customerId);
+    }
+
+    public Deposit createDeposit(Deposit deposit) {
+        logger.info("Creating deposit: {}", deposit.getAccountNo());
+        return depositRepository.save(deposit);
+    }
+
+    public Deposit updateDeposit(Deposit deposit) {
+        logger.info("Updating deposit: {}", deposit.getAccountNo());
+        if (depositRepository.existsById(deposit.getId())) {
+            return depositRepository.save(deposit);
+        }
+        return null;
+    }
+
+    public boolean deleteDeposit(DepositPK id) {
+        logger.info("Deleting deposit by ID: {}", id);
+        if (depositRepository.existsById(id)) {
+            depositRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    public List<Deposit> getDepositsByStatus(String status) {
+        logger.info("Getting deposits by status: {}", status);
+        Boolean isActive = "ACTIVE".equalsIgnoreCase(status);
+        return depositRepository.findByAccountStatus(isActive);
+    }
+
+    public List<Deposit> getDepositsByAccountType(String accountType) {
+        logger.info("Getting deposits by account type: {}", accountType);
+        return depositRepository.findByAccountType(accountType);
+    }
+
+    public List<Deposit> getDepositsByBranchCode(String branchCode) {
+        logger.info("Getting deposits by branch code: {}", branchCode);
+        return depositRepository.findByBranchCode(branchCode);
+    }
+
+    public Deposit updateAccountBalance(DepositPK id, BigDecimal newBalance) {
+        logger.info("Updating account balance for ID: {} to {}", id, newBalance);
+        Deposit deposit = getDepositById(id);
+        if (deposit != null) {
+            deposit.setBalance(newBalance);
+            return depositRepository.save(deposit);
+        }
+        return null;
+    }
+
+    public BigDecimal getTotalBalanceByCustomerId(String customerId) {
+        logger.info("Getting total balance by customer ID: {}", customerId);
+        BigDecimal totalBalance = depositRepository.sumBalanceByCustomerId(customerId);
+        return totalBalance != null ? totalBalance : BigDecimal.ZERO;
+    }
+
+    public List<Deposit> getMaturedDeposits() {
+        logger.info("Getting matured deposits");
+        return depositRepository.findMaturedDeposits(LocalDateTime.now());
+    }
+
+    public Deposit updateAccountStatus(DepositPK id, String status) {
+        logger.info("Updating account status for ID: {} to {}", id, status);
+        Deposit deposit = getDepositById(id);
+        if (deposit != null) {
+            deposit.setAccountStatus(status);
+            return depositRepository.save(deposit);
+        }
+        return null;
     }
 }

@@ -1,20 +1,18 @@
-﻿package com.skcc.oversea.cashCard.transfer;
+package com.skcc.oversea.cashCard.transfer;
 
+import java.io.Serializable;
 import java.util.List;
 
-import com.chb.coses.framework.transfer.PageDTO;
+import com.skcc.oversea.framework.transfer.PageDTO;
 
-public class HotCardPageCDTO extends PageDTO
-{
+public class HotCardPageCDTO extends PageDTO {
     public HotCardPageCDTO(List pageItems, int pageNumber,
-                               int totalLineCount)
-    {
-        super(pageItems, pageNumber, totalLineCount);
+            int totalLineCount) {
+        super(pageItems, pageNumber, 10, totalLineCount);
     }
 
     public HotCardPageCDTO(List pageItems, int pageNumber,
-                               int totalLineCount, int linePerPage)
-    {
-        super(pageItems, pageNumber, totalLineCount, linePerPage);
+            int totalLineCount, int linePerPage) {
+        super(pageItems, pageNumber, linePerPage, totalLineCount);
     }
 }

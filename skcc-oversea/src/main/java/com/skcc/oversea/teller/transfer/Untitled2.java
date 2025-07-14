@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.teller.transfer;
+package com.skcc.oversea.teller.transfer;
 
 /**
  * <p>Title: </p>

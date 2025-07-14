@@ -61,7 +61,7 @@ public class BusinessOperationInterceptor {
 
             // Calculate execution time
             LocalDateTime endTime = LocalDateTime.now();
-            long executionTime = ChronoUnit.MILLISECONDS.between(startTime, endTime);
+            long executionTime = ChronoUnit.MILLIS.between(startTime, endTime);
 
             // Post-execution logging
             if (annotation.loggable()) {
@@ -83,7 +83,7 @@ public class BusinessOperationInterceptor {
         } catch (Exception e) {
             // Calculate execution time
             LocalDateTime endTime = LocalDateTime.now();
-            long executionTime = ChronoUnit.MILLISECONDS.between(startTime, endTime);
+            long executionTime = ChronoUnit.MILLIS.between(startTime, endTime);
 
             // Error logging
             logger.error("Failed business operation: {} - Error: {} - Execution time: {}ms - TransactionId: {}",

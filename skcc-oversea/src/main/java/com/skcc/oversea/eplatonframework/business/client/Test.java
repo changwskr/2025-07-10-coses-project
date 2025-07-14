@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.eplatonframework.business.client;
+package com.skcc.oversea.eplatonframework.business.client;
 
 /**
  * <p>Title: </p>

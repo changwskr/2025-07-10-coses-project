@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.framework.transaction.constant;
+package com.skcc.oversea.framework.transaction.constant;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

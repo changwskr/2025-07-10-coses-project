@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.eplatonframework.business.delegate.action;
+package com.skcc.oversea.eplatonframework.business.delegate.action;
 
 import com.skcc.oversea.eplatonframework.transfer.EPlatonEvent;
 

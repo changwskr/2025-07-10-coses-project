@@ -1,11 +1,8 @@
-﻿package com.skcc.oversea.eplatonframework.transfer;
-
+package com.skcc.oversea.eplatonframework.transfer;
 
 import com.skcc.oversea.framework.constants.Constants;
 import com.skcc.oversea.framework.transfer.IDTO;
 import com.skcc.oversea.framework.transfer.IEvent;
-
-
 
 /**
  * =============================================================================
@@ -21,34 +18,36 @@ import com.skcc.oversea.framework.transfer.IEvent;
  * =============================================================================
  * 변경내역 정보:
  * =============================================================================
- *  2004년 03월 16일 1차버전 release
+ * 2004년 03월 16일 1차버전 release
  *
  *
  * =============================================================================
- *                                                        @author : 장우승(WooSungJang)
- *                                                        @company: IMS SYSTEM
- *                                                        @email  : changwskr@yahoo.co.kr
- *                                                        @version 1.0
- *  =============================================================================
+ * 
+ * @author : 장우승(WooSungJang)
+ * @company: IMS SYSTEM
+ * @email : changwskr@yahoo.co.kr
+ * @version 1.0
+ *          =============================================================================
  */
 
-public final class EPlatonEvent implements IEvent
-{
+public final class EPlatonEvent implements IEvent {
 
     private String action;
     private EPlatonCommonDTO common;
     private TPSVCINFODTO tpmsvc;
     private IDTO request;
     private IDTO response;
+    private String source;
+    private String type;
+    private Object data;
 
     /**
      * 기본 생성자.
      */
-    public EPlatonEvent()
-    {
-      this.action = "xxxxxxxx";
-      this.common = new EPlatonCommonDTO();
-      this.tpmsvc = new TPSVCINFODTO();
+    public EPlatonEvent() {
+        this.action = "xxxxxxxx";
+        this.common = new EPlatonCommonDTO();
+        this.tpmsvc = new TPSVCINFODTO();
     }
 
     /**
@@ -56,8 +55,7 @@ public final class EPlatonEvent implements IEvent
      *
      * @return EPlatonCommonDTO 공통 정보
      */
-    public EPlatonCommonDTO getCommon()
-    {
+    public EPlatonCommonDTO getCommon() {
         return common;
     }
 
@@ -66,13 +64,11 @@ public final class EPlatonEvent implements IEvent
      *
      * @param common 공통 정보
      */
-    public void setCommon(EPlatonCommonDTO common)
-    {
+    public void setCommon(EPlatonCommonDTO common) {
         this.common = common;
     }
 
-    public TPSVCINFODTO getTPSVCINFODTO()
-    {
+    public TPSVCINFODTO getTPSVCINFODTO() {
         return tpmsvc;
     }
 
@@ -81,71 +77,96 @@ public final class EPlatonEvent implements IEvent
      *
      * @param common 공통 정보
      */
-    public void setTPSVCINFO(TPSVCINFODTO tpmsvc)
-    {
+    public void setTPSVCINFO(TPSVCINFODTO tpmsvc) {
+        this.tpmsvc = tpmsvc;
+    }
+
+    public void setTPSVCINFODTO(TPSVCINFODTO tpmsvc) {
         this.tpmsvc = tpmsvc;
     }
 
     /**
      * @see com.chb.coses.framework.transfer.IEvent#setAction(String)
      */
-    public void setAction(String action)
-    {
+    public void setAction(String action) {
         this.action = action;
     }
 
     /**
      * @see com.chb.coses.framework.transfer.IEvent#getAction()
      */
-    public String getAction()
-    {
+    public String getAction() {
         return action;
     }
 
     /**
      * @see com.chb.coses.framework.transfer.IEvent#setRequest(IDTO)
      */
-    public void setRequest(IDTO request)
-    {
+    public void setRequest(IDTO request) {
         this.request = request;
     }
 
     /**
      * @see com.chb.coses.framework.transfer.IEvent#getRequest()
      */
-    public IDTO getRequest()
-    {
+    public IDTO getRequest() {
         return request;
     }
 
     /**
      * @see com.chb.coses.framework.transfer.IEvent#setResponse(IDTO)
      */
-    public void setResponse(IDTO response)
-    {
+    public void setResponse(IDTO response) {
         this.response = response;
     }
 
     /**
      * @see com.chb.coses.framework.transfer.IEvent#getResponse()
      */
-    public IDTO getResponse()
-    {
+    public IDTO getResponse() {
         return response;
+    }
+
+    @Override
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    @Override
+    public void setData(Object data) {
+        this.data = data;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Object getData() {
+        return data;
     }
 
     /**
      * @see java.lang.Object#toString()
      */
-    public String toString()
-    {
-        return "{" + getClass().getName() + "@" + this.hashCode() + Constants.LINE_SEPARATOR
-        + "(action=" + this.action + ")" + Constants.LINE_SEPARATOR
-        + "(common=" + this.common + ")" + Constants.LINE_SEPARATOR
-        + "(request=" + this.request + ")" + Constants.LINE_SEPARATOR
-        + "(response=" + this.response + ")}";
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("EPlatonEvent {");
+        sb.append(Constants.LINE_SEPARATOR);
+        sb.append("  source: ").append(source);
+        sb.append(Constants.LINE_SEPARATOR);
+        sb.append("  type: ").append(type);
+        sb.append(Constants.LINE_SEPARATOR);
+        sb.append("  data: ").append(data);
+        sb.append(Constants.LINE_SEPARATOR);
+        sb.append("}");
+        return sb.toString();
     }
 }
-
-
-

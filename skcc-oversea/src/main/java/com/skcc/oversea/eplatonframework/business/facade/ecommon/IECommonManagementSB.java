@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.eplatonframework.business.facade.ecommon;
+package com.skcc.oversea.eplatonframework.business.facade.ecommon;
 
 /**
  * <p>Title: </p>

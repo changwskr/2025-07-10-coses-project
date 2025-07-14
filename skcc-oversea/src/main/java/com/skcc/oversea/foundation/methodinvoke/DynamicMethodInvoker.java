@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.foundation.methodinvoke;
+package com.skcc.oversea.foundation.methodinvoke;
 
 /**
  * <p>Title: </p>

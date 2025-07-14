@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.teller.business.facade.helper;
+package com.skcc.oversea.teller.business.facade.helper;
 
 /**
  * <p>Title: </p>

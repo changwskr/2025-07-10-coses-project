@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.foundation.config;
+package com.skcc.oversea.foundation.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

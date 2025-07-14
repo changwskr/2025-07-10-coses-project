@@ -1,45 +1,20 @@
-﻿package com.skcc.oversea.cashCard.business.facade.dao;
+package com.skcc.oversea.cashCard.business.facade.dao;
 
-import com.skcc.oversea.framework.business.dao.*;
+import com.skcc.oversea.framework.business.dao.AbstractDAOFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
+public class CashCardDAOFactory extends AbstractDAOFactory {
 
-public class CashCardDAOFactory extends AbstractDAOFactory
-{
-    private static CashCardDAOFactory singleton = null;
+    @Autowired
+    private CashCardDAO cashCardDAO;
 
-    public CashCardDAOFactory()
-    {
-        super();
+    public CashCardDAO getCashCardDAO() {
+        return cashCardDAO;
     }
 
-    /*
-     * LendingDAOFactory의 instance를 돌려준다
-     */
-    public static CashCardDAOFactory getInstance()
-    {
-        if(CashCardDAOFactory.singleton == null){
-            CashCardDAOFactory.singleton = new CashCardDAOFactory();
-        }
-        return CashCardDAOFactory.singleton;
-    }
-
-    public IDAO getDAO()
-    {
-        switch(getDBMSType())
-        {
-            case DBMS_TYPE_ORACLE :
-                return new CashCardDAO();
-            /*case DBMS_TYPE_DB2 :
-                return new XXXDB2DAO();
-            case DBMS_TYPE_SYBASE :
-                return new XXXSybaseDAO();*/
-            default : throw new IllegalArgumentException();
-        }
-    }
-
-    public CashCardDAO getCashCardDAO()
-    {
-        return (CashCardDAO)getDAO();
+    public void setCashCardDAO(CashCardDAO cashCardDAO) {
+        this.cashCardDAO = cashCardDAO;
     }
 }
-

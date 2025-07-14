@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.framework.constant;
+package com.skcc.oversea.framework.constant;
 
 /**
  * <p>Title: </p>

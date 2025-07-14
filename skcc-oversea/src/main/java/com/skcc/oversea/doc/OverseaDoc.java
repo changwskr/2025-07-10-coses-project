@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.doc;
+package com.skcc.oversea.doc;
 
 
 /**

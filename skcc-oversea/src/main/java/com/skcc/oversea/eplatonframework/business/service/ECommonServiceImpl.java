@@ -42,7 +42,9 @@ public class ECommonServiceImpl implements ECommonService {
             // TODO: Add business logic
             // TODO: Add repository calls
 
-            event.setResponse("E system info retrieved successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("E system info retrieved successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("E system info retrieved successfully");
 
@@ -72,7 +74,9 @@ public class ECommonServiceImpl implements ECommonService {
             // TODO: Add business logic
             // TODO: Add repository calls
 
-            event.setResponse("E user info retrieved successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("E user info retrieved successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("E user info retrieved successfully");
 
@@ -102,7 +106,9 @@ public class ECommonServiceImpl implements ECommonService {
             // TODO: Add business logic
             // TODO: Add repository calls
 
-            event.setResponse("E session validated successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("E session validated successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("E session validated successfully");
 
@@ -132,7 +138,9 @@ public class ECommonServiceImpl implements ECommonService {
             // TODO: Add business logic
             // TODO: Add repository calls
 
-            event.setResponse("E configuration retrieved successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("E configuration retrieved successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("E configuration retrieved successfully");
 
@@ -162,7 +170,9 @@ public class ECommonServiceImpl implements ECommonService {
             // TODO: Add business logic
             // TODO: Add repository calls
 
-            event.setResponse("E configuration updated successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("E configuration updated successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("E configuration updated successfully");
 
@@ -192,7 +202,9 @@ public class ECommonServiceImpl implements ECommonService {
             // TODO: Add business logic
             // TODO: Add repository calls
 
-            event.setResponse("E audit log retrieved successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("E audit log retrieved successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("E audit log retrieved successfully");
 
@@ -222,7 +234,9 @@ public class ECommonServiceImpl implements ECommonService {
             // TODO: Add business logic
             // TODO: Add repository calls
 
-            event.setResponse("E cache cleared successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("E cache cleared successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("E cache cleared successfully");
 
@@ -252,7 +266,9 @@ public class ECommonServiceImpl implements ECommonService {
             // TODO: Add business logic
             // TODO: Add repository calls
 
-            event.setResponse("E reference data retrieved successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("E reference data retrieved successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("E reference data retrieved successfully");
 
@@ -282,7 +298,9 @@ public class ECommonServiceImpl implements ECommonService {
             // TODO: Add business logic
             // TODO: Add repository calls
 
-            event.setResponse("E transaction processed successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("E transaction processed successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("E transaction processed successfully");
 
@@ -294,6 +312,11 @@ public class ECommonServiceImpl implements ECommonService {
             setErrorInfo(event, "EECM901", "Failed to process E transaction: " + e.getMessage());
             return event;
         }
+    }
+
+    public String processCommonTransaction(String transactionId) {
+        // 공통 트랜잭션 처리 로직
+        return "SUCCESS";
     }
 
     /**
@@ -314,6 +337,11 @@ public class ECommonServiceImpl implements ECommonService {
             tpsvcinfo.setErrorcode(errorCode);
             tpsvcinfo.setError_message(errorMessage);
         }
+
+        // Set response as error message - create a simple response DTO
+        EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+        responseDTO.setReqName("ERROR");
+        event.setResponse(responseDTO);
     }
 
     /**

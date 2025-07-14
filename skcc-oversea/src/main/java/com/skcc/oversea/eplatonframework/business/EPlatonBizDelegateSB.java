@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.eplatonframework.business;
+package com.skcc.oversea.eplatonframework.business;
 
 import com.skcc.oversea.framework.business.delegate.IBizDelegate;
 import com.skcc.oversea.framework.transfer.IEvent;

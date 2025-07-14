@@ -4,31 +4,45 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/**
- * Cash Card Entity for SKCC Oversea
- * JPA entity replacing EJB entity bean
- */
 @Entity
 @Table(name = "CASH_CARD")
+@IdClass(CashCardPK.class)
 public class CashCard {
 
-    @EmbeddedId
-    private CashCardPK id;
+    @Id
+    @Column(name = "SEQUENCE_NO")
+    private int sequenceNo;
+
+    @Id
+    @Column(name = "CARD_NUMBER", length = 20)
+    private String cardNumber;
+
+    @Column(name = "BANK_CODE", length = 10)
+    private String bankCode;
+
+    @Column(name = "PRIMARY_ACCOUNT_NO", length = 20)
+    private String primaryAccountNo;
+
+    @Column(name = "BANK_TYPE", length = 10)
+    private String bankType;
 
     @Column(name = "BRANCH_CODE", length = 10)
     private String branchCode;
 
-    @Column(name = "TYPE", length = 2)
+    @Column(name = "TYPE", length = 10)
     private String type;
 
     @Column(name = "CIF_NO", length = 20)
     private String cifNo;
 
-    @Column(name = "PASSWORD_NO", length = 100)
+    @Column(name = "CIF_NAME", length = 100)
+    private String cifName;
+
+    @Column(name = "PASSWORD_NO", length = 20)
     private String passwordNo;
 
     @Column(name = "INVALID_ATTEMPT_CNT")
-    private Integer invalidAttemptCnt;
+    private int invalidAttemptCnt;
 
     @Column(name = "SECONDARY_ACCOUNT_NO", length = 20)
     private String secondaryAccountNo;
@@ -66,7 +80,7 @@ public class CashCard {
     @Column(name = "EXPIRY_DATE", length = 8)
     private String expiryDate;
 
-    @Column(name = "STATUS", length = 2)
+    @Column(name = "STATUS", length = 1)
     private String status;
 
     @Column(name = "INCIDENT_CODE", length = 10)
@@ -78,7 +92,7 @@ public class CashCard {
     @Column(name = "FEE_CCY", length = 3)
     private String feeCcy;
 
-    @Column(name = "FEE_AMOUNT", precision = 10, scale = 2)
+    @Column(name = "FEE_AMOUNT", precision = 15, scale = 2)
     private BigDecimal feeAmount;
 
     @Column(name = "REGISTER_DATE", length = 8)
@@ -105,9 +119,6 @@ public class CashCard {
     @Column(name = "MIS_SEND_DATE", length = 8)
     private String misSendDate;
 
-    @Column(name = "CIF_NAME", length = 100)
-    private String cifName;
-
     @Column(name = "ISSUE_DATE", length = 8)
     private String issueDate;
 
@@ -115,17 +126,52 @@ public class CashCard {
     public CashCard() {
     }
 
-    public CashCard(CashCardPK id) {
-        this.id = id;
+    public CashCard(int sequenceNo, String cardNumber, String bankCode, String primaryAccountNo) {
+        this.sequenceNo = sequenceNo;
+        this.cardNumber = cardNumber;
+        this.bankCode = bankCode;
+        this.primaryAccountNo = primaryAccountNo;
     }
 
     // Getters and Setters
-    public CashCardPK getId() {
-        return id;
+    public int getSequenceNo() {
+        return sequenceNo;
     }
 
-    public void setId(CashCardPK id) {
-        this.id = id;
+    public void setSequenceNo(int sequenceNo) {
+        this.sequenceNo = sequenceNo;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getBankCode() {
+        return bankCode;
+    }
+
+    public void setBankCode(String bankCode) {
+        this.bankCode = bankCode;
+    }
+
+    public String getPrimaryAccountNo() {
+        return primaryAccountNo;
+    }
+
+    public void setPrimaryAccountNo(String primaryAccountNo) {
+        this.primaryAccountNo = primaryAccountNo;
+    }
+
+    public String getBankType() {
+        return bankType;
+    }
+
+    public void setBankType(String bankType) {
+        this.bankType = bankType;
     }
 
     public String getBranchCode() {
@@ -152,6 +198,14 @@ public class CashCard {
         this.cifNo = cifNo;
     }
 
+    public String getCifName() {
+        return cifName;
+    }
+
+    public void setCifName(String cifName) {
+        this.cifName = cifName;
+    }
+
     public String getPasswordNo() {
         return passwordNo;
     }
@@ -160,11 +214,11 @@ public class CashCard {
         this.passwordNo = passwordNo;
     }
 
-    public Integer getInvalidAttemptCnt() {
+    public int getInvalidAttemptCnt() {
         return invalidAttemptCnt;
     }
 
-    public void setInvalidAttemptCnt(Integer invalidAttemptCnt) {
+    public void setInvalidAttemptCnt(int invalidAttemptCnt) {
         this.invalidAttemptCnt = invalidAttemptCnt;
     }
 
@@ -368,32 +422,11 @@ public class CashCard {
         this.misSendDate = misSendDate;
     }
 
-    public String getCifName() {
-        return cifName;
-    }
-
-    public void setCifName(String cifName) {
-        this.cifName = cifName;
-    }
-
     public String getIssueDate() {
         return issueDate;
     }
 
     public void setIssueDate(String issueDate) {
         this.issueDate = issueDate;
-    }
-
-    @Override
-    public String toString() {
-        return "CashCard{" +
-                "id=" + id +
-                ", branchCode='" + branchCode + '\'' +
-                ", type='" + type + '\'' +
-                ", cifNo='" + cifNo + '\'' +
-                ", status='" + status + '\'' +
-                ", effectiveDate='" + effectiveDate + '\'' +
-                ", expiryDate='" + expiryDate + '\'' +
-                '}';
     }
 }

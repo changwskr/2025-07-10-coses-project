@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.cashCard.business.cashCard;
+package com.skcc.oversea.cashCard.business.cashCard;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +15,8 @@ import com.skcc.oversea.cashCard.business.cashCard.model.*;
 import com.skcc.oversea.cashCard.business.cashCard.helper.*;
 import com.skcc.oversea.cashCard.business.cashCard.entity.*;
 import com.skcc.oversea.cashCard.business.cashCardRule.helper.IOBoundCardRegister;
+import com.skcc.oversea.cashCard.repository.CashCardRepository;
+import com.skcc.oversea.eplatonframework.business.repository.HotCardRepository;
 
 /**
  * Cash Card Service for SKCC Oversea
@@ -45,14 +47,16 @@ public class CashCardSBBean implements ICashCardSB {
 
         try {
             return cashCardRepository.findByPrimaryKey(
-                    new CashCardPK(cashCardDDTO.getSequenceNo(), cashCardDDTO.getCardNumber(),
-                            cashCardDDTO.getBankCode(), cashCardDDTO.getPrimaryAccountNo()));
+                    new CashCardPK(cashCardDDTO.getSequenceNo(), cashCardDDTO.getCardNumber()))
+                    .orElseThrow(() -> new CosesAppException("ERR_0125_ACCOUNT_NUMBER_DOES_NOT_EXIST",
+                            "Account number does not exist"));
         } catch (Exception e) {
-            CosesExceptionDetail detail = new CosesExceptionDetail("ERR_0125_ACCOUNT_NUMBER_DOES_NOT_EXIST");
+            CosesExceptionDetail detail = new CosesExceptionDetail("ERR_0125_ACCOUNT_NUMBER_DOES_NOT_EXIST",
+                    "Account number does not exist");
             detail.addMessage("PrimaryAccountNo", cashCardDDTO.getPrimaryAccountNo());
             detail.addArgument("CashCard System");
             detail.addArgument("findByCashCard()");
-            throw new CosesAppException(detail);
+            throw new CosesAppException("ERR_0125_ACCOUNT_NUMBER_DOES_NOT_EXIST", detail.toString());
         }
     }
 
@@ -62,13 +66,16 @@ public class CashCardSBBean implements ICashCardSB {
 
         try {
             return hotCardRepository.findByPrimaryKey(
-                    new HotCardPK(hotCardDDTO.getSequenceNo(), hotCardDDTO.getCardNumber()));
+                    new HotCardPK(hotCardDDTO.getSequenceNo(), hotCardDDTO.getCardNumber()))
+                    .orElseThrow(() -> new CosesAppException("ERR_0125_ACCOUNT_NUMBER_DOES_NOT_EXIST",
+                            "Account number does not exist"));
         } catch (Exception e) {
-            CosesExceptionDetail detail = new CosesExceptionDetail("ERR_0125_ACCOUNT_NUMBER_DOES_NOT_EXIST");
+            CosesExceptionDetail detail = new CosesExceptionDetail("ERR_0125_ACCOUNT_NUMBER_DOES_NOT_EXIST",
+                    "Account number does not exist");
             detail.addMessage("CardNumber", hotCardDDTO.getCardNumber());
             detail.addArgument("CashCard System");
             detail.addArgument("findByHotCard()");
-            throw new CosesAppException(detail);
+            throw new CosesAppException("ERR_0125_ACCOUNT_NUMBER_DOES_NOT_EXIST", detail.toString());
         }
     }
 
@@ -101,11 +108,11 @@ public class CashCardSBBean implements ICashCardSB {
 
             return cashCardDDTO;
         } catch (Exception e) {
-            CosesExceptionDetail detail = new CosesExceptionDetail("ERR_0182_ALREADY_EXISTING");
+            CosesExceptionDetail detail = new CosesExceptionDetail("ERR_0182_ALREADY_EXISTING", "Already existing");
             detail.addMessage("PrimaryAccountNo", cashCardDDTO.getPrimaryAccountNo());
             detail.addArgument("CashCard System");
             detail.addArgument("makeCashCard()");
-            throw new CosesAppException(detail);
+            throw new CosesAppException("ERR_0182_ALREADY_EXISTING", detail.toString());
         }
     }
 
@@ -115,14 +122,17 @@ public class CashCardSBBean implements ICashCardSB {
             throws CosesAppException {
         try {
             CashCard cashCard = cashCardRepository.findByCardNumber(commonDTO.getBankCode(),
-                    cashCardDDTO.getCardNumber());
+                    cashCardDDTO.getCardNumber())
+                    .orElseThrow(() -> new CosesAppException("ERR_0100_ACCOUNT_DOES_NOT_EXIST",
+                            "Account does not exist"));
             return DTOConverter.getCashCardDDTO(cashCard, cashCardDDTO);
         } catch (Exception e) {
-            CosesExceptionDetail detail = new CosesExceptionDetail("ERR_0100_ACCOUNT_DOES_NOT_EXIST");
+            CosesExceptionDetail detail = new CosesExceptionDetail("ERR_0100_ACCOUNT_DOES_NOT_EXIST",
+                    "Account does not exist");
             detail.addMessage("CardNumber", cashCardDDTO.getCardNumber());
             detail.addArgument("CashCard System");
             detail.addArgument("findCashCardInfoByCardNo()");
-            throw new CosesAppException(detail);
+            throw new CosesAppException("ERR_0100_ACCOUNT_DOES_NOT_EXIST", detail.toString());
         }
     }
 
@@ -154,11 +164,11 @@ public class CashCardSBBean implements ICashCardSB {
             DTOConverter.setHotCardDDTO(hotCardDDTO, hotCard);
             return hotCardDDTO;
         } catch (Exception e) {
-            CosesExceptionDetail detail = new CosesExceptionDetail("ERR_0182_ALREADY_EXISTING");
+            CosesExceptionDetail detail = new CosesExceptionDetail("ERR_0182_ALREADY_EXISTING", "Already existing");
             detail.addMessage("CardNumber", hotCardDDTO.getCardNumber());
             detail.addArgument("CashCard System");
             detail.addArgument("makeHotCard()");
-            throw new CosesAppException(detail);
+            throw new CosesAppException("ERR_0182_ALREADY_EXISTING", detail.toString());
         }
     }
 

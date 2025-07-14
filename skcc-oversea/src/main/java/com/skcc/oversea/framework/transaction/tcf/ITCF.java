@@ -1,21 +1,14 @@
-﻿package com.skcc.oversea.framework.transaction.tcf;
+package com.skcc.oversea.framework.transaction.tcf;
 
-/**
- * <p>Title: </p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2002</p>
- * <p>Company: </p>
- * @author unascribed
- * @version 1.0
- */
+import org.springframework.stereotype.Component;
 
-import java.rmi.*;
-import javax.ejb.*;
+@Component
+public interface ITCF {
 
-import com.skcc.oversea.eplatonframework.transfer.EPlatonEvent;
+  void initialize();
 
-public interface ITCF
-{
-  public EPlatonEvent execute(EPlatonEvent pevent,SessionContext session_context,String transaction_mode) ;
+  void cleanup();
+
+  boolean isAvailable();
 
 }

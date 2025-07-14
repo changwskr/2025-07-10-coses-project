@@ -10,7 +10,12 @@ import com.skcc.oversea.eplatonframework.transfer.EPlatonCommonDTO;
 import com.skcc.oversea.eplatonframework.transfer.TPSVCINFODTO;
 import com.skcc.oversea.foundation.logej.LOGEJ;
 import com.skcc.oversea.foundation.constant.Constants;
-import com.skcc.oversea.eplatonframework.business.delegate.action.TellerBizAction.TellerService;
+import com.skcc.oversea.eplatonframework.business.entity.Teller;
+import com.skcc.oversea.eplatonframework.business.repository.TellerRepository;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Teller Service Implementation for SKCC Oversea
@@ -26,81 +31,8 @@ public class TellerServiceImpl implements TellerService {
     @Autowired
     private TellerRepository tellerRepository;
 
-    /**
-     * Login teller
-     */
-    @Override
-    @Transactional
-    public EPlatonEvent loginTeller(EPlatonEvent event) {
-        try {
-            logger.info("Teller login attempt");
+    // =========================== EPlaton Event Methods ===========================
 
-            // Extract request data
-            Object requestData = event.getRequest();
-
-            // Validate request data
-            if (!isValidLoginTellerRequest(requestData)) {
-                setErrorInfo(event, "ETEL101", "Invalid login teller request data");
-                return event;
-            }
-
-            // Login teller logic here
-            // TellerSession session = tellerRepository.loginTeller(requestData);
-
-            // Set response
-            event.setResponse("Teller logged in successfully");
-            event.getTPSVCINFODTO().setErrorcode("I0000");
-            event.getTPSVCINFODTO().setError_message("Teller logged in successfully");
-
-            logger.info("Teller logged in successfully");
-            return event;
-
-        } catch (Exception e) {
-            logger.error("Error logging in teller", e);
-            setErrorInfo(event, "ETEL102", "Failed to login teller: " + e.getMessage());
-            return event;
-        }
-    }
-
-    /**
-     * Logout teller
-     */
-    @Override
-    @Transactional
-    public EPlatonEvent logoutTeller(EPlatonEvent event) {
-        try {
-            logger.info("Teller logout attempt");
-
-            // Extract request data
-            Object requestData = event.getRequest();
-
-            // Validate request data
-            if (!isValidLogoutTellerRequest(requestData)) {
-                setErrorInfo(event, "ETEL201", "Invalid logout teller request data");
-                return event;
-            }
-
-            // Logout teller logic here
-            // tellerRepository.logoutTeller(requestData);
-
-            // Set response
-            event.setResponse("Teller logged out successfully");
-            event.getTPSVCINFODTO().setErrorcode("I0000");
-            event.getTPSVCINFODTO().setError_message("Teller logged out successfully");
-
-            logger.info("Teller logged out successfully");
-            return event;
-
-        } catch (Exception e) {
-            logger.error("Error logging out teller", e);
-            setErrorInfo(event, "ETEL202", "Failed to logout teller: " + e.getMessage());
-            return event;
-        }
-    }
-
-    /**
-     * Get teller info
-     */
     @Override
     @Transactional(readOnly = true)
     public EPlatonEvent getTellerInfo(EPlatonEvent event) {
@@ -112,12 +44,12 @@ public class TellerServiceImpl implements TellerService {
 
             // Validate request data
             if (!isValidGetTellerInfoRequest(requestData)) {
-                setErrorInfo(event, "ETEL301", "Invalid get teller info request data");
+                setErrorInfo(event, "ETEL001", "Invalid get teller info request data");
                 return event;
             }
 
             // Get teller info logic here
-            // TellerInfo tellerInfo = tellerRepository.getTellerInfo(requestData);
+            // Teller teller = tellerRepository.getTellerInfo(requestData);
 
             // Set response
             event.setResponse("Teller info retrieved successfully");
@@ -129,156 +61,200 @@ public class TellerServiceImpl implements TellerService {
 
         } catch (Exception e) {
             logger.error("Error getting teller info", e);
-            setErrorInfo(event, "ETEL302", "Failed to get teller info: " + e.getMessage());
+            setErrorInfo(event, "ETEL002", "Failed to get teller info: " + e.getMessage());
             return event;
         }
     }
 
-    /**
-     * Update teller info
-     */
     @Override
     @Transactional
-    public EPlatonEvent updateTellerInfo(EPlatonEvent event) {
+    public EPlatonEvent createTeller(EPlatonEvent event) {
         try {
-            logger.info("Updating teller info");
+            logger.info("Creating teller");
 
             // Extract request data
             Object requestData = event.getRequest();
 
             // Validate request data
-            if (!isValidUpdateTellerInfoRequest(requestData)) {
-                setErrorInfo(event, "ETEL401", "Invalid update teller info request data");
+            if (!isValidCreateTellerRequest(requestData)) {
+                setErrorInfo(event, "ETEL101", "Invalid create teller request data");
                 return event;
             }
 
-            // Update teller info logic here
-            // TellerInfo tellerInfo = tellerRepository.updateTellerInfo(requestData);
+            // Create teller logic here
+            // Teller teller = tellerRepository.createTeller(requestData);
 
             // Set response
-            event.setResponse("Teller info updated successfully");
+            event.setResponse("Teller created successfully");
             event.getTPSVCINFODTO().setErrorcode("I0000");
-            event.getTPSVCINFODTO().setError_message("Teller info updated successfully");
+            event.getTPSVCINFODTO().setError_message("Teller created successfully");
 
-            logger.info("Teller info updated successfully");
+            logger.info("Teller created successfully");
             return event;
 
         } catch (Exception e) {
-            logger.error("Error updating teller info", e);
-            setErrorInfo(event, "ETEL402", "Failed to update teller info: " + e.getMessage());
+            logger.error("Error creating teller", e);
+            setErrorInfo(event, "ETEL102", "Failed to create teller: " + e.getMessage());
             return event;
         }
     }
 
-    /**
-     * Get teller permissions
-     */
+    @Override
+    @Transactional
+    public EPlatonEvent updateTeller(EPlatonEvent event) {
+        try {
+            logger.info("Updating teller");
+
+            // Extract request data
+            Object requestData = event.getRequest();
+
+            // Validate request data
+            if (!isValidUpdateTellerRequest(requestData)) {
+                setErrorInfo(event, "ETEL201", "Invalid update teller request data");
+                return event;
+            }
+
+            // Update teller logic here
+            // Teller teller = tellerRepository.updateTeller(requestData);
+
+            // Set response
+            event.setResponse("Teller updated successfully");
+            event.getTPSVCINFODTO().setErrorcode("I0000");
+            event.getTPSVCINFODTO().setError_message("Teller updated successfully");
+
+            logger.info("Teller updated successfully");
+            return event;
+
+        } catch (Exception e) {
+            logger.error("Error updating teller", e);
+            setErrorInfo(event, "ETEL202", "Failed to update teller: " + e.getMessage());
+            return event;
+        }
+    }
+
+    @Override
+    @Transactional
+    public EPlatonEvent deleteTeller(EPlatonEvent event) {
+        try {
+            logger.info("Deleting teller");
+
+            // Extract request data
+            Object requestData = event.getRequest();
+
+            // Validate request data
+            if (!isValidDeleteTellerRequest(requestData)) {
+                setErrorInfo(event, "ETEL301", "Invalid delete teller request data");
+                return event;
+            }
+
+            // Delete teller logic here
+            // tellerRepository.deleteTeller(requestData);
+
+            // Set response
+            event.setResponse("Teller deleted successfully");
+            event.getTPSVCINFODTO().setErrorcode("I0000");
+            event.getTPSVCINFODTO().setError_message("Teller deleted successfully");
+
+            logger.info("Teller deleted successfully");
+            return event;
+
+        } catch (Exception e) {
+            logger.error("Error deleting teller", e);
+            setErrorInfo(event, "ETEL302", "Failed to delete teller: " + e.getMessage());
+            return event;
+        }
+    }
+
     @Override
     @Transactional(readOnly = true)
-    public EPlatonEvent getTellerPermissions(EPlatonEvent event) {
+    public EPlatonEvent validateTeller(EPlatonEvent event) {
         try {
-            logger.info("Getting teller permissions");
+            logger.info("Validating teller");
 
             // Extract request data
             Object requestData = event.getRequest();
 
             // Validate request data
-            if (!isValidGetTellerPermissionsRequest(requestData)) {
-                setErrorInfo(event, "ETEL501", "Invalid get teller permissions request data");
+            if (!isValidValidateTellerRequest(requestData)) {
+                setErrorInfo(event, "ETEL401", "Invalid validate teller request data");
                 return event;
             }
 
-            // Get teller permissions logic here
-            // List<Permission> permissions =
-            // tellerRepository.getTellerPermissions(requestData);
+            // Validate teller logic here
+            // boolean isValid = tellerRepository.validateTeller(requestData);
 
             // Set response
-            event.setResponse("Teller permissions retrieved successfully");
+            event.setResponse("Teller validation completed successfully");
             event.getTPSVCINFODTO().setErrorcode("I0000");
-            event.getTPSVCINFODTO().setError_message("Teller permissions retrieved successfully");
+            event.getTPSVCINFODTO().setError_message("Teller validation completed successfully");
 
-            logger.info("Teller permissions retrieved successfully");
+            logger.info("Teller validation completed successfully");
             return event;
 
         } catch (Exception e) {
-            logger.error("Error getting teller permissions", e);
-            setErrorInfo(event, "ETEL502", "Failed to get teller permissions: " + e.getMessage());
+            logger.error("Error validating teller", e);
+            setErrorInfo(event, "ETEL402", "Failed to validate teller: " + e.getMessage());
             return event;
         }
     }
 
-    /**
-     * Validate teller session
-     */
+    // =========================== Controller Expected Methods
+    // ===========================
+
     @Override
-    @Transactional(readOnly = true)
-    public EPlatonEvent validateTellerSession(EPlatonEvent event) {
-        try {
-            logger.info("Validating teller session");
-
-            // Extract request data
-            Object requestData = event.getRequest();
-
-            // Validate request data
-            if (!isValidValidateTellerSessionRequest(requestData)) {
-                setErrorInfo(event, "ETEL601", "Invalid validate teller session request data");
-                return event;
-            }
-
-            // Validate teller session logic here
-            // boolean isValid = tellerRepository.validateTellerSession(requestData);
-
-            // Set response
-            event.setResponse("Teller session validated successfully");
-            event.getTPSVCINFODTO().setErrorcode("I0000");
-            event.getTPSVCINFODTO().setError_message("Teller session validated successfully");
-
-            logger.info("Teller session validated successfully");
-            return event;
-
-        } catch (Exception e) {
-            logger.error("Error validating teller session", e);
-            setErrorInfo(event, "ETEL602", "Failed to validate teller session: " + e.getMessage());
-            return event;
-        }
+    public List<Teller> findAll() {
+        logger.info("Finding all tellers");
+        return tellerRepository.findAll();
     }
 
-    /**
-     * Get teller transactions
-     */
     @Override
-    @Transactional(readOnly = true)
-    public EPlatonEvent getTellerTransactions(EPlatonEvent event) {
-        try {
-            logger.info("Getting teller transactions");
-
-            // Extract request data
-            Object requestData = event.getRequest();
-
-            // Validate request data
-            if (!isValidGetTellerTransactionsRequest(requestData)) {
-                setErrorInfo(event, "ETEL701", "Invalid get teller transactions request data");
-                return event;
-            }
-
-            // Get teller transactions logic here
-            // List<Transaction> transactions =
-            // tellerRepository.getTellerTransactions(requestData);
-
-            // Set response
-            event.setResponse("Teller transactions retrieved successfully");
-            event.getTPSVCINFODTO().setErrorcode("I0000");
-            event.getTPSVCINFODTO().setError_message("Teller transactions retrieved successfully");
-
-            logger.info("Teller transactions retrieved successfully");
-            return event;
-
-        } catch (Exception e) {
-            logger.error("Error getting teller transactions", e);
-            setErrorInfo(event, "ETEL702", "Failed to get teller transactions: " + e.getMessage());
-            return event;
-        }
+    public Teller findById(Long id) {
+        logger.info("Finding teller by ID: {}", id);
+        return tellerRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public Teller findByTellerId(String tellerId) {
+        logger.info("Finding teller by teller ID: {}", tellerId);
+        return tellerRepository.findByTellerId(tellerId).orElse(null);
+    }
+
+    @Override
+    public List<Teller> findByBranchCode(String branchCode) {
+        logger.info("Finding tellers by branch code: {}", branchCode);
+        return tellerRepository.findByBranchCode(branchCode);
+    }
+
+    @Override
+    public List<Teller> findByTellerType(String tellerType) {
+        logger.info("Finding tellers by teller type: {}", tellerType);
+        return tellerRepository.findByTellerType(tellerType);
+    }
+
+    @Override
+    public List<Teller> findByTellerStatus(String tellerStatus) {
+        logger.info("Finding tellers by teller status: {}", tellerStatus);
+        return tellerRepository.findByTellerStatus(tellerStatus);
+    }
+
+    @Override
+    public Teller save(Teller teller) {
+        logger.info("Saving teller: {}", teller.getTellerId());
+        return tellerRepository.save(teller);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        logger.info("Deleting teller by ID: {}", id);
+        tellerRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return tellerRepository.existsById(id);
+    }
+
+    // =========================== Private Methods ===========================
 
     /**
      * Set error information
@@ -298,34 +274,29 @@ public class TellerServiceImpl implements TellerService {
             tpsvcinfo.setErrorcode(errorCode);
             tpsvcinfo.setError_message(errorMessage);
         }
+
+        // Set response as error message
+        event.setResponse(errorMessage);
     }
 
     // Validation methods
-    private boolean isValidLoginTellerRequest(Object requestData) {
-        return requestData != null;
-    }
-
-    private boolean isValidLogoutTellerRequest(Object requestData) {
-        return requestData != null;
-    }
-
     private boolean isValidGetTellerInfoRequest(Object requestData) {
         return requestData != null;
     }
 
-    private boolean isValidUpdateTellerInfoRequest(Object requestData) {
+    private boolean isValidCreateTellerRequest(Object requestData) {
         return requestData != null;
     }
 
-    private boolean isValidGetTellerPermissionsRequest(Object requestData) {
+    private boolean isValidUpdateTellerRequest(Object requestData) {
         return requestData != null;
     }
 
-    private boolean isValidValidateTellerSessionRequest(Object requestData) {
+    private boolean isValidDeleteTellerRequest(Object requestData) {
         return requestData != null;
     }
 
-    private boolean isValidGetTellerTransactionsRequest(Object requestData) {
+    private boolean isValidValidateTellerRequest(Object requestData) {
         return requestData != null;
     }
 }

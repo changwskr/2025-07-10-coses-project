@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.foundation.utility;
+package com.skcc.oversea.foundation.utility;
 
 /**
  * <p>Title: </p>

@@ -110,4 +110,25 @@ public class ServiceResponse<T> {
     public boolean hasError() {
         return "ERROR".equals(status);
     }
+
+    /**
+     * Set success status
+     */
+    public void setSuccess(boolean success) {
+        this.status = success ? "SUCCESS" : "ERROR";
+    }
+
+    /**
+     * Set message (alias for setErrorMessage)
+     */
+    public void setMessage(String message) {
+        this.errorMessage = message;
+    }
+
+    /**
+     * Get message (alias for getErrorMessage)
+     */
+    public String getMessage() {
+        return this.errorMessage;
+    }
 }

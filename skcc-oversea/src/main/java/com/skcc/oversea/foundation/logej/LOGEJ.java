@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.foundation.logej;
+package com.skcc.oversea.foundation.logej;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,14 +9,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+import org.springframework.stereotype.Component;
 
-/**
- * Enhanced Logging Utility for SKCC Oversea Foundation
- * 
- * Provides enhanced logging capabilities with transaction tracking,
- * performance monitoring, and structured logging.
- */
+@Component
 public class LOGEJ {
+
+  private static LOGEJ instance;
+
+  public static LOGEJ getInstance() {
+    if (instance == null) {
+      instance = new LOGEJ();
+    }
+    return instance;
+  }
 
   private static final Logger logger = LoggerFactory.getLogger(LOGEJ.class);
 
@@ -126,6 +131,14 @@ public class LOGEJ {
   }
 
   /**
+   * Log audit event
+   */
+  public static void logAudit(String transactionId, String operation, String status, String details) {
+    logger.info("[AUDIT] TransactionId: {}, Operation: {}, Status: {}, Details: {}, Time: {}",
+        transactionId, operation, status, details, getCurrentTime());
+  }
+
+  /**
    * Get current timestamp
    */
   private static String getCurrentTime() {
@@ -174,5 +187,25 @@ public class LOGEJ {
   public static void eprintf(int mode, String systemname, String key, Exception pex) {
     logger.error("[LEGACY_ERROR] System: {}, Key: {}, Exception: {}",
         systemname, key, pex.getMessage(), pex);
+  }
+
+  public void info(String message) {
+    // INFO 레벨 로그
+    System.out.println("[INFO] " + message);
+  }
+
+  public void debug(String message) {
+    // DEBUG 레벨 로그
+    System.out.println("[DEBUG] " + message);
+  }
+
+  public void error(String message) {
+    // ERROR 레벨 로그
+    System.err.println("[ERROR] " + message);
+  }
+
+  public void warn(String message) {
+    // WARN 레벨 로그
+    System.out.println("[WARN] " + message);
   }
 }

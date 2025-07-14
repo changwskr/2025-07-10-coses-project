@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.deposit.transfer;
+package com.skcc.oversea.deposit.transfer;
 
 /**
  * <p>Title: </p>

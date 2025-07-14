@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.eplatonframework.business.dao;
+package com.skcc.oversea.eplatonframework.business.dao;
 
 import java.sql.Statement;
 import java.sql.ResultSet;

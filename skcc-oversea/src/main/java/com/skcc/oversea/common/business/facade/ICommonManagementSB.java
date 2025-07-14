@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.common.business.facade;
+package com.skcc.oversea.common.business.facade;
 
 import java.rmi.RemoteException;
 import com.skcc.oversea.framework.exception.CosesAppException;

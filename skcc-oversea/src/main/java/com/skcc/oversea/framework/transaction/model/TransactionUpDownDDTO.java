@@ -1,8 +1,7 @@
-﻿package com.skcc.oversea.framework.transaction.model;
+package com.skcc.oversea.framework.transaction.model;
 
 import com.skcc.oversea.framework.transfer.DTO;
 import com.skcc.oversea.foundation.utility.CommonUtil;
-
 
 /**
  * =============================================================================
@@ -13,18 +12,18 @@ import com.skcc.oversea.foundation.utility.CommonUtil;
  * =============================================================================
  * 변경내역 정보:
  * =============================================================================
- *  2004년 03월 16일 1차버전 release
+ * 2004년 03월 16일 1차버전 release
  *
  *
  * =============================================================================
- *                                                        @author : 장우승(WooSungJang)
- *                                                        @company: IMS SYSTEM
- *                                                        @email  : changwskr@yahoo.co.kr
- *                                                        @version 1.0
- *  =============================================================================
+ * 
+ * @author : 장우승(WooSungJang)
+ * @company: IMS SYSTEM
+ * @email : changwskr@yahoo.co.kr
+ * @version 1.0
+ *          =============================================================================
  */
-public class TransactionUpDownDDTO extends DTO
-{
+public class TransactionUpDownDDTO extends DTO {
   ////////////////////////////////////////////////////////////////////////////
   // COMMONDTO
   ////////////////////////////////////////////////////////////////////////////
@@ -79,272 +78,400 @@ public class TransactionUpDownDDTO extends DTO
   ////////////////////////////////////////////////////////////////////////////
   private String response_cdto;
 
-
-  public TransactionUpDownDDTO()
-  {
+  public TransactionUpDownDDTO() {
   }
+
   public String getBankCode() {
     return bankCode;
   }
+
   public String getBaseCurrency() {
     return baseCurrency;
   }
+
   public String getBranchCode() {
     return branchCode;
   }
+
   public String getBusinessDate() {
     return businessDate;
   }
+
   public String getChannelType() {
     return channelType;
   }
+
   public String getEventNo() {
     return eventNo;
   }
+
   public void setBankCode(String bankCode) {
     this.bankCode = bankCode;
   }
+
   public void setBaseCurrency(String baseCurrency) {
     this.baseCurrency = baseCurrency;
   }
+
   public void setBranchCode(String branchCode) {
     this.branchCode = branchCode;
   }
+
   public void setBusinessDate(String businessDate) {
     this.businessDate = businessDate;
   }
+
   public void setChannelType(String channelType) {
     this.channelType = channelType;
   }
+
   public void setEventNo(String eventNo) {
     this.eventNo = eventNo;
   }
+
   public void setFxRateCount(int fxRateCount) {
     this.fxRateCount = fxRateCount;
   }
+
   public void setGlPostBranchCode(String glPostBranchCode) {
     this.glPostBranchCode = glPostBranchCode;
   }
+
   public void setIPAddress(String IPAddress) {
     this.IPAddress = IPAddress;
   }
+
   public void setMultiPL(String multiPL) {
     this.multiPL = multiPL;
   }
+
   public int getFxRateCount() {
     return fxRateCount;
   }
+
   public String getGlPostBranchCode() {
     return glPostBranchCode;
   }
+
   public String getIPAddress() {
     return IPAddress;
   }
+
   public String getMultiPL() {
     return multiPL;
   }
+
   public String getNation() {
     return nation;
   }
+
   public String getRegionCode() {
     return regionCode;
   }
+
   public String getReqName() {
     return reqName;
   }
+
   public String getSystemDate() {
     return systemDate;
   }
+
   public String getSystemInTime() {
     return systemInTime;
   }
+
   public String getSystemOutTime() {
     return systemOutTime;
   }
+
   public String getTerminalID() {
     return terminalID;
   }
+
   public String getTerminalType() {
     return terminalType;
   }
+
   public String getTimeZone() {
     return timeZone;
   }
+
   public String getTransactionNo() {
     return transactionNo;
   }
+
   public String getUserID() {
     return userID;
   }
+
   public int getUserLevel() {
     return userLevel;
   }
+
   public String getXmlSeq() {
     return xmlSeq;
   }
+
   public void setSystemInTime(String systemInTime) {
     this.systemInTime = systemInTime;
   }
+
   public void setSystemDate(String systemDate) {
     this.systemDate = systemDate;
   }
+
   public void setReqName(String reqName) {
     this.reqName = reqName;
   }
+
   public void setRegionCode(String regionCode) {
     this.regionCode = regionCode;
   }
+
   public void setTerminalType(String terminalType) {
     this.terminalType = terminalType;
   }
+
   public void setTransactionNo(String transactionNo) {
     this.transactionNo = transactionNo;
   }
+
   public void setUserID(String userID) {
     this.userID = userID;
   }
+
   public void setUserLevel(int userLevel) {
     this.userLevel = userLevel;
   }
+
   public void setXmlSeq(String xmlSeq) {
     this.xmlSeq = xmlSeq;
   }
+
   public void setTimeZone(String timeZone) {
     this.timeZone = timeZone;
   }
+
   public void setTerminalID(String terminalID) {
     this.terminalID = terminalID;
   }
+
   public void setSystemOutTime(String systemOutTime) {
     this.systemOutTime = systemOutTime;
   }
+
   public void setNation(String nation) {
     this.nation = nation;
   }
+
   public String getAction_name() {
     return action_name;
   }
+
   public void setAction_name(String action_name) {
     this.action_name = action_name;
   }
+
   public String getCdto_name() {
     return cdto_name;
   }
+
   public void setCdto_name(String cdto_name) {
     this.cdto_name = cdto_name;
   }
+
   public String getError_message() {
     return error_message;
   }
+
   public void setError_message(String error_message) {
     this.error_message = error_message;
   }
+
   public void setErrorcode(String errorcode) {
     this.errorcode = errorcode;
   }
+
   public String getErrorcode() {
     return errorcode;
   }
+
   public String getHostseq() {
     return hostseq;
   }
+
   public void setHostseq(String hostseq) {
     this.hostseq = hostseq;
   }
+
   public String getOperation_method_name() {
     return operation_method_name;
   }
+
   public void setOperation_method_name(String operation_method_name) {
     this.operation_method_name = operation_method_name;
   }
+
   public void setOperation_name(String operation_name) {
     this.operation_name = operation_name;
   }
+
   public String getOperation_name() {
     return operation_name;
   }
+
   public String getOrgseq() {
     return orgseq;
   }
+
   public void setOrgseq(String orgseq) {
     this.orgseq = orgseq;
   }
+
   public void setRequest_cdto(String request_cdto) {
     this.request_cdto = request_cdto;
   }
+
   public String getRequest_cdto() {
     return request_cdto;
   }
+
   public String getResponse_cdto() {
     return response_cdto;
   }
+
   public String getSystem_date() {
     return system_date;
   }
+
   public String getSystem_name() {
     return system_name;
   }
+
   public void setSystem_name(String system_name) {
     this.system_name = system_name;
   }
+
   public void setSystem_date(String system_date) {
     this.system_date = system_date;
   }
+
   public void setResponse_cdto(String response_cdto) {
     this.response_cdto = response_cdto;
   }
+
   public String getTpfq() {
     return tpfq;
   }
+
   public void setTpfq(String tpfq) {
     this.tpfq = tpfq;
   }
+
   public void setTrclass(String trclass) {
     this.trclass = trclass;
   }
+
   public String getTrclass() {
     return trclass;
   }
+
   public String getTx_timer() {
     return tx_timer;
   }
+
   public void setTx_timer(String tx_timer) {
     this.tx_timer = tx_timer;
   }
+
   public String getWeb_intime() {
     return web_intime;
   }
+
   public String getWeb_outtime() {
     return web_outtime;
   }
+
   public String getWeb_timeout() {
     return web_timeout;
   }
+
   public void setWeb_intime(String web_intime) {
     this.web_intime = web_intime;
   }
+
   public void setWeb_outtime(String web_outtime) {
     this.web_outtime = web_outtime;
   }
+
   public void setWeb_timeout(String web_timeout) {
     this.web_timeout = web_timeout;
   }
+
   public String getHost_name() {
     return host_name;
   }
+
   public void setHost_name(String host_name) {
     this.host_name = host_name;
   }
+
   public String getBp_hostseq() {
     return bp_hostseq;
   }
+
   public void setBp_hostseq(String bp_hostseq) {
     this.bp_hostseq = bp_hostseq;
   }
 
-
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((terminalID == null) ? 0 : terminalID.hashCode());
+    result = prime * result + ((terminalType == null) ? 0 : terminalType.hashCode());
+    result = prime * result + ((xmlSeq == null) ? 0 : xmlSeq.hashCode());
+    result = prime * result + ((bankCode == null) ? 0 : bankCode.hashCode());
+    result = prime * result + ((branchCode == null) ? 0 : branchCode.hashCode());
+    result = prime * result + ((glPostBranchCode == null) ? 0 : glPostBranchCode.hashCode());
+    result = prime * result + ((channelType == null) ? 0 : channelType.hashCode());
+    result = prime * result + ((userID == null) ? 0 : userID.hashCode());
+    result = prime * result + ((eventNo == null) ? 0 : eventNo.hashCode());
+    result = prime * result + ((nation == null) ? 0 : nation.hashCode());
+    result = prime * result + ((regionCode == null) ? 0 : regionCode.hashCode());
+    result = prime * result + ((timeZone == null) ? 0 : timeZone.hashCode());
+    result = prime * result + fxRateCount;
+    result = prime * result + ((reqName == null) ? 0 : reqName.hashCode());
+    result = prime * result + ((systemDate == null) ? 0 : systemDate.hashCode());
+    result = prime * result + ((businessDate == null) ? 0 : businessDate.hashCode());
+    result = prime * result + ((systemInTime == null) ? 0 : systemInTime.hashCode());
+    result = prime * result + ((systemOutTime == null) ? 0 : systemOutTime.hashCode());
+    result = prime * result + ((transactionNo == null) ? 0 : transactionNo.hashCode());
+    result = prime * result + ((baseCurrency == null) ? 0 : baseCurrency.hashCode());
+    result = prime * result + ((multiPL == null) ? 0 : multiPL.hashCode());
+    result = prime * result + userLevel;
+    result = prime * result + ((IPAddress == null) ? 0 : IPAddress.hashCode());
+    result = prime * result + ((system_name == null) ? 0 : system_name.hashCode());
+    result = prime * result + ((operation_name == null) ? 0 : operation_name.hashCode());
+    result = prime * result + ((operation_method_name == null) ? 0 : operation_method_name.hashCode());
+    result = prime * result + ((cdto_name == null) ? 0 : cdto_name.hashCode());
+    result = prime * result + ((action_name == null) ? 0 : action_name.hashCode());
+    result = prime * result + ((hostseq == null) ? 0 : hostseq.hashCode());
+    result = prime * result + ((orgseq == null) ? 0 : orgseq.hashCode());
+    result = prime * result + ((tx_timer == null) ? 0 : tx_timer.hashCode());
+    result = prime * result + ((tpfq == null) ? 0 : tpfq.hashCode());
+    result = prime * result + ((errorcode == null) ? 0 : errorcode.hashCode());
+    result = prime * result + ((trclass == null) ? 0 : trclass.hashCode());
+    result = prime * result + ((bp_hostseq == null) ? 0 : bp_hostseq.hashCode());
+    result = prime * result + ((web_timeout == null) ? 0 : web_timeout.hashCode());
+    result = prime * result + ((web_intime == null) ? 0 : web_intime.hashCode());
+    result = prime * result + ((web_outtime == null) ? 0 : web_outtime.hashCode());
+    result = prime * result + ((system_date == null) ? 0 : system_date.hashCode());
+    result = prime * result + ((error_message == null) ? 0 : error_message.hashCode());
+    result = prime * result + ((host_name == null) ? 0 : host_name.hashCode());
+    result = prime * result + ((request_cdto == null) ? 0 : request_cdto.hashCode());
+    result = prime * result + ((response_cdto == null) ? 0 : response_cdto.hashCode());
+    return result;
+  }
 }
-
-
-
-

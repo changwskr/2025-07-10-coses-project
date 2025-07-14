@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.deposit.business.facade.dao;
+package com.skcc.oversea.deposit.business.facade.dao;
 
 /**
  * <p>Title: </p>

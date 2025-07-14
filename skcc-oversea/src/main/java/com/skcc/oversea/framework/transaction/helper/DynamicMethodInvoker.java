@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.framework.transaction.helper;
+package com.skcc.oversea.framework.transaction.helper;
 
 
 import java.lang.reflect.*;

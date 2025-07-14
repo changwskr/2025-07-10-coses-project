@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.eplatonframework.business.model;
+package com.skcc.oversea.eplatonframework.business.model;
 
 /**
  * <p>Title: </p>

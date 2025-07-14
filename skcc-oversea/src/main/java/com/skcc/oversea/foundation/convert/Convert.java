@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.foundation.convert;
+package com.skcc.oversea.foundation.convert;
 
 /**
  * <p>Title: </p>

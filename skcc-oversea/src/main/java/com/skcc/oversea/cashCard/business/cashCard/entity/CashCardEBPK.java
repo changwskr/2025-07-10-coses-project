@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.cashCard.business.cashCard.entity;
+package com.skcc.oversea.cashCard.business.cashCard.entity;
 
 import java.io.*;
 import java.math.*;

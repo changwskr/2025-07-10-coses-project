@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.cashCard.business.facade.helper;
+package com.skcc.oversea.cashCard.business.facade.helper;
 
 import com.skcc.oversea.cashCard.transfer.*;
 import com.skcc.oversea.cashCard.business.cashCard.model.*;

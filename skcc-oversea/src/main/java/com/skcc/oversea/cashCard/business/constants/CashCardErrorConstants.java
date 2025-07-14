@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.cashCard.business.constants;
+package com.skcc.oversea.cashCard.business.constants;
 
 public class CashCardErrorConstants
 {

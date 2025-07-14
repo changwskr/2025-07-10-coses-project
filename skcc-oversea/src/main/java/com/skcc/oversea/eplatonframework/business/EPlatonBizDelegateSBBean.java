@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.eplatonframework.business;
+package com.skcc.oversea.eplatonframework.business;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +10,7 @@ import com.skcc.oversea.foundation.constant.Constants;
 import com.skcc.oversea.eplatonframework.transfer.EPlatonEvent;
 import com.skcc.oversea.eplatonframework.business.delegate.action.EPlatonBizAction;
 import com.skcc.oversea.framework.transaction.tcf.TCF;
+import com.skcc.oversea.eplatonframework.transfer.EPlatonCommonDTO;
 
 /**
  * EPlaton Business Delegate Service Bean for SKCC Oversea
@@ -183,11 +184,16 @@ public class EPlatonBizDelegateSBBean {
       return (EPlatonEvent) result;
     }
 
-    // Otherwise, create a new event with the result
+    // Otherwise, create a new event with the result as response
     EPlatonEvent newEvent = new EPlatonEvent();
     newEvent.setTPSVCINFODTO(originalEvent.getTPSVCINFODTO());
     newEvent.setCommon(originalEvent.getCommon());
-    newEvent.setRequest(result);
+    newEvent.setRequest(originalEvent.getRequest());
+
+    // Create a proper response DTO
+    EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+    responseDTO.setReqName(result.toString());
+    newEvent.setResponse(responseDTO);
 
     return newEvent;
   }

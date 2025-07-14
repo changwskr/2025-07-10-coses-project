@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.framework.transaction.delegate.action;
+package com.skcc.oversea.framework.transaction.delegate.action;
 
 import com.skcc.oversea.framework.transfer.IEvent;
 

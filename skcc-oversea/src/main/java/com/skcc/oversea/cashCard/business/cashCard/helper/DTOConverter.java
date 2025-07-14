@@ -1,143 +1,130 @@
-﻿package com.skcc.oversea.cashCard.business.cashCard.helper;
-//test 1
-//test 2
+package com.skcc.oversea.cashCard.business.cashCard.helper;
 
 import com.skcc.oversea.foundation.log.Log;
 
 import com.skcc.oversea.cashCard.business.cashCard.model.*;
 import com.skcc.oversea.cashCard.business.cashCard.entity.*;
 
-public class DTOConverter
-{
-    public static CashCardDDTO getCashCardDDTO(CashCardEB cashCardEB,
-            CashCardDDTO cashCardDDTO)
-    {
-        cashCardDDTO.setBankCode(cashCardEB.getBankCode());
-        cashCardDDTO.setBankType(cashCardEB.getBankType());
-        cashCardDDTO.setBranchCode(cashCardEB.getBranchCode());
-        //cashCardDDTO.setCardHolderName(cashCardEB.getCardHolderName());
-        cashCardDDTO.setCardNumber(cashCardEB.getCardNumber());
-        cashCardDDTO.setCIFNo(cashCardEB.getCifNo());
-        cashCardDDTO.setCIFName(cashCardEB.getCifName());
-        cashCardDDTO.setDailyAccumAmount(cashCardEB.getDailyAccumAmount());
-        cashCardDDTO.setDailyAccumResetDate(cashCardEB.getDailyAccumResetDate());
-        cashCardDDTO.setDailyAccumResetTime(cashCardEB.getDailyAccumResetTime());
-        cashCardDDTO.setDailyLimitAmount(cashCardEB.getDailyLimitAmount());
-        cashCardDDTO.setDailyLimitCcy(cashCardEB.getDailyLimitCcy());
-        cashCardDDTO.setDailyTrfAccumAmount(cashCardEB.getDailyTrfAccumAmount());
-        cashCardDDTO.setDailyTrfLimitAmount(cashCardEB.getDailyTrfLimitAmount());
-        cashCardDDTO.setDailyTrfLimitCcy(cashCardEB.getDailyTrfLimitCcy());
-        cashCardDDTO.setEffectiveDate(cashCardEB.getEffectiveDate());
-        cashCardDDTO.setExpiryDate(cashCardEB.getExpiryDate());
-        cashCardDDTO.setFeeAmount(cashCardEB.getFeeAmount());
-        cashCardDDTO.setFeeCcy(cashCardEB.getFeeCcy());
-        cashCardDDTO.setFeeWaive(cashCardEB.getFeeWaive());
-        cashCardDDTO.setIncidentCode(cashCardEB.getIncidentCode());
-        cashCardDDTO.setInvalidAttemptCnt(cashCardEB.getInvalidAttemptCnt());
-        cashCardDDTO.setLastUpdateDate(cashCardEB.getLastUpdateDate());
-        cashCardDDTO.setLastUpdateTime(cashCardEB.getLastUpdateTime());
-        cashCardDDTO.setLastUpdateUserID(cashCardEB.getLastUpdateUserId());
-        cashCardDDTO.setMISSendDate(cashCardEB.getMisSendDate());
-        cashCardDDTO.setPasswordNo(cashCardEB.getPasswordNo());
-        cashCardDDTO.setPrimaryAccountNo(cashCardEB.getPrimaryAccountNo());
-        cashCardDDTO.setRegisterBy(cashCardEB.getRegisterBy());
-        cashCardDDTO.setRegisterDate(cashCardEB.getRegisterDate());
-        cashCardDDTO.setRegisterTime(cashCardEB.getRegisterTime());
-        cashCardDDTO.setRemark(cashCardEB.getRemark());
-        cashCardDDTO.setSecondaryAccountNo(cashCardEB.getSecondaryAccountNo());
-        cashCardDDTO.setSequenceNo(cashCardEB.getSequenceNo());
-        cashCardDDTO.setStatus(cashCardEB.getStatus());
-        cashCardDDTO.setTernaryAccountNo(cashCardEB.getTernaryAccountNo());
-        cashCardDDTO.setType(cashCardEB.getType());
-        cashCardDDTO.setIssueDate(cashCardEB.getIssueDate());
+public class DTOConverter {
+    public static CashCardDDTO getCashCardDDTO(CashCard cashCard,
+            CashCardDDTO cashCardDDTO) {
+        cashCardDDTO.setBankCode(cashCard.getBankCode());
+        cashCardDDTO.setBankType(cashCard.getBankType());
+        cashCardDDTO.setBranchCode(cashCard.getBranchCode());
+        // cashCardDDTO.setCardHolderName(cashCard.getCardHolderName());
+        cashCardDDTO.setCardNumber(cashCard.getCardNumber());
+        cashCardDDTO.setCIFNo(cashCard.getCifNo());
+        cashCardDDTO.setCIFName(cashCard.getCifName());
+        cashCardDDTO.setDailyAccumAmount(cashCard.getDailyAccumAmount());
+        cashCardDDTO.setDailyAccumResetDate(cashCard.getDailyAccumResetDate());
+        cashCardDDTO.setDailyAccumResetTime(cashCard.getDailyAccumResetTime());
+        cashCardDDTO.setDailyLimitAmount(cashCard.getDailyLimitAmount());
+        cashCardDDTO.setDailyLimitCcy(cashCard.getDailyLimitCcy());
+        cashCardDDTO.setDailyTrfAccumAmount(cashCard.getDailyTrfAccumAmount());
+        cashCardDDTO.setDailyTrfLimitAmount(cashCard.getDailyTrfLimitAmount());
+        cashCardDDTO.setDailyTrfLimitCcy(cashCard.getDailyTrfLimitCcy());
+        cashCardDDTO.setEffectiveDate(cashCard.getEffectiveDate());
+        cashCardDDTO.setExpiryDate(cashCard.getExpiryDate());
+        cashCardDDTO.setFeeAmount(cashCard.getFeeAmount());
+        cashCardDDTO.setFeeCcy(cashCard.getFeeCcy());
+        cashCardDDTO.setFeeWaive(cashCard.getFeeWaive());
+        cashCardDDTO.setIncidentCode(cashCard.getIncidentCode());
+        cashCardDDTO.setInvalidAttemptCnt(cashCard.getInvalidAttemptCnt());
+        cashCardDDTO.setLastUpdateDate(cashCard.getLastUpdateDate());
+        cashCardDDTO.setLastUpdateTime(cashCard.getLastUpdateTime());
+        cashCardDDTO.setLastUpdateUserID(cashCard.getLastUpdateUserId());
+        cashCardDDTO.setMISSendDate(cashCard.getMisSendDate());
+        cashCardDDTO.setPasswordNo(cashCard.getPasswordNo());
+        cashCardDDTO.setPrimaryAccountNo(cashCard.getPrimaryAccountNo());
+        cashCardDDTO.setRegisterBy(cashCard.getRegisterBy());
+        cashCardDDTO.setRegisterDate(cashCard.getRegisterDate());
+        cashCardDDTO.setRegisterTime(cashCard.getRegisterTime());
+        cashCardDDTO.setRemark(cashCard.getRemark());
+        cashCardDDTO.setSecondaryAccountNo(cashCard.getSecondaryAccountNo());
+        cashCardDDTO.setSequenceNo(cashCard.getSequenceNo());
+        cashCardDDTO.setStatus(cashCard.getStatus());
+        cashCardDDTO.setTernaryAccountNo(cashCard.getTernaryAccountNo());
+        cashCardDDTO.setType(cashCard.getType());
+        cashCardDDTO.setIssueDate(cashCard.getIssueDate());
 
         return cashCardDDTO;
     }
 
-    public static void setCashCardDDTO(CashCardDDTO cashCardDDTO, CashCardEB cashCardEB)
-    {
-        if(Log.SDBLogger.isDebugEnabled())
-        {
+    public static void setCashCardDDTO(CashCardDDTO cashCardDDTO, CashCard cashCard) {
+        if (Log.SDBLogger.isDebugEnabled()) {
             Log.SDBLogger.debug("CashCardDDTO : " + cashCardDDTO.toString());
         }
 
-        //cashCardEB.setBranchCode(cashCardDDTO.getBranchCode());
-        //cashCardEB.setCardHolderName(cashCardDDTO.getCardHolderName());
-        //cashCardEB.setCardNumber(cashCardDDTO.getCardNumber());
-        cashCardEB.setCifNo(cashCardDDTO.getCIFNo());
-        cashCardEB.setCifName(cashCardDDTO.getCIFName());
-        cashCardEB.setDailyAccumAmount(cashCardDDTO.getDailyAccumAmount());
-        cashCardEB.setDailyAccumResetDate(cashCardDDTO.getDailyAccumResetDate());
-        cashCardEB.setDailyAccumResetTime(cashCardDDTO.getDailyAccumResetTime());
-        cashCardEB.setDailyLimitAmount(cashCardDDTO.getDailyLimitAmount());
-        cashCardEB.setDailyLimitCcy(cashCardDDTO.getDailyLimitCcy());
-        cashCardEB.setDailyTrfAccumAmount(cashCardDDTO.getDailyTrfAccumAmount());
-        cashCardEB.setDailyTrfLimitAmount(cashCardDDTO.getDailyTrfLimitAmount());
-        cashCardEB.setDailyTrfLimitCcy(cashCardDDTO.getDailyTrfLimitCcy());
-        cashCardEB.setEffectiveDate(cashCardDDTO.getEffectiveDate());
-        cashCardEB.setExpiryDate(cashCardDDTO.getExpiryDate());
-        cashCardEB.setFeeAmount(cashCardDDTO.getFeeAmount());
-        cashCardEB.setFeeCcy(cashCardDDTO.getFeeCcy());
-        cashCardEB.setFeeWaive(cashCardDDTO.getFeeWaive());
-        cashCardEB.setIncidentCode(cashCardDDTO.getIncidentCode());
-        cashCardEB.setInvalidAttemptCnt(cashCardDDTO.getInvalidAttemptCnt());
-        cashCardEB.setLastUpdateDate(cashCardDDTO.getLastUpdateDate());
-        cashCardEB.setLastUpdateTime(cashCardDDTO.getLastUpdateTime());
-        cashCardEB.setLastUpdateUserId(cashCardDDTO.getLastUpdateUserID());
-        cashCardEB.setMisSendDate(cashCardDDTO.getMISSendDate());
-        cashCardEB.setPasswordNo(cashCardDDTO.getPasswordNo());
-        cashCardEB.setRegisterBy(cashCardDDTO.getRegisterBy());
-        cashCardEB.setRegisterDate(cashCardDDTO.getRegisterDate());
-        cashCardEB.setRegisterTime(cashCardDDTO.getRegisterTime());
-        cashCardEB.setRemark(cashCardDDTO.getRemark());
-        cashCardEB.setSecondaryAccountNo(cashCardDDTO.getSecondaryAccountNo());
-        cashCardEB.setStatus(cashCardDDTO.getStatus());
-        cashCardEB.setTernaryAccountNo(cashCardDDTO.getTernaryAccountNo());
-        cashCardEB.setIssueDate(cashCardDDTO.getIssueDate());
-        cashCardEB.setMisSendDate(cashCardDDTO.getMISSendDate());
+        // cashCard.setBranchCode(cashCardDDTO.getBranchCode());
+        // cashCard.setCardHolderName(cashCardDDTO.getCardHolderName());
+        // cashCard.setCardNumber(cashCardDDTO.getCardNumber());
+        cashCard.setCifNo(cashCardDDTO.getCIFNo());
+        cashCard.setCifName(cashCardDDTO.getCIFName());
+        cashCard.setDailyAccumAmount(cashCardDDTO.getDailyAccumAmount());
+        cashCard.setDailyAccumResetDate(cashCardDDTO.getDailyAccumResetDate());
+        cashCard.setDailyAccumResetTime(cashCardDDTO.getDailyAccumResetTime());
+        cashCard.setDailyLimitAmount(cashCardDDTO.getDailyLimitAmount());
+        cashCard.setDailyLimitCcy(cashCardDDTO.getDailyLimitCcy());
+        cashCard.setDailyTrfAccumAmount(cashCardDDTO.getDailyTrfAccumAmount());
+        cashCard.setDailyTrfLimitAmount(cashCardDDTO.getDailyTrfLimitAmount());
+        cashCard.setDailyTrfLimitCcy(cashCardDDTO.getDailyTrfLimitCcy());
+        cashCard.setEffectiveDate(cashCardDDTO.getEffectiveDate());
+        cashCard.setExpiryDate(cashCardDDTO.getExpiryDate());
+        cashCard.setFeeAmount(cashCardDDTO.getFeeAmount());
+        cashCard.setFeeCcy(cashCardDDTO.getFeeCcy());
+        cashCard.setFeeWaive(cashCardDDTO.getFeeWaive());
+        cashCard.setIncidentCode(cashCardDDTO.getIncidentCode());
+        cashCard.setInvalidAttemptCnt(cashCardDDTO.getInvalidAttemptCnt());
+        cashCard.setLastUpdateDate(cashCardDDTO.getLastUpdateDate());
+        cashCard.setLastUpdateTime(cashCardDDTO.getLastUpdateTime());
+        cashCard.setLastUpdateUserId(cashCardDDTO.getLastUpdateUserID());
+        cashCard.setMisSendDate(cashCardDDTO.getMISSendDate());
+        cashCard.setPasswordNo(cashCardDDTO.getPasswordNo());
+        cashCard.setRegisterBy(cashCardDDTO.getRegisterBy());
+        cashCard.setRegisterDate(cashCardDDTO.getRegisterDate());
+        cashCard.setRegisterTime(cashCardDDTO.getRegisterTime());
+        cashCard.setRemark(cashCardDDTO.getRemark());
+        cashCard.setSecondaryAccountNo(cashCardDDTO.getSecondaryAccountNo());
+        cashCard.setTernaryAccountNo(cashCardDDTO.getTernaryAccountNo());
+        cashCard.setIssueDate(cashCardDDTO.getIssueDate());
     }
 
-    public static HotCardDDTO getHotCardCDTO(HotCardEB hotCardEB, HotCardDDTO hotCardDDTO)
-    {
-        //hotCardDDTO.setCardHolderName(hotCardEB.getCardHolderName());
-        hotCardDDTO.setCardNumber(hotCardEB.getCardNumber());
-        hotCardDDTO.setCIFNo(hotCardEB.getCifNo());
-        hotCardDDTO.setCIFName(hotCardEB.getCifName());
-        //hotCardDDTO.setEffectiveDate(hotCardEB.getEffectiveDate());
-        //hotCardDDTO.setExpiryDate(hotCardEB.getExpiryDate());
-        hotCardDDTO.setIncidentCode(hotCardEB.getIncidentCode());
-        hotCardDDTO.setPrimaryAccountNo(hotCardEB.getPrimaryAccountNo());
-        hotCardDDTO.setRegisterBy(hotCardEB.getRegisterBy());
-        hotCardDDTO.setRegisterDate(hotCardEB.getRegisterDate());
-        hotCardDDTO.setRegisterTime(hotCardEB.getRegisterTime());
-        hotCardDDTO.setRemark(hotCardEB.getRemark());
-        hotCardDDTO.setSequenceNo(hotCardEB.getSequenceNo());
-        hotCardDDTO.setStatus(hotCardEB.getStatus());
-        hotCardDDTO.setReleasedBy(hotCardEB.getReleasedBy());
-        hotCardDDTO.setReleasedDate(hotCardEB.getReleasedDate());
-        hotCardDDTO.setReleasedTime(hotCardEB.getReleasedTime());
+    public static HotCardDDTO getHotCardCDTO(HotCard hotCard,
+            HotCardDDTO hotCardDDTO) {
+        hotCardDDTO.setCardNumber(hotCard.getCardNumber());
+        hotCardDDTO.setPrimaryAccountNo(hotCard.getPrimaryAccountNo());
+        hotCardDDTO.setCIFNo(hotCard.getCifNo());
+        hotCardDDTO.setCIFName(hotCard.getCifName());
+        hotCardDDTO.setStatus(hotCard.getStatus());
+        hotCardDDTO.setIncidentCode(hotCard.getIncidentCode());
+        hotCardDDTO.setRegisterDate(hotCard.getRegisterDate());
+        hotCardDDTO.setRegisterTime(hotCard.getRegisterTime());
+        hotCardDDTO.setRegisterBy(hotCard.getRegisterBy());
+        hotCardDDTO.setReleasedDate(hotCard.getReleasedDate());
+        hotCardDDTO.setReleasedTime(hotCard.getReleasedTime());
+        hotCardDDTO.setReleasedBy(hotCard.getReleasedBy());
+        hotCardDDTO.setRemark(hotCard.getRemark());
+        hotCardDDTO.setSequenceNo(hotCard.getSequenceNo());
 
         return hotCardDDTO;
     }
 
-    public static void setHotCardDDTO(HotCardDDTO hotCardDDTO, HotCardEB hotCardEB)
-    {
-        //hotCardEB.setCardHolderName(hotCardDDTO.getCardHolderName());
-        hotCardEB.setCifNo(hotCardDDTO.getCIFNo());
-        hotCardEB.setCifName(hotCardDDTO.getCIFName());
-        //hotCardEB.setEffectiveDate(hotCardDDTO.getEffectiveDate());
-        //hotCardEB.setExpiryDate(hotCardDDTO.getExpiryDate());
-        hotCardEB.setIncidentCode(hotCardDDTO.getIncidentCode());
-        hotCardEB.setPrimaryAccountNo(hotCardDDTO.getPrimaryAccountNo());
-        hotCardEB.setRegisterBy(hotCardDDTO.getRegisterBy());
-        hotCardEB.setRegisterDate(hotCardDDTO.getRegisterDate());
-        hotCardEB.setRegisterTime(hotCardDDTO.getRegisterTime());
-        hotCardEB.setRemark(hotCardDDTO.getRemark());
-        hotCardEB.setStatus(hotCardDDTO.getStatus());
-        hotCardEB.setReleasedBy(hotCardDDTO.getReleasedBy());
-        hotCardEB.setReleasedDate(hotCardDDTO.getReleasedDate());
-        hotCardEB.setReleasedTime(hotCardDDTO.getReleasedTime());
+    public static void setHotCardDDTO(HotCardDDTO hotCardDDTO, HotCard hotCard) {
+        if (Log.SDBLogger.isDebugEnabled()) {
+            Log.SDBLogger.debug("HotCardDDTO : " + hotCardDDTO.toString());
+        }
+
+        hotCard.setPrimaryAccountNo(hotCardDDTO.getPrimaryAccountNo());
+        hotCard.setCifNo(hotCardDDTO.getCIFNo());
+        hotCard.setCifName(hotCardDDTO.getCIFName());
+        hotCard.setStatus(hotCardDDTO.getStatus());
+        hotCard.setIncidentCode(hotCardDDTO.getIncidentCode());
+        hotCard.setRegisterDate(hotCardDDTO.getRegisterDate());
+        hotCard.setRegisterTime(hotCardDDTO.getRegisterTime());
+        hotCard.setRegisterBy(hotCardDDTO.getRegisterBy());
+        hotCard.setReleasedDate(hotCardDDTO.getReleasedDate());
+        hotCard.setReleasedTime(hotCardDDTO.getReleasedTime());
+        hotCard.setReleasedBy(hotCardDDTO.getReleasedBy());
+        hotCard.setRemark(hotCardDDTO.getRemark());
     }
 }
-
-

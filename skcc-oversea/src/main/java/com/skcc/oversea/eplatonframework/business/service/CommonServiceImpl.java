@@ -10,7 +10,11 @@ import com.skcc.oversea.eplatonframework.transfer.EPlatonCommonDTO;
 import com.skcc.oversea.eplatonframework.transfer.TPSVCINFODTO;
 import com.skcc.oversea.foundation.logej.LOGEJ;
 import com.skcc.oversea.foundation.constant.Constants;
-import com.skcc.oversea.eplatonframework.business.delegate.action.CommonBizAction.CommonService;
+import com.skcc.oversea.eplatonframework.business.entity.Common;
+import com.skcc.oversea.eplatonframework.business.repository.CommonRepository;
+
+import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Common Service Implementation for SKCC Oversea
@@ -26,257 +30,224 @@ public class CommonServiceImpl implements CommonService {
     @Autowired
     private CommonRepository commonRepository;
 
-    /**
-     * Get system info
-     */
+    // =========================== EPlaton Event Methods ===========================
+
     @Override
     @Transactional(readOnly = true)
-    public EPlatonEvent getSystemInfo(EPlatonEvent event) {
+    public EPlatonEvent getCommonInfo(EPlatonEvent event) {
         try {
-            logger.info("Getting system info");
+            logger.info("Getting common info");
 
             // Extract request data
             Object requestData = event.getRequest();
 
             // Validate request data
-            if (!isValidGetSystemInfoRequest(requestData)) {
-                setErrorInfo(event, "ECOM101", "Invalid get system info request data");
+            if (!isValidGetCommonInfoRequest(requestData)) {
+                setErrorInfo(event, "ECOM001", "Invalid get common info request data");
                 return event;
             }
 
-            // Get system info logic here
-            // SystemInfo systemInfo = commonRepository.getSystemInfo(requestData);
+            // Get common info logic here
+            // Common common = commonRepository.getCommonInfo(requestData);
 
             // Set response
-            event.setResponse("System info retrieved successfully");
+            event.setResponse("Common info retrieved successfully");
             event.getTPSVCINFODTO().setErrorcode("I0000");
-            event.getTPSVCINFODTO().setError_message("System info retrieved successfully");
+            event.getTPSVCINFODTO().setError_message("Common info retrieved successfully");
 
-            logger.info("System info retrieved successfully");
+            logger.info("Common info retrieved successfully");
             return event;
 
         } catch (Exception e) {
-            logger.error("Error getting system info", e);
-            setErrorInfo(event, "ECOM102", "Failed to get system info: " + e.getMessage());
+            logger.error("Error getting common info", e);
+            setErrorInfo(event, "ECOM002", "Failed to get common info: " + e.getMessage());
             return event;
         }
     }
 
-    /**
-     * Get user info
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public EPlatonEvent getUserInfo(EPlatonEvent event) {
-        try {
-            logger.info("Getting user info");
-
-            // Extract request data
-            Object requestData = event.getRequest();
-
-            // Validate request data
-            if (!isValidGetUserInfoRequest(requestData)) {
-                setErrorInfo(event, "ECOM201", "Invalid get user info request data");
-                return event;
-            }
-
-            // Get user info logic here
-            // UserInfo userInfo = commonRepository.getUserInfo(requestData);
-
-            // Set response
-            event.setResponse("User info retrieved successfully");
-            event.getTPSVCINFODTO().setErrorcode("I0000");
-            event.getTPSVCINFODTO().setError_message("User info retrieved successfully");
-
-            logger.info("User info retrieved successfully");
-            return event;
-
-        } catch (Exception e) {
-            logger.error("Error getting user info", e);
-            setErrorInfo(event, "ECOM202", "Failed to get user info: " + e.getMessage());
-            return event;
-        }
-    }
-
-    /**
-     * Validate session
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public EPlatonEvent validateSession(EPlatonEvent event) {
-        try {
-            logger.info("Validating session");
-
-            // Extract request data
-            Object requestData = event.getRequest();
-
-            // Validate request data
-            if (!isValidValidateSessionRequest(requestData)) {
-                setErrorInfo(event, "ECOM301", "Invalid validate session request data");
-                return event;
-            }
-
-            // Validate session logic here
-            // boolean isValid = commonRepository.validateSession(requestData);
-
-            // Set response
-            event.setResponse("Session validated successfully");
-            event.getTPSVCINFODTO().setErrorcode("I0000");
-            event.getTPSVCINFODTO().setError_message("Session validated successfully");
-
-            logger.info("Session validated successfully");
-            return event;
-
-        } catch (Exception e) {
-            logger.error("Error validating session", e);
-            setErrorInfo(event, "ECOM302", "Failed to validate session: " + e.getMessage());
-            return event;
-        }
-    }
-
-    /**
-     * Get configuration
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public EPlatonEvent getConfiguration(EPlatonEvent event) {
-        try {
-            logger.info("Getting configuration");
-
-            // Extract request data
-            Object requestData = event.getRequest();
-
-            // Validate request data
-            if (!isValidGetConfigurationRequest(requestData)) {
-                setErrorInfo(event, "ECOM401", "Invalid get configuration request data");
-                return event;
-            }
-
-            // Get configuration logic here
-            // Configuration config = commonRepository.getConfiguration(requestData);
-
-            // Set response
-            event.setResponse("Configuration retrieved successfully");
-            event.getTPSVCINFODTO().setErrorcode("I0000");
-            event.getTPSVCINFODTO().setError_message("Configuration retrieved successfully");
-
-            logger.info("Configuration retrieved successfully");
-            return event;
-
-        } catch (Exception e) {
-            logger.error("Error getting configuration", e);
-            setErrorInfo(event, "ECOM402", "Failed to get configuration: " + e.getMessage());
-            return event;
-        }
-    }
-
-    /**
-     * Update configuration
-     */
     @Override
     @Transactional
-    public EPlatonEvent updateConfiguration(EPlatonEvent event) {
+    public EPlatonEvent createCommon(EPlatonEvent event) {
         try {
-            logger.info("Updating configuration");
+            logger.info("Creating common");
 
             // Extract request data
             Object requestData = event.getRequest();
 
             // Validate request data
-            if (!isValidUpdateConfigurationRequest(requestData)) {
-                setErrorInfo(event, "ECOM501", "Invalid update configuration request data");
+            if (!isValidCreateCommonRequest(requestData)) {
+                setErrorInfo(event, "ECOM101", "Invalid create common request data");
                 return event;
             }
 
-            // Update configuration logic here
-            // Configuration config = commonRepository.updateConfiguration(requestData);
+            // Create common logic here
+            // Common common = commonRepository.createCommon(requestData);
 
             // Set response
-            event.setResponse("Configuration updated successfully");
+            event.setResponse("Common created successfully");
             event.getTPSVCINFODTO().setErrorcode("I0000");
-            event.getTPSVCINFODTO().setError_message("Configuration updated successfully");
+            event.getTPSVCINFODTO().setError_message("Common created successfully");
 
-            logger.info("Configuration updated successfully");
+            logger.info("Common created successfully");
             return event;
 
         } catch (Exception e) {
-            logger.error("Error updating configuration", e);
-            setErrorInfo(event, "ECOM502", "Failed to update configuration: " + e.getMessage());
+            logger.error("Error creating common", e);
+            setErrorInfo(event, "ECOM102", "Failed to create common: " + e.getMessage());
             return event;
         }
     }
 
-    /**
-     * Get audit log
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public EPlatonEvent getAuditLog(EPlatonEvent event) {
-        try {
-            logger.info("Getting audit log");
-
-            // Extract request data
-            Object requestData = event.getRequest();
-
-            // Validate request data
-            if (!isValidGetAuditLogRequest(requestData)) {
-                setErrorInfo(event, "ECOM601", "Invalid get audit log request data");
-                return event;
-            }
-
-            // Get audit log logic here
-            // List<AuditLog> auditLogs = commonRepository.getAuditLog(requestData);
-
-            // Set response
-            event.setResponse("Audit log retrieved successfully");
-            event.getTPSVCINFODTO().setErrorcode("I0000");
-            event.getTPSVCINFODTO().setError_message("Audit log retrieved successfully");
-
-            logger.info("Audit log retrieved successfully");
-            return event;
-
-        } catch (Exception e) {
-            logger.error("Error getting audit log", e);
-            setErrorInfo(event, "ECOM602", "Failed to get audit log: " + e.getMessage());
-            return event;
-        }
-    }
-
-    /**
-     * Clear cache
-     */
     @Override
     @Transactional
-    public EPlatonEvent clearCache(EPlatonEvent event) {
+    public EPlatonEvent updateCommon(EPlatonEvent event) {
         try {
-            logger.info("Clearing cache");
+            logger.info("Updating common");
 
             // Extract request data
             Object requestData = event.getRequest();
 
             // Validate request data
-            if (!isValidClearCacheRequest(requestData)) {
-                setErrorInfo(event, "ECOM701", "Invalid clear cache request data");
+            if (!isValidUpdateCommonRequest(requestData)) {
+                setErrorInfo(event, "ECOM201", "Invalid update common request data");
                 return event;
             }
 
-            // Clear cache logic here
-            // commonRepository.clearCache(requestData);
+            // Update common logic here
+            // Common common = commonRepository.updateCommon(requestData);
 
             // Set response
-            event.setResponse("Cache cleared successfully");
+            event.setResponse("Common updated successfully");
             event.getTPSVCINFODTO().setErrorcode("I0000");
-            event.getTPSVCINFODTO().setError_message("Cache cleared successfully");
+            event.getTPSVCINFODTO().setError_message("Common updated successfully");
 
-            logger.info("Cache cleared successfully");
+            logger.info("Common updated successfully");
             return event;
 
         } catch (Exception e) {
-            logger.error("Error clearing cache", e);
-            setErrorInfo(event, "ECOM702", "Failed to clear cache: " + e.getMessage());
+            logger.error("Error updating common", e);
+            setErrorInfo(event, "ECOM202", "Failed to update common: " + e.getMessage());
             return event;
         }
     }
+
+    @Override
+    @Transactional
+    public EPlatonEvent deleteCommon(EPlatonEvent event) {
+        try {
+            logger.info("Deleting common");
+
+            // Extract request data
+            Object requestData = event.getRequest();
+
+            // Validate request data
+            if (!isValidDeleteCommonRequest(requestData)) {
+                setErrorInfo(event, "ECOM301", "Invalid delete common request data");
+                return event;
+            }
+
+            // Delete common logic here
+            // commonRepository.deleteCommon(requestData);
+
+            // Set response
+            event.setResponse("Common deleted successfully");
+            event.getTPSVCINFODTO().setErrorcode("I0000");
+            event.getTPSVCINFODTO().setError_message("Common deleted successfully");
+
+            logger.info("Common deleted successfully");
+            return event;
+
+        } catch (Exception e) {
+            logger.error("Error deleting common", e);
+            setErrorInfo(event, "ECOM302", "Failed to delete common: " + e.getMessage());
+            return event;
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public EPlatonEvent validateCommon(EPlatonEvent event) {
+        try {
+            logger.info("Validating common");
+
+            // Extract request data
+            Object requestData = event.getRequest();
+
+            // Validate request data
+            if (!isValidValidateCommonRequest(requestData)) {
+                setErrorInfo(event, "ECOM401", "Invalid validate common request data");
+                return event;
+            }
+
+            // Validate common logic here
+            // boolean isValid = commonRepository.validateCommon(requestData);
+
+            // Set response
+            event.setResponse("Common validation completed successfully");
+            event.getTPSVCINFODTO().setErrorcode("I0000");
+            event.getTPSVCINFODTO().setError_message("Common validation completed successfully");
+
+            logger.info("Common validation completed successfully");
+            return event;
+
+        } catch (Exception e) {
+            logger.error("Error validating common", e);
+            setErrorInfo(event, "ECOM402", "Failed to validate common: " + e.getMessage());
+            return event;
+        }
+    }
+
+    // =========================== Controller Expected Methods
+    // ===========================
+
+    @Override
+    public List<Common> findAll() {
+        logger.info("Finding all commons");
+        return commonRepository.findAll();
+    }
+
+    @Override
+    public Common findById(Long id) {
+        logger.info("Finding common by ID: {}", id);
+        return commonRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Common findByCommonCode(String commonCode) {
+        logger.info("Finding common by code: {}", commonCode);
+        return commonRepository.findByCommonCode(commonCode).orElse(null);
+    }
+
+    @Override
+    public List<Common> findByCommonType(String commonType) {
+        logger.info("Finding commons by type: {}", commonType);
+        return commonRepository.findByCommonType(commonType);
+    }
+
+    @Override
+    public List<Common> findActiveCommons() {
+        logger.info("Finding active commons");
+        return commonRepository.findByIsActive(true);
+    }
+
+    @Override
+    public Common save(Common common) {
+        logger.info("Saving common: {}", common.getCommonCode());
+        return commonRepository.save(common);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        logger.info("Deleting common by ID: {}", id);
+        commonRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return commonRepository.existsById(id);
+    }
+
+    // =========================== Private Methods ===========================
 
     /**
      * Set error information
@@ -296,34 +267,29 @@ public class CommonServiceImpl implements CommonService {
             tpsvcinfo.setErrorcode(errorCode);
             tpsvcinfo.setError_message(errorMessage);
         }
+
+        // Set response as error message
+        event.setResponse(errorMessage);
     }
 
     // Validation methods
-    private boolean isValidGetSystemInfoRequest(Object requestData) {
+    private boolean isValidGetCommonInfoRequest(Object requestData) {
         return requestData != null;
     }
 
-    private boolean isValidGetUserInfoRequest(Object requestData) {
+    private boolean isValidCreateCommonRequest(Object requestData) {
         return requestData != null;
     }
 
-    private boolean isValidValidateSessionRequest(Object requestData) {
+    private boolean isValidUpdateCommonRequest(Object requestData) {
         return requestData != null;
     }
 
-    private boolean isValidGetConfigurationRequest(Object requestData) {
+    private boolean isValidDeleteCommonRequest(Object requestData) {
         return requestData != null;
     }
 
-    private boolean isValidUpdateConfigurationRequest(Object requestData) {
-        return requestData != null;
-    }
-
-    private boolean isValidGetAuditLogRequest(Object requestData) {
-        return requestData != null;
-    }
-
-    private boolean isValidClearCacheRequest(Object requestData) {
+    private boolean isValidValidateCommonRequest(Object requestData) {
         return requestData != null;
     }
 }

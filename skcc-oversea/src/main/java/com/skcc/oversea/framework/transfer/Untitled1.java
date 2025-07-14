@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.framework.transfer;
+package com.skcc.oversea.framework.transfer;
 
 /**
  * <p>Title: </p>

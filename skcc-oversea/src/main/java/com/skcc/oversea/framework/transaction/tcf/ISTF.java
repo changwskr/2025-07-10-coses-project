@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.framework.transaction.tcf;
+package com.skcc.oversea.framework.transaction.tcf;
 
 /**
  * <p>Title: </p>

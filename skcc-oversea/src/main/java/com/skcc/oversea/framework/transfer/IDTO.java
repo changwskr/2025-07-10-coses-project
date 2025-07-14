@@ -1,30 +1,15 @@
 package com.skcc.oversea.framework.transfer;
 
-import java.io.Serializable;
+public interface IDTO {
+    String getId();
 
-/**
- * Interface for Data Transfer Objects
- * Replaces com.chb.coses.framework.transfer.IDTO
- */
-public interface IDTO extends Serializable {
+    void setId(String id);
 
-    /**
-     * Clone this DTO
-     */
-    IDTO clone();
+    String getStatus();
 
-    /**
-     * Convert to string representation
-     */
-    String toString();
+    void setStatus(String status);
 
-    /**
-     * Check if this DTO equals another object
-     */
-    boolean equals(Object obj);
+    String getMessage();
 
-    /**
-     * Get hash code
-     */
-    int hashCode();
+    void setMessage(String message);
 }

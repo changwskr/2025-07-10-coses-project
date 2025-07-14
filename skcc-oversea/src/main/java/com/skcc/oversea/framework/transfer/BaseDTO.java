@@ -1,65 +1,36 @@
 package com.skcc.oversea.framework.transfer;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.skcc.oversea.foundation.constant.Constants;
-
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-/**
- * Base DTO class for SKCC Oversea Framework
- * 
- * Provides common fields and functionality for all DTOs.
- */
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class BaseDTO {
 
-    private String transactionId;
-    private String transactionType;
-
-    @JsonFormat(pattern = Constants.DATETIME_FORMAT_YYYY_MM_DD_HH_MM_SS)
-    private LocalDateTime timestamp;
-
+    private String id;
     private String status;
-    private String errorCode;
-    private String errorMessage;
+    private String message;
+    private LocalDateTime createDate;
+    private LocalDateTime updateDate;
 
-    // Default constructor
     public BaseDTO() {
-        this.timestamp = LocalDateTime.now();
-        this.status = Constants.TXN_STATUS_INITIATED;
+        this.createDate = LocalDateTime.now();
     }
 
-    // Constructor with transaction info
-    public BaseDTO(String transactionId, String transactionType) {
-        this();
-        this.transactionId = transactionId;
-        this.transactionType = transactionType;
+    public String formatDateTime(LocalDateTime dateTime) {
+        if (dateTime == null) {
+            return "";
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATETIME_FORMAT_YYYY_MM_DD_HH_MM_SS);
+        return dateTime.format(formatter);
     }
 
     // Getters and Setters
-    public String getTransactionId() {
-        return transactionId;
+    public String getId() {
+        return id;
     }
 
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
-    }
-
-    public String getTransactionType() {
-        return transactionType;
-    }
-
-    public void setTransactionType(String transactionType) {
-        this.transactionType = transactionType;
-    }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getStatus() {
@@ -70,57 +41,27 @@ public class BaseDTO {
         this.status = status;
     }
 
-    public String getErrorCode() {
-        return errorCode;
+    public String getMessage() {
+        return message;
     }
 
-    public void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getErrorMessage() {
-        return errorMessage;
+    public LocalDateTime getCreateDate() {
+        return createDate;
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
     }
 
-    /**
-     * Check if transaction was successful
-     */
-    public boolean isSuccess() {
-        return Constants.ERROR_CODE_SUCCESS.equals(errorCode) ||
-                Constants.TXN_STATUS_SUCCESS.equals(status);
+    public LocalDateTime getUpdateDate() {
+        return updateDate;
     }
 
-    /**
-     * Set success status
-     */
-    public void setSuccess() {
-        this.status = Constants.TXN_STATUS_SUCCESS;
-        this.errorCode = Constants.ERROR_CODE_SUCCESS;
-        this.errorMessage = "Transaction completed successfully";
-    }
-
-    /**
-     * Set error status
-     */
-    public void setError(String errorCode, String errorMessage) {
-        this.status = Constants.TXN_STATUS_FAILED;
-        this.errorCode = errorCode;
-        this.errorMessage = errorMessage;
-    }
-
-    @Override
-    public String toString() {
-        return "BaseDTO{" +
-                "transactionId='" + transactionId + '\'' +
-                ", transactionType='" + transactionType + '\'' +
-                ", timestamp=" + timestamp +
-                ", status='" + status + '\'' +
-                ", errorCode='" + errorCode + '\'' +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+    public void setUpdateDate(LocalDateTime updateDate) {
+        this.updateDate = updateDate;
     }
 }

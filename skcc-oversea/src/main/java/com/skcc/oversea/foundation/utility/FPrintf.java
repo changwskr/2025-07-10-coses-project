@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.foundation.utility;
+package com.skcc.oversea.foundation.utility;
 
 //
 // (c) 2000 Sun Microsystems, Inc.

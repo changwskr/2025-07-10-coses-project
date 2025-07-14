@@ -11,6 +11,14 @@ import com.skcc.oversea.eplatonframework.transfer.TPSVCINFODTO;
 import com.skcc.oversea.foundation.logej.LOGEJ;
 import com.skcc.oversea.foundation.constant.Constants;
 import com.skcc.oversea.eplatonframework.business.delegate.action.CashCardBizAction.CashCardService;
+import com.skcc.oversea.eplatonframework.business.entity.CashCard;
+import com.skcc.oversea.eplatonframework.business.repository.CashCardRepository;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Cash Card Service Implementation for SKCC Oversea
@@ -48,7 +56,9 @@ public class CashCardServiceImpl implements CashCardService {
             // CashCard card = cashCardRepository.createCard(requestData);
 
             // Set response
-            event.setResponse("Card created successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("Card created successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("Card created successfully");
 
@@ -84,7 +94,9 @@ public class CashCardServiceImpl implements CashCardService {
             // CashCard card = cashCardRepository.updateCard(requestData);
 
             // Set response
-            event.setResponse("Card updated successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("Card updated successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("Card updated successfully");
 
@@ -120,7 +132,9 @@ public class CashCardServiceImpl implements CashCardService {
             // cashCardRepository.deleteCard(requestData);
 
             // Set response
-            event.setResponse("Card deleted successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("Card deleted successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("Card deleted successfully");
 
@@ -156,7 +170,9 @@ public class CashCardServiceImpl implements CashCardService {
             // CashCard card = cashCardRepository.getCard(requestData);
 
             // Set response
-            event.setResponse("Card data retrieved successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("Card data retrieved successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("Card data retrieved successfully");
 
@@ -192,7 +208,9 @@ public class CashCardServiceImpl implements CashCardService {
             // List<CashCard> cards = cashCardRepository.getCardList(requestData);
 
             // Set response
-            event.setResponse("Card list retrieved successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("Card list retrieved successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("Card list retrieved successfully");
 
@@ -228,7 +246,9 @@ public class CashCardServiceImpl implements CashCardService {
             // cashCardRepository.blockCard(requestData);
 
             // Set response
-            event.setResponse("Card blocked successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("Card blocked successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("Card blocked successfully");
 
@@ -264,7 +284,9 @@ public class CashCardServiceImpl implements CashCardService {
             // cashCardRepository.unblockCard(requestData);
 
             // Set response
-            event.setResponse("Card unblocked successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("Card unblocked successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("Card unblocked successfully");
 
@@ -296,6 +318,11 @@ public class CashCardServiceImpl implements CashCardService {
             tpsvcinfo.setErrorcode(errorCode);
             tpsvcinfo.setError_message(errorMessage);
         }
+
+        // Set response as error message - create a simple response DTO
+        EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+        responseDTO.setReqName("ERROR");
+        event.setResponse(responseDTO);
     }
 
     // Validation methods
@@ -329,5 +356,105 @@ public class CashCardServiceImpl implements CashCardService {
 
     private boolean isValidGetCardBalanceRequest(Object requestData) {
         return requestData != null;
+    }
+
+    // =========================== Controller Expected Methods
+    // ===========================
+
+    public List<CashCard> findAll() {
+        logger.info("Finding all cash cards");
+        return cashCardRepository.findAll();
+    }
+
+    public CashCard findById(String cardId) {
+        logger.info("Finding cash card by ID: {}", cardId);
+        // Implementation depends on how cardId maps to CashCardPK
+        return null; // TODO: Implement based on cardId to CashCardPK mapping
+    }
+
+    public CashCard save(CashCard cashCard) {
+        logger.info("Saving cash card: {}", cashCard.getCardNumber());
+        return cashCardRepository.save(cashCard);
+    }
+
+    public void deleteById(String cardId) {
+        logger.info("Deleting cash card by ID: {}", cardId);
+        // Implementation depends on how cardId maps to CashCardPK
+        // TODO: Implement based on cardId to CashCardPK mapping
+    }
+
+    public boolean existsById(String cardId) {
+        logger.info("Checking if cash card exists by ID: {}", cardId);
+        // Implementation depends on how cardId maps to CashCardPK
+        return false; // TODO: Implement based on cardId to CashCardPK mapping
+    }
+
+    public List<CashCard> getAllCashCards() {
+        logger.info("Getting all cash cards");
+        return cashCardRepository.findAll();
+    }
+
+    public CashCard getCashCardById(Long id) {
+        logger.info("Getting cash card by ID: {}", id);
+        // Implementation depends on how Long id maps to CashCardPK
+        return null; // TODO: Implement based on Long id to CashCardPK mapping
+    }
+
+    public CashCard getCashCardByCardNo(String cardNo) {
+        logger.info("Getting cash card by card number: {}", cardNo);
+        // Implementation depends on how cardNo maps to CashCardPK
+        return null; // TODO: Implement based on cardNo to CashCardPK mapping
+    }
+
+    public List<CashCard> getCashCardsByCustomerId(String customerId) {
+        logger.info("Getting cash cards by customer ID: {}", customerId);
+        // Implementation depends on how customerId maps to CashCardPK
+        return new ArrayList<>(); // TODO: Implement based on customerId to CashCardPK mapping
+    }
+
+    public CashCard createCashCard(CashCard cashCard) {
+        logger.info("Creating cash card: {}", cashCard.getCardNumber());
+        return cashCardRepository.save(cashCard);
+    }
+
+    public CashCard updateCashCard(CashCard cashCard) {
+        logger.info("Updating cash card: {}", cashCard.getCardNumber());
+        if (cashCardRepository.existsById(cashCard.getPrimaryKey())) {
+            return cashCardRepository.save(cashCard);
+        }
+        return null;
+    }
+
+    public boolean deleteCashCard(Long id) {
+        logger.info("Deleting cash card by ID: {}", id);
+        // Implementation depends on how Long id maps to CashCardPK
+        // TODO: Implement based on Long id to CashCardPK mapping
+        return false;
+    }
+
+    public List<CashCard> getCashCardsByStatus(String status) {
+        logger.info("Getting cash cards by status: {}", status);
+        // Implementation depends on status field in CashCard entity
+        return new ArrayList<>(); // TODO: Implement based on status field
+    }
+
+    public List<CashCard> getExpiredCashCards() {
+        logger.info("Getting expired cash cards");
+        // Implementation depends on expiration field in CashCard entity
+        return new ArrayList<>(); // TODO: Implement based on expiration field
+    }
+
+    public CashCard updateCardBalance(Long id, BigDecimal newBalance) {
+        logger.info("Updating card balance for ID: {} to {}", id, newBalance);
+        // Implementation depends on how Long id maps to CashCardPK
+        // TODO: Implement based on Long id to CashCardPK mapping
+        return null;
+    }
+
+    public CashCard updateCardStatus(Long id, String status) {
+        logger.info("Updating card status for ID: {} to {}", id, status);
+        // Implementation depends on how Long id maps to CashCardPK
+        // TODO: Implement based on Long id to CashCardPK mapping
+        return null;
     }
 }

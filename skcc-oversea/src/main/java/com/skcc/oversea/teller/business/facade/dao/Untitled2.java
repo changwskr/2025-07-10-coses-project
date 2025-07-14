@@ -1,4 +1,4 @@
-﻿package com.skcc.oversea.teller.business.facade.dao;
+package com.skcc.oversea.teller.business.facade.dao;
 
 /**
  * <p>Title: </p>

@@ -48,7 +48,9 @@ public class SPcommonServiceImpl implements SPcommonService {
             // SPSystemInfo spSystemInfo = spcommonRepository.getSPSystemInfo(requestData);
 
             // Set response
-            event.setResponse("SP system info retrieved successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("SP system info retrieved successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("SP system info retrieved successfully");
 
@@ -84,7 +86,9 @@ public class SPcommonServiceImpl implements SPcommonService {
             // SPUserInfo spUserInfo = spcommonRepository.getSPUserInfo(requestData);
 
             // Set response
-            event.setResponse("SP user info retrieved successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("SP user info retrieved successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("SP user info retrieved successfully");
 
@@ -120,7 +124,9 @@ public class SPcommonServiceImpl implements SPcommonService {
             // boolean isValid = spcommonRepository.validateSPSession(requestData);
 
             // Set response
-            event.setResponse("SP session validated successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("SP session validated successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("SP session validated successfully");
 
@@ -157,7 +163,9 @@ public class SPcommonServiceImpl implements SPcommonService {
             // spcommonRepository.getSPConfiguration(requestData);
 
             // Set response
-            event.setResponse("SP configuration retrieved successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("SP configuration retrieved successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("SP configuration retrieved successfully");
 
@@ -194,7 +202,9 @@ public class SPcommonServiceImpl implements SPcommonService {
             // spcommonRepository.updateSPConfiguration(requestData);
 
             // Set response
-            event.setResponse("SP configuration updated successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("SP configuration updated successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("SP configuration updated successfully");
 
@@ -230,7 +240,9 @@ public class SPcommonServiceImpl implements SPcommonService {
             // List<SPAuditLog> spAuditLogs = spcommonRepository.getSPAuditLog(requestData);
 
             // Set response
-            event.setResponse("SP audit log retrieved successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("SP audit log retrieved successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("SP audit log retrieved successfully");
 
@@ -266,7 +278,9 @@ public class SPcommonServiceImpl implements SPcommonService {
             // spcommonRepository.clearSPCache(requestData);
 
             // Set response
-            event.setResponse("SP cache cleared successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("SP cache cleared successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("SP cache cleared successfully");
 
@@ -303,7 +317,9 @@ public class SPcommonServiceImpl implements SPcommonService {
             // spcommonRepository.getSPReferenceData(requestData);
 
             // Set response
-            event.setResponse("SP reference data retrieved successfully");
+            EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+            responseDTO.setMessage("SP reference data retrieved successfully");
+            event.setResponse(responseDTO);
             event.getTPSVCINFODTO().setErrorcode("I0000");
             event.getTPSVCINFODTO().setError_message("SP reference data retrieved successfully");
 
@@ -335,6 +351,11 @@ public class SPcommonServiceImpl implements SPcommonService {
             tpsvcinfo.setErrorcode(errorCode);
             tpsvcinfo.setError_message(errorMessage);
         }
+
+        // Set response as error message - create a simple response DTO
+        EPlatonCommonDTO responseDTO = new EPlatonCommonDTO();
+        responseDTO.setReqName("ERROR");
+        event.setResponse(responseDTO);
     }
 
     // Validation methods
