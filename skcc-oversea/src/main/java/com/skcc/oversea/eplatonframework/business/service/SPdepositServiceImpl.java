@@ -319,20 +319,12 @@ public class SPdepositServiceImpl implements SPdepositService {
      * Set error information
      */
     private void setErrorInfo(EPlatonEvent event, String errorCode, String errorMessage) {
-        TPSVCINFODTO tpsvcinfo = event.getTPSVCINFODTO();
-        String currentErrorCode = tpsvcinfo.getErrorcode();
-
-        if (currentErrorCode != null && currentErrorCode.startsWith("I")) {
-            tpsvcinfo.setErrorcode(errorCode);
-            tpsvcinfo.setError_message(errorMessage);
-        } else if (currentErrorCode != null && currentErrorCode.startsWith("E")) {
-            String combinedErrorCode = errorCode + "|" + currentErrorCode;
-            tpsvcinfo.setErrorcode(combinedErrorCode);
-            tpsvcinfo.setError_message(errorMessage);
-        } else {
-            tpsvcinfo.setErrorcode(errorCode);
-            tpsvcinfo.setError_message(errorMessage);
-        }
+        EPlatonCommonDTO response = new EPlatonCommonDTO();
+        response.setErrorCode(errorCode);
+        response.setErrorMessage(errorMessage);
+        event.setResponse(response);
+        event.getTPSVCINFODTO().setErrorcode(errorCode);
+        event.getTPSVCINFODTO().setError_message(errorMessage);
     }
 
     // Validation methods

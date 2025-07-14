@@ -2,6 +2,7 @@ package com.skcc.oversea.eplatonframework.business.controller;
 
 import com.skcc.oversea.eplatonframework.business.dto.ServiceResponse;
 import com.skcc.oversea.eplatonframework.business.entity.Deposit;
+import com.skcc.oversea.eplatonframework.business.entity.DepositPK;
 import com.skcc.oversea.eplatonframework.business.service.DepositService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -104,7 +105,9 @@ public class DepositController extends BaseController {
     @PutMapping("/{id}")
     public ResponseEntity<ServiceResponse<Deposit>> updateDeposit(@PathVariable Long id, @RequestBody Deposit deposit) {
         try {
-            deposit.setId(id);
+            DepositPK primaryKey = new DepositPK();
+            primaryKey.setId(id);
+            deposit.setPrimaryKey(primaryKey);
             Deposit updatedDeposit = depositService.updateDeposit(deposit);
             if (updatedDeposit != null) {
                 return success(updatedDeposit, "Deposit updated successfully");

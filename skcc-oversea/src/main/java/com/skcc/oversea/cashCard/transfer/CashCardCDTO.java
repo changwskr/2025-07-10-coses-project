@@ -810,7 +810,11 @@ public class CashCardCDTO extends DTO {
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    public DTO clone() {
+        try {
+            return (DTO) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException("Clone not supported", e);
+        }
     }
 }

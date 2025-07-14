@@ -85,7 +85,10 @@ public class DepositManagementSBean implements IDepositManagementSB {
       reqcdto.setBankCode("03");
       reqcdto.setAccountNumber("8888888888888888");
 
-      event.setResponse(reqcdto);
+      EPlatonCommonDTO response = new EPlatonCommonDTO();
+      response.setErrorCode("I0000");
+      response.setErrorMessage("Deposit info retrieved successfully");
+      event.setResponse(response);
 
       logger.info("==================[callmethod02 END]");
       return event;

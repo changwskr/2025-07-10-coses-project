@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import com.skcc.oversea.eplatonframework.business.entity.HotCardPK;
 
 /**
  * Hot Card REST API Controller
@@ -104,7 +105,9 @@ public class HotCardController extends BaseController {
     public ResponseEntity<ServiceResponse<HotCard>> updateHotCard(@PathVariable Long id,
             @RequestBody HotCard hotCard) {
         try {
-            hotCard.setId(id);
+            HotCardPK primaryKey = new HotCardPK();
+            primaryKey.setSequenceNo(id.intValue());
+            hotCard.setPrimaryKey(primaryKey);
             HotCard updatedHotCard = hotCardService.updateHotCard(hotCard);
             if (updatedHotCard != null) {
                 return success(updatedHotCard, "Hot card updated successfully");

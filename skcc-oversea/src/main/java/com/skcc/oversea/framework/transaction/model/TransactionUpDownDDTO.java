@@ -474,4 +474,220 @@ public class TransactionUpDownDDTO extends DTO {
     result = prime * result + ((response_cdto == null) ? 0 : response_cdto.hashCode());
     return result;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    TransactionUpDownDDTO other = (TransactionUpDownDDTO) obj;
+    if (terminalID == null) {
+      if (other.terminalID != null)
+        return false;
+    } else if (!terminalID.equals(other.terminalID))
+      return false;
+    if (terminalType == null) {
+      if (other.terminalType != null)
+        return false;
+    } else if (!terminalType.equals(other.terminalType))
+      return false;
+    if (xmlSeq == null) {
+      if (other.xmlSeq != null)
+        return false;
+    } else if (!xmlSeq.equals(other.xmlSeq))
+      return false;
+    if (bankCode == null) {
+      if (other.bankCode != null)
+        return false;
+    } else if (!bankCode.equals(other.bankCode))
+      return false;
+    if (branchCode == null) {
+      if (other.branchCode != null)
+        return false;
+    } else if (!branchCode.equals(other.branchCode))
+      return false;
+    if (channelType == null) {
+      if (other.channelType != null)
+        return false;
+    } else if (!channelType.equals(other.channelType))
+      return false;
+    if (userID == null) {
+      if (other.userID != null)
+        return false;
+    } else if (!userID.equals(other.userID))
+      return false;
+    if (eventNo == null) {
+      if (other.eventNo != null)
+        return false;
+    } else if (!eventNo.equals(other.eventNo))
+      return false;
+    if (nation == null) {
+      if (other.nation != null)
+        return false;
+    } else if (!nation.equals(other.nation))
+      return false;
+    if (regionCode == null) {
+      if (other.regionCode != null)
+        return false;
+    } else if (!regionCode.equals(other.regionCode))
+      return false;
+    if (timeZone == null) {
+      if (other.timeZone != null)
+        return false;
+    } else if (!timeZone.equals(other.timeZone))
+      return false;
+    if (fxRateCount != other.fxRateCount)
+      return false;
+    if (reqName == null) {
+      if (other.reqName != null)
+        return false;
+    } else if (!reqName.equals(other.reqName))
+      return false;
+    if (systemDate == null) {
+      if (other.systemDate != null)
+        return false;
+    } else if (!systemDate.equals(other.systemDate))
+      return false;
+    if (businessDate == null) {
+      if (other.businessDate != null)
+        return false;
+    } else if (!businessDate.equals(other.businessDate))
+      return false;
+    if (systemInTime == null) {
+      if (other.systemInTime != null)
+        return false;
+    } else if (!systemInTime.equals(other.systemInTime))
+      return false;
+    if (systemOutTime == null) {
+      if (other.systemOutTime != null)
+        return false;
+    } else if (!systemOutTime.equals(other.systemOutTime))
+      return false;
+    if (transactionNo == null) {
+      if (other.transactionNo != null)
+        return false;
+    } else if (!transactionNo.equals(other.transactionNo))
+      return false;
+    if (baseCurrency == null) {
+      if (other.baseCurrency != null)
+        return false;
+    } else if (!baseCurrency.equals(other.baseCurrency))
+      return false;
+    if (multiPL == null) {
+      if (other.multiPL != null)
+        return false;
+    } else if (!multiPL.equals(other.multiPL))
+      return false;
+    if (userLevel != other.userLevel)
+      return false;
+    if (IPAddress == null) {
+      if (other.IPAddress != null)
+        return false;
+    } else if (!IPAddress.equals(other.IPAddress))
+      return false;
+    if (system_name == null) {
+      if (other.system_name != null)
+        return false;
+    } else if (!system_name.equals(other.system_name))
+      return false;
+    if (operation_name == null) {
+      if (other.operation_name != null)
+        return false;
+    } else if (!operation_name.equals(other.operation_name))
+      return false;
+    if (operation_method_name == null) {
+      if (other.operation_method_name != null)
+        return false;
+    } else if (!operation_method_name.equals(other.operation_method_name))
+      return false;
+    if (cdto_name == null) {
+      if (other.cdto_name != null)
+        return false;
+    } else if (!cdto_name.equals(other.cdto_name))
+      return false;
+    if (action_name == null) {
+      if (other.action_name != null)
+        return false;
+    } else if (!action_name.equals(other.action_name))
+      return false;
+    if (hostseq == null) {
+      if (other.hostseq != null)
+        return false;
+    } else if (!hostseq.equals(other.hostseq))
+      return false;
+    if (orgseq == null) {
+      if (other.orgseq != null)
+        return false;
+    } else if (!orgseq.equals(other.orgseq))
+      return false;
+    if (tx_timer == null) {
+      if (other.tx_timer != null)
+        return false;
+    } else if (!tx_timer.equals(other.tx_timer))
+      return false;
+    if (tpfq == null) {
+      if (other.tpfq != null)
+        return false;
+    } else if (!tpfq.equals(other.tpfq))
+      return false;
+    if (errorcode == null) {
+      if (other.errorcode != null)
+        return false;
+    } else if (!errorcode.equals(other.errorcode))
+      return false;
+    if (trclass == null) {
+      if (other.trclass != null)
+        return false;
+    } else if (!trclass.equals(other.trclass))
+      return false;
+    if (bp_hostseq == null) {
+      if (other.bp_hostseq != null)
+        return false;
+    } else if (!bp_hostseq.equals(other.bp_hostseq))
+      return false;
+    if (web_timeout == null) {
+      if (other.web_timeout != null)
+        return false;
+    } else if (!web_timeout.equals(other.web_timeout))
+      return false;
+    if (web_intime == null) {
+      if (other.web_intime != null)
+        return false;
+    } else if (!web_intime.equals(other.web_intime))
+      return false;
+    if (web_outtime == null) {
+      if (other.web_outtime != null)
+        return false;
+    } else if (!web_outtime.equals(other.web_outtime))
+      return false;
+    if (system_date == null) {
+      if (other.system_date != null)
+        return false;
+    } else if (!system_date.equals(other.system_date))
+      return false;
+    if (error_message == null) {
+      if (other.error_message != null)
+        return false;
+    } else if (!error_message.equals(other.error_message))
+      return false;
+    if (host_name == null) {
+      if (other.host_name != null)
+        return false;
+    } else if (!host_name.equals(other.host_name))
+      return false;
+    if (request_cdto == null) {
+      if (other.request_cdto != null)
+        return false;
+    } else if (!request_cdto.equals(other.request_cdto))
+      return false;
+    if (response_cdto == null) {
+      if (other.response_cdto != null)
+        return false;
+    } else if (!response_cdto.equals(other.response_cdto))
+      return false;
+    return true;
+  }
 }

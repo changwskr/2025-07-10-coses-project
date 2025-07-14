@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.skcc.oversea.eplatonframework.business.entity.HotCard;
 import com.skcc.oversea.eplatonframework.business.repository.HotCardRepository;
+import com.skcc.oversea.eplatonframework.business.entity.HotCardPK;
 
 import java.util.List;
 
@@ -33,7 +34,9 @@ public class HotCardServiceImpl implements HotCardService {
     @Override
     public HotCard findById(String hotCardId) {
         logger.info("Finding hot card by ID: {}", hotCardId);
-        return hotCardRepository.findById(Long.valueOf(hotCardId)).orElse(null);
+        HotCardPK primaryKey = new HotCardPK();
+        primaryKey.setSequenceNo(Integer.valueOf(hotCardId));
+        return hotCardRepository.findById(primaryKey).orElse(null);
     }
 
     @Override
@@ -45,12 +48,16 @@ public class HotCardServiceImpl implements HotCardService {
     @Override
     public void deleteById(String hotCardId) {
         logger.info("Deleting hot card by ID: {}", hotCardId);
-        hotCardRepository.deleteById(Long.valueOf(hotCardId));
+        HotCardPK primaryKey = new HotCardPK();
+        primaryKey.setSequenceNo(Integer.valueOf(hotCardId));
+        hotCardRepository.deleteById(primaryKey);
     }
 
     @Override
     public boolean existsById(String hotCardId) {
-        return hotCardRepository.existsById(Long.valueOf(hotCardId));
+        HotCardPK primaryKey = new HotCardPK();
+        primaryKey.setSequenceNo(Integer.valueOf(hotCardId));
+        return hotCardRepository.existsById(primaryKey);
     }
 
     @Override
@@ -62,7 +69,9 @@ public class HotCardServiceImpl implements HotCardService {
     @Override
     public HotCard getHotCardById(Long id) {
         logger.info("Getting hot card by ID: {}", id);
-        return hotCardRepository.findById(id).orElse(null);
+        HotCardPK primaryKey = new HotCardPK();
+        primaryKey.setSequenceNo(id.intValue());
+        return hotCardRepository.findById(primaryKey).orElse(null);
     }
 
     @Override
@@ -86,7 +95,7 @@ public class HotCardServiceImpl implements HotCardService {
     @Override
     public HotCard updateHotCard(HotCard hotCard) {
         logger.info("Updating hot card: {}", hotCard.getCardNo());
-        if (hotCardRepository.existsById(hotCard.getId())) {
+        if (hotCardRepository.existsById(hotCard.getPrimaryKey())) {
             return hotCardRepository.save(hotCard);
         }
         return null;
@@ -95,8 +104,10 @@ public class HotCardServiceImpl implements HotCardService {
     @Override
     public boolean deleteHotCard(Long id) {
         logger.info("Deleting hot card by ID: {}", id);
-        if (hotCardRepository.existsById(id)) {
-            hotCardRepository.deleteById(id);
+        HotCardPK primaryKey = new HotCardPK();
+        primaryKey.setSequenceNo(id.intValue());
+        if (hotCardRepository.existsById(primaryKey)) {
+            hotCardRepository.deleteById(primaryKey);
             return true;
         }
         return false;
@@ -111,7 +122,9 @@ public class HotCardServiceImpl implements HotCardService {
     @Override
     public HotCard updateHotCardStatus(Long id, String status) {
         logger.info("Updating hot card status for ID: {} to {}", id, status);
-        HotCard hotCard = getHotCardById(id);
+        HotCardPK primaryKey = new HotCardPK();
+        primaryKey.setSequenceNo(id.intValue());
+        HotCard hotCard = hotCardRepository.findById(primaryKey).orElse(null);
         if (hotCard != null) {
             hotCard.setCardStatus(status);
             return hotCardRepository.save(hotCard);

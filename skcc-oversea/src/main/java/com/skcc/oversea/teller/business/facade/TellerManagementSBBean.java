@@ -49,7 +49,10 @@ public class TellerManagementSBBean implements ITellerManagementSB {
       reqcdto.setBankCode("03");
       reqcdto.setAccountNumber("8888888888888888");
 
-      event.setResponse(reqcdto);
+      EPlatonCommonDTO response = new EPlatonCommonDTO();
+      response.setErrorCode("I0000");
+      response.setErrorMessage("Teller info retrieved successfully");
+      event.setResponse(response);
       logger.info("==================[callmethod01 END]");
 
       return event;

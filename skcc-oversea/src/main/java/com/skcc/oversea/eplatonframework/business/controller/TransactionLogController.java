@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import com.skcc.oversea.eplatonframework.business.dto.EPlatonCommonDTO;
 
 /**
  * Transaction Log REST API Controller
@@ -267,6 +268,10 @@ public class TransactionLogController extends BaseController {
         try {
             boolean deleted = transactionLogService.deleteTransactionLog(id);
             if (deleted) {
+                EPlatonCommonDTO response = new EPlatonCommonDTO();
+                response.setErrorCode("I0000");
+                response.setErrorMessage("Transaction log deleted successfully");
+                event.setResponse(response);
                 return success(null, "Transaction log deleted successfully");
             } else {
                 return error("Transaction log not found");

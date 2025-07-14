@@ -86,4 +86,51 @@ public class HotCardPageItemCDTO extends DTO {
         result = prime * result + ((releasedDate == null) ? 0 : releasedDate.hashCode());
         return result;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        HotCardPageItemCDTO other = (HotCardPageItemCDTO) obj;
+        if (cardNumber == null) {
+            if (other.cardNumber != null)
+                return false;
+        } else if (!cardNumber.equals(other.cardNumber))
+            return false;
+        if (primaryAccountNo == null) {
+            if (other.primaryAccountNo != null)
+                return false;
+        } else if (!primaryAccountNo.equals(other.primaryAccountNo))
+            return false;
+        if (CIFName == null) {
+            if (other.CIFName != null)
+                return false;
+        } else if (!CIFName.equals(other.CIFName))
+            return false;
+        if (incidentCode == null) {
+            if (other.incidentCode != null)
+                return false;
+        } else if (!incidentCode.equals(other.incidentCode))
+            return false;
+        if (status == null) {
+            if (other.status != null)
+                return false;
+        } else if (!status.equals(other.status))
+            return false;
+        if (registerDate == null) {
+            if (other.registerDate != null)
+                return false;
+        } else if (!registerDate.equals(other.registerDate))
+            return false;
+        if (releasedDate == null) {
+            if (other.releasedDate != null)
+                return false;
+        } else if (!releasedDate.equals(other.releasedDate))
+            return false;
+        return true;
+    }
 }

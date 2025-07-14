@@ -437,6 +437,10 @@ public class TPSVCINFODTO extends DTO {
     return bp_sequence;
   }
 
+  public String getTransaction_id() {
+    return bp_sequence;
+  }
+
   public void setBp_sequence(String bp_sequence) {
     this.bp_sequence = bp_sequence;
   }
@@ -627,7 +631,11 @@ public class TPSVCINFODTO extends DTO {
   }
 
   @Override
-  public Object clone() throws CloneNotSupportedException {
-    return super.clone();
+  public DTO clone() {
+    try {
+      return (DTO) super.clone();
+    } catch (CloneNotSupportedException e) {
+      throw new RuntimeException("Clone not supported", e);
+    }
   }
 }

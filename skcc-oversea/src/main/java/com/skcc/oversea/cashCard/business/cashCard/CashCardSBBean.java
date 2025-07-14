@@ -17,6 +17,8 @@ import com.skcc.oversea.cashCard.business.cashCard.entity.*;
 import com.skcc.oversea.cashCard.business.cashCardRule.helper.IOBoundCardRegister;
 import com.skcc.oversea.cashCard.repository.CashCardRepository;
 import com.skcc.oversea.eplatonframework.business.repository.HotCardRepository;
+import com.skcc.oversea.eplatonframework.business.entity.HotCard;
+import com.skcc.oversea.eplatonframework.business.entity.HotCardPK;
 
 /**
  * Cash Card Service for SKCC Oversea

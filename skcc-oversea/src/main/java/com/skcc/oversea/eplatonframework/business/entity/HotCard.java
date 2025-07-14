@@ -80,8 +80,25 @@ public class HotCard {
         return primaryKey != null ? primaryKey.getSequenceNo() : 0;
     }
 
+    public Long getId() {
+        return primaryKey != null ? (long) primaryKey.getSequenceNo() : null;
+    }
+
+    public void setId(Long id) {
+        if (id != null) {
+            if (primaryKey == null) {
+                primaryKey = new HotCardPK();
+            }
+            primaryKey.setSequenceNo(id.intValue());
+        }
+    }
+
     public String getCardNumber() {
         return primaryKey != null ? primaryKey.getCardNumber() : null;
+    }
+
+    public String getCardNo() {
+        return getCardNumber();
     }
 
     public String getAccountNo() {

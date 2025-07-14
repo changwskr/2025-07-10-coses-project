@@ -6,6 +6,7 @@ import com.skcc.oversea.eplatonframework.transfer.EPlatonEvent;
 import com.skcc.oversea.eplatonframework.transfer.TPSVCINFODTO;
 import com.skcc.oversea.foundation.logej.LOGEJ;
 import com.skcc.oversea.foundation.constant.Constants;
+import com.skcc.oversea.eplatonframework.transfer.EPlatonCommonDTO;
 
 /**
  * Base Service Implementation for SKCC Oversea
@@ -45,23 +46,13 @@ public abstract class BaseServiceImpl implements BaseService {
      * Set error information
      */
     @Override
-    public void setErrorInfo(EPlatonEvent event, String errorCode, String errorMessage) {
-        TPSVCINFODTO tpsvcinfo = event.getTPSVCINFODTO();
-        String currentErrorCode = tpsvcinfo.getErrorcode();
-
-        if (currentErrorCode != null && currentErrorCode.startsWith("I")) {
-            tpsvcinfo.setErrorcode(errorCode);
-            tpsvcinfo.setError_message(errorMessage);
-        } else if (currentErrorCode != null && currentErrorCode.startsWith("E")) {
-            String combinedErrorCode = errorCode + "|" + currentErrorCode;
-            tpsvcinfo.setErrorcode(combinedErrorCode);
-            tpsvcinfo.setError_message(errorMessage);
-        } else {
-            tpsvcinfo.setErrorcode(errorCode);
-            tpsvcinfo.setError_message(errorMessage);
-        }
-
-        logger.error("Error set: {} - {}", errorCode, errorMessage);
+    protected void setErrorInfo(EPlatonEvent event, String errorCode, String errorMessage) {
+        EPlatonCommonDTO response = new EPlatonCommonDTO();
+        response.setErrorCode(errorCode);
+        response.setErrorMessage(errorMessage);
+        event.setResponse(response);
+        event.getTPSVCINFODTO().setErrorcode(errorCode);
+        event.getTPSVCINFODTO().setError_message(errorMessage);
     }
 
     /**

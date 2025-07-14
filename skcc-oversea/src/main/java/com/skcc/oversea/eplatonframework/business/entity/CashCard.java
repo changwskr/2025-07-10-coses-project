@@ -55,6 +55,10 @@ public class CashCard extends BaseEntity {
         return cardNo;
     }
 
+    public String getCardNumber() {
+        return cardNo;
+    }
+
     public void setCardNo(String cardNo) {
         this.cardNo = cardNo;
     }
@@ -153,5 +157,9 @@ public class CashCard extends BaseEntity {
 
     public void setCardHolderName(String cardHolderName) {
         this.cardHolderName = cardHolderName;
+    }
+
+    public CashCardPK getPrimaryKey() {
+        return new CashCardPK(cardNo, accountNo);
     }
 }

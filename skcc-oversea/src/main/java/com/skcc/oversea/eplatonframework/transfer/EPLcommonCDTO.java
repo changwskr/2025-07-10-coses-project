@@ -703,8 +703,12 @@ public class EPLcommonCDTO extends com.skcc.oversea.framework.transfer.DTO {
   }
 
   @Override
-  public Object clone() throws CloneNotSupportedException {
-    return super.clone();
+  public DTO clone() {
+    try {
+      return (DTO) super.clone();
+    } catch (CloneNotSupportedException e) {
+      throw new RuntimeException("Clone not supported", e);
+    }
   }
 
   private java.util.List pageList;

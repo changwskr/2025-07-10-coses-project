@@ -227,4 +227,111 @@ public class TransactionLogDDTO extends DTO {
         result = prime * result + ((tpfq == null) ? 0 : tpfq.hashCode());
         return result;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        TransactionLogDDTO other = (TransactionLogDDTO) obj;
+        if (transactionId == null) {
+            if (other.transactionId != null)
+                return false;
+        } else if (!transactionId.equals(other.transactionId))
+            return false;
+        if (hostName == null) {
+            if (other.hostName != null)
+                return false;
+        } else if (!hostName.equals(other.hostName))
+            return false;
+        if (systemName == null) {
+            if (other.systemName != null)
+                return false;
+        } else if (!systemName.equals(other.systemName))
+            return false;
+        if (methodName == null) {
+            if (other.methodName != null)
+                return false;
+        } else if (!methodName.equals(other.methodName))
+            return false;
+        if (bankCode == null) {
+            if (other.bankCode != null)
+                return false;
+        } else if (!bankCode.equals(other.bankCode))
+            return false;
+        if (branchCode == null) {
+            if (other.branchCode != null)
+                return false;
+        } else if (!branchCode.equals(other.branchCode))
+            return false;
+        if (userId == null) {
+            if (other.userId != null)
+                return false;
+        } else if (!userId.equals(other.userId))
+            return false;
+        if (channelType == null) {
+            if (other.channelType != null)
+                return false;
+        } else if (!channelType.equals(other.channelType))
+            return false;
+        if (businessDate == null) {
+            if (other.businessDate != null)
+                return false;
+        } else if (!businessDate.equals(other.businessDate))
+            return false;
+        if (registerDate == null) {
+            if (other.registerDate != null)
+                return false;
+        } else if (!registerDate.equals(other.registerDate))
+            return false;
+        if (inTime == null) {
+            if (other.inTime != null)
+                return false;
+        } else if (!inTime.equals(other.inTime))
+            return false;
+        if (eventNo == null) {
+            if (other.eventNo != null)
+                return false;
+        } else if (!eventNo.equals(other.eventNo))
+            return false;
+        if (transactionNo == null) {
+            if (other.transactionNo != null)
+                return false;
+        } else if (!transactionNo.equals(other.transactionNo))
+            return false;
+        if (outTime == null) {
+            if (other.outTime != null)
+                return false;
+        } else if (!outTime.equals(other.outTime))
+            return false;
+        if (responseTime == null) {
+            if (other.responseTime != null)
+                return false;
+        } else if (!responseTime.equals(other.responseTime))
+            return false;
+        if (errorCode == null) {
+            if (other.errorCode != null)
+                return false;
+        } else if (!errorCode.equals(other.errorCode))
+            return false;
+        if (IPAddress == null) {
+            if (other.IPAddress != null)
+                return false;
+        } else if (!IPAddress.equals(other.IPAddress))
+            return false;
+        if (org_seq == null) {
+            if (other.org_seq != null)
+                return false;
+        } else if (!org_seq.equals(other.org_seq))
+            return false;
+        if (tpfq == null) {
+            if (other.tpfq != null)
+                return false;
+        } else if (!tpfq.equals(other.tpfq))
+            return false;
+        return true;
+    }
 }
